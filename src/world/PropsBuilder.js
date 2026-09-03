@@ -154,6 +154,79 @@ export class PropsBuilder {
   }
 
   /**
+   * Textura de parquet victoriano de caoba para la Mansión / Club Privado
+   */
+  static getWoodParquetTexture() {
+    return this.createPixelTexture(32, 32, (ctx, w, h) => {
+      ctx.fillStyle = '#2e1810';
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#1a0d08';
+      for (let y = 0; y < h; y += 8) ctx.fillRect(0, y, w, 1);
+      for (let x = 0; x < w; x += 16) ctx.fillRect(x, 0, 1, h);
+      for (let i = 0; i < 30; i++) {
+        ctx.fillStyle = Math.random() > 0.5 ? '#3b2015' : '#22120b';
+        ctx.fillRect(Math.floor(Math.random() * w), Math.floor(Math.random() * h), 2, 1);
+      }
+    });
+  }
+
+  /**
+   * Textura de metal oxidado y remaches industriales para la Sala de Calderas
+   */
+  static getBoilerMetalTexture() {
+    return this.createPixelTexture(32, 32, (ctx, w, h) => {
+      ctx.fillStyle = '#261e1b';
+      ctx.fillRect(0, 0, w, h);
+      // Óxido rojizo
+      for (let i = 0; i < 40; i++) {
+        ctx.fillStyle = Math.random() > 0.6 ? '#6e2b17' : '#3d251e';
+        ctx.fillRect(Math.floor(Math.random() * w), Math.floor(Math.random() * h), 2, 2);
+      }
+      // Remaches
+      ctx.fillStyle = '#0f0a08';
+      ctx.fillRect(4, 4, 2, 2);
+      ctx.fillRect(26, 4, 2, 2);
+      ctx.fillRect(4, 26, 2, 2);
+      ctx.fillRect(26, 26, 2, 2);
+    });
+  }
+
+  /**
+   * Textura de panel de relés y circuitos para la Central de Servidores
+   */
+  static getServerRackTexture() {
+    return this.createPixelTexture(32, 32, (ctx, w, h) => {
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#020617';
+      for (let y = 0; y < h; y += 6) ctx.fillRect(0, y, w, 1);
+      // Luces LED de relés
+      for (let y = 3; y < h; y += 6) {
+        ctx.fillStyle = Math.random() > 0.4 ? '#10b981' : '#f59e0b';
+        ctx.fillRect(4, y, 2, 2);
+        ctx.fillStyle = Math.random() > 0.5 ? '#06b6d4' : '#ef4444';
+        ctx.fillRect(10, y, 2, 2);
+      }
+    });
+  }
+
+  /**
+   * Textura de roca del abismo con magma y vetas de fuego azul
+   */
+  static getAbyssRockTexture() {
+    return this.createPixelTexture(32, 32, (ctx, w, h) => {
+      ctx.fillStyle = '#09050d';
+      ctx.fillRect(0, 0, w, h);
+      // Grietas de azufre y energía azul etérea
+      for (let i = 0; i < 35; i++) {
+        const isCyan = Math.random() > 0.6;
+        ctx.fillStyle = isCyan ? '#06b6d4' : '#6366f1';
+        ctx.fillRect(Math.floor(Math.random() * w), Math.floor(Math.random() * h), 1, 3);
+      }
+    });
+  }
+
+  /**
    * Farola callejera estilo noir con luz volumétrica simulada
    */
   static createStreetLamp(x, z) {

@@ -1,0 +1,345 @@
+/* ==========================================================================
+   CITY MAP: PLANO POLICIAL DE NEW HAVEN (MODAL DE LOCACIONES)
+   ========================================================================== */
+
+#city-map-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 7, 12, 0.88);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+#city-map-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.city-map-container {
+  width: 95vw;
+  max-width: 1200px;
+  height: 90vh;
+  max-height: 800px;
+  background: #0d121d;
+  border: 2px solid #334155;
+  border-radius: 12px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), inset 0 0 40px rgba(15, 23, 42, 0.6);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  color: #f1f5f9;
+}
+
+/* Cabecera del Mapa */
+.city-map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: #090e17;
+  border-bottom: 2px solid #1e293b;
+}
+
+.city-map-title-group h2 {
+  font-size: 1.3rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #e2e8f0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.city-map-title-group p {
+  margin: 0.2rem 0 0;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.city-map-header-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.map-mode-badge {
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.map-mode-badge.develop {
+  background: #064e3b;
+  color: #34d399;
+  border: 1px solid #059669;
+}
+
+.map-mode-badge.production {
+  background: #78350f;
+  color: #fbbf24;
+  border: 1px solid #d97706;
+}
+
+.map-close-btn {
+  background: #1e293b;
+  border: 1px solid #475569;
+  color: #f8fafc;
+  padding: 0.4rem 0.85rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.15s ease;
+}
+
+.map-close-btn:hover {
+  background: #b91c1c;
+  border-color: #ef4444;
+}
+
+/* Cuerpo del Mapa (Grid + Panel de Expediente) */
+.city-map-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Contenedor del mapa y su imagen */
+.city-map-grid-view {
+  flex: 1;
+  position: relative;
+  background-color: #030712;
+  /* Fondo nocturno, estrellas, y silueta de ciudad pixelada */
+  background-image: 
+    radial-gradient(1px 1px at 15% 30%, rgba(255, 255, 255, 0.7) 1px, transparent 1px),
+    radial-gradient(1px 1px at 75% 20%, rgba(255, 255, 255, 0.8) 1px, transparent 1px),
+    radial-gradient(2px 2px at 45% 40%, rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+    radial-gradient(1px 1px at 85% 60%, rgba(255, 255, 255, 0.6) 1px, transparent 1px),
+    linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, transparent 60%);
+  border-right: 1px solid #1e293b;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  min-width: 0;
+}
+
+/* Silueta de edificios con CSS gradients para no usar imágenes externas */
+.city-map-grid-view::before {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 40%;
+  pointer-events: none;
+  background-image: 
+    linear-gradient(to right, 
+      #05080f 0%, #05080f 8%, 
+      transparent 8%, transparent 10%,
+      #080c14 10%, #080c14 20%,
+      transparent 20%, transparent 22%,
+      #030509 22%, #030509 35%,
+      transparent 35%, transparent 38%,
+      #0a0f18 38%, #0a0f18 50%,
+      transparent 50%, transparent 52%,
+      #05080f 52%, #05080f 65%,
+      transparent 65%, transparent 68%,
+      #080c14 68%, #080c14 85%,
+      transparent 85%, transparent 88%,
+      #030509 88%, #030509 100%
+    );
+  /* Creamos variaciones de altura para los edificios */
+  background-size: 100% 100%, 100% 80%, 100% 120%;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  box-shadow: inset 0 -50px 50px rgba(0, 0, 0, 0.8);
+}
+
+.map-image-wrapper {
+  position: absolute;
+  inset: 0; /* Ocupa el 100% del contenedor para que los porcentajes funcionen bien */
+  display: block;
+}
+
+/* Tarjeta / Pin de Locación */
+.location-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 2px solid #334155;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  z-index: 10;
+}
+
+.location-pin .pin-icon {
+  font-size: 1.5rem;
+}
+
+.location-pin .pin-label {
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.95);
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #334155;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 20;
+}
+
+.location-pin:hover .pin-label {
+  opacity: 1;
+}
+
+.location-pin .pin-tier {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.location-pin .pin-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.location-pin:hover {
+  transform: translate(-50%, -55%) scale(1.1);
+  border-color: #f59e0b;
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
+  z-index: 15;
+}
+
+.location-pin.selected {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px #38bdf8, 0 8px 25px rgba(56, 189, 248, 0.5);
+  background: rgba(30, 41, 59, 0.95);
+  z-index: 12;
+}
+
+.location-pin.locked {
+  opacity: 0.6;
+  filter: grayscale(0.85);
+  cursor: not-allowed;
+  border-style: dashed;
+}
+
+.location-pin.locked:hover {
+  transform: translate(-50%, -50%);
+  border-color: #475569;
+  box-shadow: none;
+}
+
+/* Indicador de Alerta (!) */
+.location-alert-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 26px;
+  height: 26px;
+  background: #dc2626;
+  color: #ffffff;
+  border: 2px solid #fef08a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1rem;
+  box-shadow: 0 0 14px #ef4444;
+  animation: mapAlertPulse 1.4s infinite ease-in-out;
+  z-index: 5;
+}
+
+@keyframes mapAlertPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 6px #ef4444;
+  }
+
+  50% {
+    transform: scale(1.22);
+    box-shadow: 0 0 16px #f87171, 0 0 24px #ef4444;
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 6px #ef4444;
+  }
+}
+
+.location-tier-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #94a3b8;
+  margin-bottom: 0.3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.location-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0.1rem 0 0.4rem;
+  line-height: 1.3;
+}
+
+.location-district {
+  font-size: 0.78rem;
+  color: #cbd5e1;
+  opacity: 0.85;
+  margin-bottom: 0.75rem;
+}
+
+.location-progress-bar {
+  height: 6px;
+  background: #1e293b;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.4rem;
+}
+
+.location-progress-fill {
+  height: 100%;
+  background: #10b981;
+  transition: width 0.3s ease;
+}
+
+.location-status-text {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  display: flex;
+  justify-content: space-between;
+  font-family: monospace;
+}

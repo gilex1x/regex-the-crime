@@ -6,6 +6,8 @@ import { LevelManager } from './world/LevelManager.js';
 import { NotebookUI } from './ui/NotebookUI.js';
 import { AcademyUI } from './ui/AcademyUI.js';
 import { CutsceneUI } from './ui/CutsceneUI.js';
+import { CityMapUI } from './ui/CityMapUI.js';
+import { InventoryUI } from './ui/InventoryUI.js';
 import { HUD } from './ui/HUD.js';
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -26,11 +28,13 @@ window.addEventListener('DOMContentLoaded', () => {
   // 5. Inicializar Administrador de Niveles
   const levelManager = new LevelManager(engine, controls, interaction, audioManager);
 
-  // 6. Inicializar UI de Cuaderno, Academia, Cinemáticas y HUD
+  // 6. Inicializar UI de Cuaderno, Academia, Cinemáticas, Mapa, Inventario y HUD
   const notebookUI = new NotebookUI(audioManager, levelManager, controls);
   const academyUI = new AcademyUI(audioManager, controls);
   const cutsceneUI = new CutsceneUI(audioManager, controls);
-  new HUD(engine, levelManager, audioManager, academyUI, notebookUI, cutsceneUI);
+  const cityMapUI = new CityMapUI(levelManager, audioManager);
+  const inventoryUI = new InventoryUI(levelManager, audioManager);
+  new HUD(engine, levelManager, audioManager, academyUI, notebookUI, cutsceneUI, cityMapUI, inventoryUI);
 
   // Conectar evento de inspeccionar pista
   interaction.onInspectClue = (clueData) => {

@@ -5,9 +5,13 @@ import { Level3_Office } from './levels/Level3_Office.js';
 import { Level4_Morgue } from './levels/Level4_Morgue.js';
 import { Level5_Docks } from './levels/Level5_Docks.js';
 import { Level6_Sanctuary } from './levels/Level6_Sanctuary.js';
+import { Level7_Mansion } from './levels/Level7_Mansion.js';
+import { Level8_BoilerRoom } from './levels/Level8_BoilerRoom.js';
+import { Level9_ServerRoom } from './levels/Level9_ServerRoom.js';
+import { Level10_Abyss } from './levels/Level10_Abyss.js';
 
 /**
- * Administrador de niveles (100 casos con 10 Tiers de dificultad y 6 escenarios)
+ * Administrador de niveles (100 casos con 10 Tiers de dificultad y 10 escenarios: 1 por Tier)
  */
 export class LevelManager {
   constructor(engine, controls, interaction, audio) {
@@ -79,6 +83,14 @@ export class LevelManager {
       cluePos = [0.0, 0.92, -2.5];
     } else if (caseData.sceneType === 'sanctuary') {
       cluePos = [0.0, 0.95, -2.2];
+    } else if (caseData.sceneType === 'mansion') {
+      cluePos = [0.0, 0.85, -2.2];
+    } else if (caseData.sceneType === 'boiler_room') {
+      cluePos = [0.0, 0.85, -2.0];
+    } else if (caseData.sceneType === 'server_room') {
+      cluePos = [0.0, 0.85, -2.0];
+    } else if (caseData.sceneType === 'abyss') {
+      cluePos = [0.0, 1.05, -2.2];
     }
 
     const clue = {
@@ -128,6 +140,26 @@ export class LevelManager {
       this.controls.euler.set(0, 0, 0, 'YXZ');
       this.audio.stopRainAmbience();
       this.currentLevelInstance = new Level6_Sanctuary(this.engine.scene, [clue]);
+    } else if (caseData.sceneType === 'mansion') {
+      this.engine.camera.position.set(0, 1.7, 4.0);
+      this.controls.euler.set(0, 0, 0, 'YXZ');
+      this.audio.stopRainAmbience();
+      this.currentLevelInstance = new Level7_Mansion(this.engine.scene, [clue]);
+    } else if (caseData.sceneType === 'boiler_room') {
+      this.engine.camera.position.set(0, 1.7, 4.0);
+      this.controls.euler.set(0, 0, 0, 'YXZ');
+      this.audio.stopRainAmbience();
+      this.currentLevelInstance = new Level8_BoilerRoom(this.engine.scene, [clue]);
+    } else if (caseData.sceneType === 'server_room') {
+      this.engine.camera.position.set(0, 1.7, 4.0);
+      this.controls.euler.set(0, 0, 0, 'YXZ');
+      this.audio.stopRainAmbience();
+      this.currentLevelInstance = new Level9_ServerRoom(this.engine.scene, [clue]);
+    } else if (caseData.sceneType === 'abyss') {
+      this.engine.camera.position.set(0, 1.7, 4.2);
+      this.controls.euler.set(0, 0, 0, 'YXZ');
+      this.audio.stopRainAmbience();
+      this.currentLevelInstance = new Level10_Abyss(this.engine.scene, [clue]);
     }
 
     this.currentLevelInstance.build();

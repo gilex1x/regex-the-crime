@@ -1,16 +1,19 @@
-import { TIERS } from '../data/FullLevelsData.js';
+import { TIERS, ALL_LEVELS } from '../data/FullLevelsData.js';
+import { GameConfig } from '../config/GameConfig.js';
 
 /**
- * Gestor del HUD (retícula, audio, selector de 50 casos por Tier y modal de victoria)
+ * Gestor del HUD (retícula, audio, selector de mapa de ciudad, inventario de evidencias y modal de victoria)
  */
 export class HUD {
-  constructor(engine, levelManager, audioManager, academyUI, notebookUI, cutsceneUI) {
+  constructor(engine, levelManager, audioManager, academyUI, notebookUI, cutsceneUI, cityMapUI, inventoryUI) {
     this.engine = engine;
     this.levelManager = levelManager;
     this.audio = audioManager;
     this.academyUI = academyUI;
     this.notebookUI = notebookUI;
     this.cutsceneUI = cutsceneUI;
+    this.cityMapUI = cityMapUI;
+    this.inventoryUI = inventoryUI;
 
     this.victoryModal = document.getElementById('case-completed-modal');
     this.victoryTitle = document.getElementById('victory-case-title');
@@ -18,9 +21,30 @@ export class HUD {
     this.btnNextCase = document.getElementById('btn-next-case');
 
     this.initControls();
+    this.updateMapAlertBadge();
   }
 
   initControls() {
+    // Botón abrir Plano Policial / Mapa de la Ciudad
+    const openMapBtn = document.getElementById('btn-open-city-map');
+    if (openMapBtn) {
+      openMapBtn.addEventListener('click', () => {
+        if (this.cityMapUI) {
+          this.cityMapUI.open();
+        }
+      });
+    }
+
+    // Botón abrir Inventario de Evidencias
+    const openInventoryBtn = document.getElementById('btn-open-inventory');
+    if (openInventoryBtn) {
+      openInventoryBtn.addEventListener('click', () => {
+        if (this.inventoryUI) {
+          this.inventoryUI.open();
+        }
+      });
+    }
+
     // Botón abrir Cuaderno de Evidencias directamente
     const openNotebookBtn = document.getElementById('btn-open-notebook');
     if (openNotebookBtn) {
@@ -155,6 +179,7 @@ export class HUD {
     } else {
       alert("🏆 ¡ENHORABUENA COMISIONADO! Has resuelto con éxito los 100 casos de Regex: The Crime y desterrado al demonio Malphas.");
     }
+    this.updateMapAlertBadge();
   }
 
   showCaseCompleted(caseData) {
@@ -168,5 +193,32 @@ export class HUD {
     if (this.victoryModal) {
       this.victoryModal.classList.add('active');
     }
+
+    this.updateMapAlertBadge();
+    if (this.cityMapUI && this.cityMapUI.isOpen) {
+      this.cityMapUI.renderMap();
+      this.cityMapUI.renderDossier();
+    }
+    if (this.inventoryUI && this.inventoryUI.isOpen) {
+      this.inventoryUI.renderInventory();
+    }
+  }
+
+  updateMapAlertBadge() {
+    const alertDot = document.getElementById('hud-map-alert-dot');
+    if (!alertDot) return;
+    const solvedClues = this.levelManager.solvedClues;
+    let hasAnyPending = false;
+    for (const tier of TIERS) {
+      if (GameConfig.isTierUnlocked(tier.id, solvedClues, this.levelManager.levels)) {
+        const tierLevels = this.levelManager.levels.filter(l => l.tier === tier.id);
+        const solvedInTier = tierLevels.filter(l => solvedClues.has(`clue_case_${l.id}`) || solvedClues.has(l.id)).length;
+        if (solvedInTier < tierLevels.length) {
+          hasAnyPending = true;
+          break;
+        }
+      }
+    }
+    alertDot.classList.toggle('hidden', !hasAnyPending);
   }
 }

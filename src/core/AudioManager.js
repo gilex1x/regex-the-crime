@@ -63,6 +63,13 @@ export class AudioManager {
   }
 
   /**
+   * Clic de tecla o botón de interfaz
+   */
+  playKeyClick() {
+    this.playTypewriterClick();
+  }
+
+  /**
    * Campana de retorno de carro / éxito
    */
   playSuccessBell() {

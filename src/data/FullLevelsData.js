@@ -1,26 +1,27 @@
 /**
- * Base de datos completa de los 50 Niveles de 'Regex: The Crime'
- * Estructurados en 10 Tiers de Dificultad (5 niveles por Tier)
- * Incluye mecánicas de tiempo límite, intentos máximos y desafíos del criminal (inversos).
+ * Base de datos completa de los 100 Niveles de 'Regex: The Crime'
+ * Estructurados en 10 Tiers de Dificultad (10 niveles por Tier)
+ * Cubre los 5 Actos de la Historia y los 6 Escenarios 3D interactivos:
+ * alley, hotel, office, morgue, docks, sanctuary.
  */
 
 export const TIERS = [
-  { id: 1, name: "Tier 1: Recluta de Patrulla", levels: [1, 2, 3, 4, 5], timeLimit: null, maxAttempts: null, badge: "⭐" },
-  { id: 2, name: "Tier 2: Oficial de Ronda", levels: [6, 7, 8, 9, 10], timeLimit: null, maxAttempts: 5, badge: "⭐⭐" },
-  { id: 3, name: "Tier 3: Detective de Distrito", levels: [11, 12, 13, 14, 15], timeLimit: 90, maxAttempts: 5, badge: "⭐⭐⭐" },
-  { id: 4, name: "Tier 4: Brigada Antinarcóticos", levels: [16, 17, 18, 19, 20], timeLimit: 80, maxAttempts: 4, badge: "🎖️" },
-  { id: 5, name: "Tier 5: Investigador de Homicidios", levels: [21, 22, 23, 24, 25], timeLimit: 60, maxAttempts: 4, badge: "🎖️🎖️" },
-  { id: 6, name: "Tier 6: Forense de Inteligencia", levels: [26, 27, 28, 29, 30], timeLimit: 55, maxAttempts: 3, badge: "🎖️🎖️🎖️" },
-  { id: 7, name: "Tier 7: Agente Especial Encubierto", levels: [31, 32, 33, 34, 35], timeLimit: 45, maxAttempts: 3, badge: "🏅" },
-  { id: 8, name: "Tier 8: Unidad de Delitos Mayores", levels: [36, 37, 38, 39, 40], timeLimit: 40, maxAttempts: 3, badge: "🏅🏅" },
-  { id: 9, name: "Tier 9: Auditoría Antiterrorista", levels: [41, 42, 43, 44, 45], timeLimit: 35, maxAttempts: 3, badge: "🏅🏅🏅" },
-  { id: 10, name: "Tier 10: Comisionado Maestro Forense", levels: [46, 47, 48, 49, 50], timeLimit: 30, maxAttempts: 2, badge: "🏆" }
+  { id: 1, name: "Tier 1: Recluta de Patrulla", levels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], timeLimit: null, maxAttempts: null, badge: "⭐" },
+  { id: 2, name: "Tier 2: Oficial de Ronda", levels: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20], timeLimit: 90, maxAttempts: 5, badge: "⭐⭐" },
+  { id: 3, name: "Tier 3: Detective de Distrito", levels: [21, 22, 23, 24, 25, 26, 27, 28, 29, 30], timeLimit: 80, maxAttempts: 5, badge: "⭐⭐⭐" },
+  { id: 4, name: "Tier 4: Brigada de Delitos Especiales", levels: [31, 32, 33, 34, 35, 36, 37, 38, 39, 40], timeLimit: 75, maxAttempts: 4, badge: "🎖️" },
+  { id: 5, name: "Tier 5: Investigador de Homicidios", levels: [41, 42, 43, 44, 45, 46, 47, 48, 49, 50], timeLimit: 65, maxAttempts: 4, badge: "🎖️🎖️" },
+  { id: 6, name: "Tier 6: Forense de Inteligencia", levels: [51, 52, 53, 54, 55, 56, 57, 58, 59, 60], timeLimit: 55, maxAttempts: 3, badge: "🎖️🎖️🎖️" },
+  { id: 7, name: "Tier 7: Agente Especial Encubierto", levels: [61, 62, 63, 64, 65, 66, 67, 68, 69, 70], timeLimit: 50, maxAttempts: 3, badge: "🏅" },
+  { id: 8, name: "Tier 8: Unidad de Delitos Mayores", levels: [71, 72, 73, 74, 75, 76, 77, 78, 79, 80], timeLimit: 45, maxAttempts: 3, badge: "🏅🏅" },
+  { id: 9, name: "Tier 9: Auditoría Antiterrorista", levels: [81, 82, 83, 84, 85, 86, 87, 88, 89, 90], timeLimit: 35, maxAttempts: 3, badge: "🏅🏅🏅" },
+  { id: 10, name: "Tier 10: Comisionado Maestro Forense", levels: [91, 92, 93, 94, 95, 96, 97, 98, 99, 100], timeLimit: 30, maxAttempts: 2, badge: "🏆" }
 ];
 
 export const ALL_LEVELS = [
   // ========================================================
-  // TIER 1: RECLUTA DE PATRULLA (Niveles 1 a 5)
-  // Sin límite de tiempo ni de intentos. Fundamentos directos.
+  // TIER 1: RECLUTA DE PATRULLA (Niveles 1 a 10) - Acto I
+  // Sin límite de tiempo. Fundamentos, literales, flags y clases.
   // ========================================================
   {
     id: 1,
@@ -67,7 +68,7 @@ El cómplice huyó desarmado hacia el muelle.`,
   {
     id: 3,
     tier: 1,
-    sceneType: "hotel",
+    sceneType: "alley",
     title: "Caso 03: El Tratado Olvidado",
     subtitle: "Hotel Savoy • Habitación 100",
     description: "En una redada en el Savoy, Vance confisca objetos abandonados, entre ellos un viejo libro de ocultismo: 'El Tratado de los Ecos'.",
@@ -89,7 +90,7 @@ Habitación 108: Personal de limpieza`,
   {
     id: 4,
     tier: 1,
-    sceneType: "hotel",
+    sceneType: "alley",
     title: "Caso 04: Calibres de Munición",
     subtitle: "Armería Clandestina de la Banda",
     description: "Los matones de Falcone custodiaban cajas de munición pesada clasificadas por lotes.",
@@ -111,41 +112,36 @@ Lote Z: Inocuo`,
   {
     id: 5,
     tier: 1,
-    sceneType: "office",
-    title: "Caso 05: La Lista de Nombres Tachados",
-    subtitle: "Banco Central • Bóveda Subterránea",
-    description: "En la caja fuerte del banquero corrupto, Vance descubre llaves y un fajo de billetes con nombres tachados en rojo.",
+    sceneType: "alley",
+    title: "Caso 05: Fondos del Sector Primario",
+    subtitle: "Banco Central • Bóveda de Préstamos",
+    description: "El banquero corrupto ocultó llaves de cajas de seguridad numeradas del 1 al 5.",
     type: "construction",
     timeLimit: null,
     maxAttempts: null,
     documentTitle: "LISTA DE CAJAS DE SEGURIDAD",
     sourceText: `BÓVEDA DE FONDOS ILÍCITOS:
-KEY-1 (Fondo secreto - Nombres tachados)
-KEY-3 (Fondo secreto - Nombres tachados)
-KEY-5 (Fondo secreto - Nombres tachados)
+KEY-1 (Fondo secreto)
+KEY-3 (Fondo secreto)
+KEY-5 (Fondo secreto)
 KEY-9 (Invalida)
 SAFE-0 (Externa)`,
-    task: "El guardia reveló que los fondos robados están en las cajas KEY asignadas del 1 al 5. Localiza únicamente los códigos de esas llaves.",
+    task: "El guardia reveló que los fondos están en las cajas KEY asignadas del 1 al 5. Localiza únicamente los códigos de esas llaves.",
     hint: "Escribe el prefijo 'KEY-' y añade un rango entre corchetes para los números del 1 al 5.",
     recommendedRegex: "KEY-[1-5]",
     recommendedFlags: "g",
     expectedMatches: ["KEY-1", "KEY-3", "KEY-5"]
   },
-
-  // ========================================================
-  // TIER 2: OFICIAL DE RONDA (Niveles 6 a 10)
-  // Límite de 5 Intentos Máximos. Se introducen negaciones y metacaracteres.
-  // ========================================================
   {
     id: 6,
-    tier: 2,
+    tier: 1,
     sceneType: "alley",
     title: "Caso 06: La Pista Negada",
-    subtitle: "Almacén Abandonado • Perímetro Clínico",
+    subtitle: "Alrededores de la Clínica • 03:00 AM",
     description: "Furgonetas de la banda merodean los alrededores de los hospitales nocturnos.",
     type: "construction",
     timeLimit: null,
-    maxAttempts: 5,
+    maxAttempts: null,
     documentTitle: "AVISTAMIENTOS DE FURGONETAS",
     sourceText: `CÓDIGOS DE PATENTE:
 CAR-7
@@ -161,14 +157,14 @@ CAR-1 (Descartado)`,
   },
   {
     id: 7,
-    tier: 2,
+    tier: 1,
     sceneType: "alley",
     title: "Caso 07: Conmutador de la Morgue",
     subtitle: "Cabina Pública 4B",
     description: "El informante dictó extensiones telefónicas internas que comunican con la morgue y la red clínica.",
     type: "construction",
     timeLimit: null,
-    maxAttempts: 5,
+    maxAttempts: null,
     documentTitle: "DIRECTORIO TELEFÓNICO CLANDESTINO",
     sourceText: `DIRECTORIO:
 Fiscalía: EXT#401
@@ -183,14 +179,14 @@ Línea falsa: EXT#9`,
   },
   {
     id: 8,
-    tier: 2,
-    sceneType: "hotel",
+    tier: 1,
+    sceneType: "alley",
     title: "Caso 08: Autopsias Anómalas",
-    subtitle: "Habitación 404 • Expedientes de la Morgue",
+    subtitle: "Morgue del Distrito • Mesa Central",
     description: "Los reportes forenses de las víctimas confirman la extirpación quirúrgica de riñones y córneas.",
     type: "construction",
     timeLimit: null,
-    maxAttempts: 5,
+    maxAttempts: null,
     documentTitle: "ACTAS FORENSES DE AUTOPSIA",
     sourceText: `REGISTRO FORENSE:
 Caso 1: Mutilación de riñón
@@ -204,14 +200,14 @@ Caso 3: Sin órganos vitales`,
   },
   {
     id: 9,
-    tier: 2,
-    sceneType: "hotel",
+    tier: 1,
+    sceneType: "alley",
     title: "Caso 09: Extorsión y Saqueo",
-    subtitle: "Recepción del Hotel",
+    subtitle: "Recepción del Hotel Savoy",
     description: "La banda de Falcone exige rescates mientras desvalija las viviendas de los desaparecidos.",
     type: "construction",
     timeLimit: null,
-    maxAttempts: 5,
+    maxAttempts: null,
     documentTitle: "DEMANDAS DE RESCATE",
     sourceText: `DEMANDAS DE FALCONE:
 Primer pago: $50
@@ -226,18 +222,18 @@ No acepto cheques.`,
   },
   {
     id: 10,
-    tier: 2,
-    sceneType: "office",
-    title: "Caso 10: Los Cirujanos de Élite",
-    subtitle: "Despacho Vance • Correspondencia Cifrada",
-    description: "Cartas enviadas a la Dra. Evelyn Cross y al Dr. Miller sobre pacientes de alta alcurnia.",
+    tier: 1,
+    sceneType: "alley",
+    title: "Caso 10: La Lista de Nombres Tachados",
+    subtitle: "Caja Fuerte del Banquero • Nombres en Rojo",
+    description: "Vance encuentra la lista de clientes con nombres tachados en rojo y cartas dirigidas a la Dra. Cross y el Dr. Miller.",
     type: "construction",
     timeLimit: null,
-    maxAttempts: 5,
+    maxAttempts: null,
     documentTitle: "CORRESPONDENCIA MÉDICA CLANDESTINA",
     sourceText: `CARTAS A CIRUJANOS:
 Atención de Dr. Miller
-Atención de Dra. Vance
+Atención de Dra. Cross
 Atención de Dr. Smith
 Sin título: Jones`,
     task: "Localiza los tratamientos médicos tanto en masculino ('Dr.') como en femenino ('Dra.') con un solo patrón.",
@@ -248,13 +244,13 @@ Sin título: Jones`,
   },
 
   // ========================================================
-  // TIER 3: DETECTIVE DE DISTRITO (Niveles 11 a 15)
-  // Tiempo límite: 90 segundos + 5 Intentos. Mayor presión.
+  // TIER 2: OFICIAL DE RONDA (Niveles 11 a 20) - Acto II
+  // Tiempo: 90s + 5 Vidas. Furgones, refrigeración y desvíos.
   // ========================================================
   {
     id: 11,
-    tier: 3,
-    sceneType: "alley",
+    tier: 2,
+    sceneType: "hotel",
     title: "Caso 11: Furgones Frigoríficos (90s)",
     subtitle: "Muelle 14 • Transporte Nocturno",
     description: "¡Los camiones frigoríficos de transporte urgente de órganos están despegando del muelle! Tienes 90 segundos para capturar las matrículas oficiales.",
@@ -275,8 +271,8 @@ Furgón D: MET-5541`,
   },
   {
     id: 12,
-    tier: 3,
-    sceneType: "alley",
+    tier: 2,
+    sceneType: "hotel",
     title: "Caso 12: Contenedores Biológicos",
     subtitle: "Aduana Portuaria • Muelle 7",
     description: "Los contenedores etiquetados con prefijo 'BOX_' contienen frascos con preservantes de tejido humano.",
@@ -297,7 +293,7 @@ ITEM# (Invalido)`,
   },
   {
     id: 13,
-    tier: 3,
+    tier: 2,
     sceneType: "hotel",
     title: "Caso 13: Calendario de Cirugías",
     subtitle: "Caja Fuerte del Savoy • Agenda Secreta",
@@ -319,7 +315,7 @@ Ano 1945`,
   },
   {
     id: 14,
-    tier: 3,
+    tier: 2,
     sceneType: "hotel",
     title: "Caso 14: Los Saqueadores de Hogares",
     subtitle: "Diario del Cerrajero Frankie Miller",
@@ -341,8 +337,8 @@ Falso: PERRO1`,
   },
   {
     id: 15,
-    tier: 3,
-    sceneType: "office",
+    tier: 2,
+    sceneType: "hotel",
     title: "Caso 15: Transferencias de la Clínica",
     subtitle: "Banco Metropolitano • Cuentas Corrientes",
     description: "Transferencias secretas emitidas por la Clínica Renacer hacia el sindicato criminal de Carmine Falcone.",
@@ -361,22 +357,16 @@ TX-12 (Demasiado corta)`,
     recommendedFlags: "g",
     expectedMatches: ["TX-10029", "TX-440192", "TX-88310"]
   },
-
-  // ========================================================
-  // TIER 4: BRIGADA ANTINARCÓTICOS (Niveles 16 a 20)
-  // Tiempo límite: 80s + 4 Intentos.
-  // ¡Se introducen los NIVELES DE DESAFÍO DEL CRIMINAL (Inversos / Criptoanálisis)!
-  // ========================================================
   {
     id: 16,
-    tier: 4,
-    sceneType: "alley",
+    tier: 2,
+    sceneType: "hotel",
     title: "Caso 16: La Trampa de Falcone #1",
     subtitle: "Bomba en el Callejón",
     description: "Falcone intentó liquidar a Vance con un artefacto explosivo programado con Regex. ¿Qué códigos activan la detonación?",
     type: "criminal_cipher",
-    timeLimit: 80,
-    maxAttempts: 4,
+    timeLimit: 90,
+    maxAttempts: 5,
     documentTitle: "CIRCUITO TEMPORIZADO DE LA BOMBA",
     criminalRegex: "^BOMB-\\d{3}-[A-Z]$",
     criminalFlags: "m",
@@ -394,14 +384,14 @@ Linea 4: BOMB-774-Z`,
   },
   {
     id: 17,
-    tier: 4,
-    sceneType: "alley",
+    tier: 2,
+    sceneType: "hotel",
     title: "Caso 17: Suero Inmunosupresor",
-    subtitle: "Almacén Clandestino de Falcone",
+    subtitle: "Laboratorio Clandestino de Falcone",
     description: "Antinarcóticos creía que eran drogas, pero los pesajes en gramos corresponden a suero para evitar el rechazo de los órganos.",
     type: "construction",
-    timeLimit: 80,
-    maxAttempts: 4,
+    timeLimit: 90,
+    maxAttempts: 5,
     documentTitle: "PESAJE DE REACTIVOS DE LABORATORIO",
     sourceText: `INVENTARIO DE CONSERVACIÓN:
 Paquete A: 100g
@@ -416,14 +406,14 @@ Paquete D: 2kg`,
   },
   {
     id: 18,
-    tier: 4,
+    tier: 2,
     sceneType: "hotel",
     title: "Caso 18: La Trampa de Falcone #2",
     subtitle: "Habitación 404 • Maletín con Candado",
     description: "El maletín de Falcone contiene las listas de apartamentos saqueados tras desvivir a sus ocupantes. Descifra la clave.",
     type: "criminal_cipher",
-    timeLimit: 80,
-    maxAttempts: 4,
+    timeLimit: 90,
+    maxAttempts: 5,
     documentTitle: "ESQUEMA DE SEGURIDAD DEL MALETÍN",
     criminalRegex: "^[A-Z]{2}\\*\\d{2}\\*[A-Z]{2}$",
     criminalFlags: "",
@@ -441,14 +431,14 @@ Clave 4: TX*12*CA`,
   },
   {
     id: 19,
-    tier: 4,
+    tier: 2,
     sceneType: "hotel",
     title: "Caso 19: Conexión con la Clínica",
     subtitle: "Recepción Savoy • Intervención Telefónica",
     description: "Llamadas telefónicas entre los lugartenientes de Falcone y la centralita privada de la Clínica Renacer.",
     type: "construction",
-    timeLimit: 80,
-    maxAttempts: 4,
+    timeLimit: 90,
+    maxAttempts: 5,
     documentTitle: "REGISTRO DE LLAMADAS INTERCEPTADAS",
     sourceText: `LLAMADAS A LA CLÍNICA:
 Fiscal: 555-1234
@@ -463,14 +453,14 @@ Contacto: 555-7744`,
   },
   {
     id: 20,
-    tier: 4,
-    sceneType: "office",
+    tier: 2,
+    sceneType: "hotel",
     title: "Caso 20: Cuentas Suizas de la Dra. Cross",
     subtitle: "Despacho Vance • Auditoría Financiera",
     description: "Cuentas en Ginebra y Zúrich desde donde magnates pagan fortunas por los trasplantes clandestinos.",
     type: "construction",
-    timeLimit: 80,
-    maxAttempts: 4,
+    timeLimit: 90,
+    maxAttempts: 5,
     documentTitle: "REGISTRO DE CUENTAS EN SUIZA",
     sourceText: `CUENTAS SECRETAS DE LA CLÍNICA:
 Ginebra: CH-10928
@@ -485,19 +475,19 @@ Nueva York: US-991`,
   },
 
   // ========================================================
-  // TIER 5: INVESTIGADOR DE HOMICIDIOS (Niveles 21 a 25)
-  // Tiempo límite: 60s + 4 Intentos. Anclas ^, $ y fronteras \b.
+  // TIER 3: DETECTIVE DE DISTRITO (Niveles 21 a 30) - Acto III
+  // Tiempo: 80s + 5 Vidas. Fronteras de palabra, anclas y cierres.
   // ========================================================
   {
     id: 21,
-    tier: 5,
-    sceneType: "alley",
+    tier: 3,
+    sceneType: "docks",
     title: "Caso 21: El Testimonio de Rob",
     subtitle: "La Coartada Bajo la Lluvia",
     description: "Rob confiesa aterrado que las víctimas del allanamiento tenían citas previas en la Clínica Renacer antes de desaparecer.",
     type: "construction",
-    timeLimit: 60,
-    maxAttempts: 4,
+    timeLimit: 80,
+    maxAttempts: 5,
     documentTitle: "INTERROGATORIO BAJO LA LLUVIA",
     sourceText: `TESTIMONIO DE ROB:
 Vi a Rob correr hacia la avenida.
@@ -512,14 +502,14 @@ Nadie ayudó a Rob en la fuga.`,
   },
   {
     id: 22,
-    tier: 5,
-    sceneType: "alley",
+    tier: 3,
+    sceneType: "docks",
     title: "Caso 22: Desapariciones en Cadena",
     subtitle: "Boletín de la Comisaría Central",
     description: "Aumentan las alertas policiales por desapariciones de personas que acudieron a consultas privadas en la clínica.",
     type: "construction",
-    timeLimit: 60,
-    maxAttempts: 4,
+    timeLimit: 80,
+    maxAttempts: 5,
     documentTitle: "BOLETÍN POLICIAL DE DESAPARECIDOS",
     sourceText: `ALERTA: Paciente desaparecido en el callejón.
 AVISO: Calle cerrada por obras.
@@ -533,14 +523,14 @@ RUMOR: Se escucharon disparos.`,
   },
   {
     id: 23,
-    tier: 5,
-    sceneType: "hotel",
+    tier: 3,
+    sceneType: "docks",
     title: "Caso 23: El Sello de Clausura [FIN]",
     subtitle: "Habitación 404 • Telegramas Cifrados",
     description: "Los mensajes de los sicarios que confirman las extracciones terminan con la palabra ritual '[FIN]' (segundo sello del destierro).",
     type: "construction",
-    timeLimit: 60,
-    maxAttempts: 4,
+    timeLimit: 80,
+    maxAttempts: 5,
     documentTitle: "TELEGRAMAS DEL SINDICATO",
     sourceText: `Línea de contacto 1 [FIN]
 Línea interrumpida por disparos
@@ -554,14 +544,14 @@ Mensaje sin confirmar`,
   },
   {
     id: 24,
-    tier: 5,
-    sceneType: "hotel",
+    tier: 3,
+    sceneType: "docks",
     title: "Caso 24: La Trampa de Falcone #3",
     subtitle: "Caja Fuerte de la Habitación",
     description: "Los sicarios usaban carnés médicos falsos para circular por los hospitales sin levantar sospechas.",
     type: "criminal_cipher",
-    timeLimit: 60,
-    maxAttempts: 4,
+    timeLimit: 80,
+    maxAttempts: 5,
     documentTitle: "REGISTRO DE AGENTES CUESTIONADOS",
     criminalRegex: "^AGENT_\\d{3}_[A-Z]{2}$",
     criminalFlags: "",
@@ -578,14 +568,14 @@ Carné 4: AGENT_555_ru (en minúscula)`,
   },
   {
     id: 25,
-    tier: 5,
-    sceneType: "office",
+    tier: 3,
+    sceneType: "docks",
     title: "Caso 25: Cámara Frigorífica Subterránea",
     subtitle: "Cerradura Digital de la Bóveda",
     description: "Códigos de 6 caracteres que abren la cámara refrigerada donde reposan los órganos recién extirpados.",
     type: "construction",
-    timeLimit: 60,
-    maxAttempts: 4,
+    timeLimit: 80,
+    maxAttempts: 5,
     documentTitle: "MEMORIA DE LA CÁMARA FRIGORÍFICA",
     sourceText: `CÓDIGOS DE LA CÁMARA:
 V12345 (Aceptado)
@@ -598,21 +588,16 @@ X99999 (Invalido)`,
     recommendedFlags: "g",
     expectedMatches: ["V12345", "V99881", "V77770"]
   },
-
-  // ========================================================
-  // TIER 6: FORENSE DE INTELIGENCIA (Niveles 26 a 30)
-  // Tiempo límite: 55s + 3 Intentos. Grupos y alternancias.
-  // ========================================================
   {
     id: 26,
-    tier: 6,
-    sceneType: "alley",
+    tier: 3,
+    sceneType: "docks",
     title: "Caso 26: La Fuga de los Cirujanos",
     subtitle: "Pista Clandestina de la Mafia",
     description: "Los cómplices de la Dra. Cross solo huyen en 'Sedan' o 'Avioneta' bimotor. Filtra ambos transportes.",
     type: "construction",
-    timeLimit: 55,
-    maxAttempts: 3,
+    timeLimit: 80,
+    maxAttempts: 5,
     documentTitle: "BITÁCORA DE CONTROL AÉREO",
     sourceText: `TRANSPORTE DE LA RED:
 1. Huida en Sedan negro
@@ -627,14 +612,14 @@ X99999 (Invalido)`,
   },
   {
     id: 27,
-    tier: 6,
-    sceneType: "alley",
+    tier: 3,
+    sceneType: "docks",
     title: "Caso 27: La Trampa de Falcone #4",
     subtitle: "Terminal de Cifrado Mafia",
     description: "Falcone configuró un filtro para encubrir los envíos de órganos bajo la etiqueta de armas y sustancias.",
     type: "criminal_cipher",
-    timeLimit: 55,
-    maxAttempts: 3,
+    timeLimit: 80,
+    maxAttempts: 5,
     documentTitle: "CÓDIGOS DE EMBARQUE INTERCEPTADOS",
     criminalRegex: "^(DROGA|ARMAS)-\\d+-(ALTA|BAJA)$",
     criminalFlags: "m",
@@ -652,14 +637,14 @@ Línea D: ARMAS-MEDIA`,
   },
   {
     id: 28,
-    tier: 6,
-    sceneType: "hotel",
+    tier: 3,
+    sceneType: "docks",
     title: "Caso 28: El Hombre Sin Sombra",
     subtitle: "Grabación Telefónica de la Morgue",
     description: "El testigo tartamudea aterrorizado al relatar cómo vio a un ser de traje oscuro que no proyecta sombra.",
     type: "construction",
-    timeLimit: 55,
-    maxAttempts: 3,
+    timeLimit: 80,
+    maxAttempts: 5,
     documentTitle: "DESGRABACIÓN DE CINTA DE AUDIO",
     sourceText: `AUDIO INTERCEPTADO:
 El testigo dijo: muy muy peligroso.
@@ -673,14 +658,14 @@ El oficial respondió con calma.`,
   },
   {
     id: 29,
-    tier: 6,
-    sceneType: "hotel",
+    tier: 3,
+    sceneType: "docks",
     title: "Caso 29: Fechas de Rejuvenecimiento",
     subtitle: "Libro de Pacientes Ilustres",
     description: "Fechas registradas en la agenda que marcan las milagrosas recuperaciones de magnates ancianos tras sus trasplantes.",
     type: "construction",
-    timeLimit: 55,
-    maxAttempts: 3,
+    timeLimit: 80,
+    maxAttempts: 5,
     documentTitle: "AGENDA PRIVADA DE LA CLÍNICA",
     sourceText: `FECHAS DE CIRUGÍA:
 12/04/1946
@@ -695,14 +680,14 @@ Ano 1890`,
   },
   {
     id: 30,
-    tier: 6,
-    sceneType: "office",
+    tier: 3,
+    sceneType: "docks",
     title: "Caso 30: Fondos de la Dra. Cross",
     subtitle: "Servidor Financiero del Banco Central",
     description: "Cuentas corporativas en EE.UU. y Suiza que financian los experimentos biomecánicos del sanatorio.",
     type: "construction",
-    timeLimit: 55,
-    maxAttempts: 3,
+    timeLimit: 80,
+    maxAttempts: 5,
     documentTitle: "LISTA DE FONDOS INTERNACIONALES",
     sourceText: `CUENTAS SECRETAS:
 ACC-US-1029 (Nueva York)
@@ -717,19 +702,19 @@ ACC-US-8812 (Miami)`,
   },
 
   // ========================================================
-  // TIER 7: AGENTE ESPECIAL ENCUBIERTO (Niveles 31 a 35)
-  // Tiempo límite: 45s + 3 Intentos. Cuantificadores Perezosos (Lazy).
+  // TIER 4: BRIGADA DE DELITOS ESPECIALES (Niveles 31 a 40) - Acto III
+  // Tiempo: 75s + 4 Vidas. Cuantificadores perezosos y lookaheads.
   // ========================================================
   {
     id: 31,
-    tier: 7,
-    sceneType: "alley",
+    tier: 4,
+    sceneType: "mansion",
     title: "Caso 31: Testimonio del Ritual",
     subtitle: "Interrogatorio en el Callejón",
     description: "Declaración judicial donde el testigo confiesa haber presenciado cánticos y figuras oscuras en el sótano de la clínica.",
     type: "construction",
-    timeLimit: 45,
-    maxAttempts: 3,
+    timeLimit: 75,
+    maxAttempts: 4,
     documentTitle: "ACTA JUDICIAL DE DECLARACIÓN",
     sourceText: `DECLARACIÓN DEL ENFERMERO:
 El testigo gritó: "¡cuidado con el arma!" y luego "¡corran todos!".`,
@@ -741,14 +726,14 @@ El testigo gritó: "¡cuidado con el arma!" y luego "¡corran todos!".`,
   },
   {
     id: 32,
-    tier: 7,
-    sceneType: "alley",
+    tier: 4,
+    sceneType: "mansion",
     title: "Caso 32: La Trampa de Falcone #5",
     subtitle: "Detonador con Cuenta Regresiva",
-    description: "¡Bomba de tiempo de 45 segundos en el túnel! Los criminales configuraron un validador con etiquetas HTML.",
+    description: "¡Bomba de tiempo en el muelle! Los criminales configuraron un validador con etiquetas HTML.",
     type: "criminal_cipher",
-    timeLimit: 45,
-    maxAttempts: 3,
+    timeLimit: 75,
+    maxAttempts: 4,
     documentTitle: "CIRCUITO DEL TEMPORIZADOR",
     criminalRegex: "<tag>.*?</tag>",
     criminalFlags: "g",
@@ -762,14 +747,14 @@ El testigo gritó: "¡cuidado con el arma!" y luego "¡corran todos!".`,
   },
   {
     id: 33,
-    tier: 7,
-    sceneType: "hotel",
+    tier: 4,
+    sceneType: "mansion",
     title: "Caso 33: Frascos de Tejido Biológico",
     subtitle: "Laboratorio Subterráneo de la Dra. Cross",
     description: "Recipientes de vidrio rotulados entre corchetes que contienen los órganos preservados para los trasplantes.",
     type: "construction",
-    timeLimit: 45,
-    maxAttempts: 3,
+    timeLimit: 75,
+    maxAttempts: 4,
     documentTitle: "REGISTRO DE MUESTRAS EN FRASCOS",
     sourceText: `REGISTROS DEL LABORATORIO:
 [PISTA_ALPHA] encontrada en la mesa.
@@ -783,14 +768,14 @@ Texto sin corchetes.`,
   },
   {
     id: 34,
-    tier: 7,
-    sceneType: "hotel",
+    tier: 4,
+    sceneType: "mansion",
     title: "Caso 34: Censo de Almas Deudoras",
     subtitle: "Despacho Clandestino de la Clínica",
     description: "Base de datos con las identidades deudoras clasificadas con prefijos sin captura '(?:REF|ID)-\\d{4}'.",
     type: "construction",
-    timeLimit: 45,
-    maxAttempts: 3,
+    timeLimit: 75,
+    maxAttempts: 4,
     documentTitle: "CENSO DE DEUDORES FAUSTIANOS",
     sourceText: `DEUDORES REGISTRADOS:
 REF-9988 (Inspeccionado)
@@ -804,14 +789,14 @@ COD-00 (Descartado)`,
   },
   {
     id: 35,
-    tier: 7,
-    sceneType: "office",
+    tier: 4,
+    sceneType: "mansion",
     title: "Caso 35: Facturas de Rejuvenecimiento",
     subtitle: "Balanza de la Dra. Cross",
     description: "Tarifas astronómicas en dólares pagadas por la élite por extender sus vidas a costa de víctimas inocentes.",
     type: "construction",
-    timeLimit: 45,
-    maxAttempts: 3,
+    timeLimit: 75,
+    maxAttempts: 4,
     documentTitle: "BALANZA CONTABLE DE TRASPLANTES",
     sourceText: `TRANSACCIONES DE TRASPLANTE:
 Cobro: $120.50
@@ -824,21 +809,16 @@ Sin centavos: $99`,
     recommendedFlags: "g",
     expectedMatches: ["$120.50", "$500.00", "$15.75"]
   },
-
-  // ========================================================
-  // TIER 8: UNIDAD DE DELITOS MAYORES (Niveles 36 a 40)
-  // Tiempo límite: 40s + 3 Intentos. Lookaheads y Lookbehinds.
-  // ========================================================
   {
     id: 36,
-    tier: 8,
-    sceneType: "alley",
+    tier: 4,
+    sceneType: "mansion",
     title: "Caso 36: Cajas con Dinamita",
-    subtitle: "Almacén de la Mafia • Demolición",
+    subtitle: "Almacén Portuario • Demolición",
     description: "Falcone ha colocado dinamita en las cajas de suministros para volar las pruebas forenses.",
     type: "construction",
-    timeLimit: 40,
-    maxAttempts: 3,
+    timeLimit: 75,
+    maxAttempts: 4,
     documentTitle: "INSPECCIÓN DE CARGAS EXPLOSIVAS",
     sourceText: `BODEGA AMENAZADA:
 Caja PELIGRO (No tocar)
@@ -852,14 +832,14 @@ Caja PELIGRO (Dinamita)`,
   },
   {
     id: 37,
-    tier: 8,
-    sceneType: "alley",
+    tier: 4,
+    sceneType: "mansion",
     title: "Caso 37: Escape por el Canal",
     subtitle: "Puerto Marítimo de la Bahía",
     description: "Los cirujanos intentan huir en buques no militares antes de que llegue la Guardia Nacional.",
     type: "construction",
-    timeLimit: 40,
-    maxAttempts: 3,
+    timeLimit: 75,
+    maxAttempts: 4,
     documentTitle: "CONTROL DE EMBARCACIONES EN FUGA",
     sourceText: `PUERTO:
 BARCO CARGA
@@ -873,14 +853,14 @@ BARCO PESQUERO`,
   },
   {
     id: 38,
-    tier: 8,
-    sceneType: "hotel",
+    tier: 4,
+    sceneType: "mansion",
     title: "Caso 38: La Trampa de la Dra. Cross #6",
     subtitle: "Sanctum Privado de la Dra. Cross",
     description: "El despacho de la doctora está blindado con un validador complejo de contraseña con lookaheads.",
     type: "criminal_cipher",
-    timeLimit: 40,
-    maxAttempts: 3,
+    timeLimit: 75,
+    maxAttempts: 4,
     documentTitle: "VALIDADOR DEL SANCTUM MÉDICO",
     criminalRegex: "^(?=.*[A-Z])(?=.*\\d).{6,}$",
     criminalFlags: "",
@@ -898,14 +878,14 @@ Clave D: Ab1 (Muy corta)`,
   },
   {
     id: 39,
-    tier: 8,
-    sceneType: "hotel",
+    tier: 4,
+    sceneType: "mansion",
     title: "Caso 39: El Libro de Sangre de Malphas",
     subtitle: "Caja Oculta • Contratos Fausto",
     description: "Libro de registro arcaico donde se anotaron los pagos de sangre del pacto.",
     type: "construction",
-    timeLimit: 40,
-    maxAttempts: 3,
+    timeLimit: 75,
+    maxAttempts: 4,
     documentTitle: "RECIBOS DE SANGRE Y TRIBUTO",
     sourceText: `CONTABILIDAD DEL PACTO:
 PAGO: 500
@@ -920,14 +900,14 @@ COBRO: 80`,
   },
   {
     id: 40,
-    tier: 8,
-    sceneType: "office",
+    tier: 4,
+    sceneType: "mansion",
     title: "Caso 40: Servidores de la Clínica Renacer",
     subtitle: "Terminal Central de la Clínica",
     description: "Códigos de autenticación para ingresar a los servidores maestros antes de que se inicie el protocolo de autodestrucción.",
     type: "construction",
-    timeLimit: 40,
-    maxAttempts: 3,
+    timeLimit: 75,
+    maxAttempts: 4,
     documentTitle: "TERMINAL MAESTRA DE CONTROL",
     sourceText: `CÓDIGOS DE ACCESO:
 KEY_8841_OK
@@ -942,19 +922,19 @@ PASS_4412_OK`,
   },
 
   // ========================================================
-  // TIER 9: AUDITORÍA ANTITERRORISTA (Niveles 41 a 45)
-  // Tiempo límite: 35s + 3 Intentos. Detección de ReDoS y Optimización.
+  // TIER 5: INVESTIGADOR DE HOMICIDIOS (Niveles 41 a 50) - Acto III
+  // Tiempo: 65s + 4 Vidas. Sabotaje ReDoS y Cargas de TNT.
   // ========================================================
   {
     id: 41,
-    tier: 9,
-    sceneType: "alley",
+    tier: 5,
+    sceneType: "office",
     title: "Caso 41: El Sabotaje ReDoS del Demonio",
     subtitle: "Servidores Centrales Colapsados",
     description: "Una fuerza sobrenatural introdujo un ataque ReDoS ^(a+)+$ en el sistema para colapsar las redes de la ciudad.",
     type: "criminal_cipher",
-    timeLimit: 35,
-    maxAttempts: 3,
+    timeLimit: 65,
+    maxAttempts: 4,
     documentTitle: "LOG DEL SERVIDOR CAÍDO",
     criminalRegex: "^(a+)+$",
     criminalFlags: "",
@@ -969,14 +949,14 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaab (falla al final)`,
   },
   {
     id: 42,
-    tier: 9,
-    sceneType: "alley",
+    tier: 5,
+    sceneType: "office",
     title: "Caso 42: Parche Lineal de Vance",
     subtitle: "Reactivación de Servidores",
     description: "Vance reescribe el algoritmo de autenticación de forma lineal para restablecer las alarmas antes de la detonación.",
     type: "construction",
-    timeLimit: 35,
-    maxAttempts: 3,
+    timeLimit: 65,
+    maxAttempts: 4,
     documentTitle: "PARCHE DE CÓDIGO FORENSE",
     sourceText: `CADENAS A VERIFICAR:
 TOKEN_ALPHA_99
@@ -990,14 +970,14 @@ TOKEN_GAMMA_44`,
   },
   {
     id: 43,
-    tier: 9,
-    sceneType: "hotel",
+    tier: 5,
+    sceneType: "office",
     title: "Caso 43: Orden de Cosecha de Almas",
-    subtitle: "Terminal Diplomática",
+    subtitle: "Terminal Diplomática Savoy",
     description: "Correos electrónicos intervenidos que autorizan la entrega de deudores para su intervención quirúrgica.",
     type: "construction",
-    timeLimit: 35,
-    maxAttempts: 3,
+    timeLimit: 65,
+    maxAttempts: 4,
     documentTitle: "BANDEJA DIPLOMÁTICA INTERCEPTADA",
     sourceText: `CONTACTOS DE LA RED:
 agente@embajada.com
@@ -1012,14 +992,14 @@ espia@muelle.com`,
   },
   {
     id: 44,
-    tier: 9,
-    sceneType: "hotel",
+    tier: 5,
+    sceneType: "office",
     title: "Caso 44: La Trampa del Criminal #7",
     subtitle: "Firewall del Búnker Subterráneo",
     description: "La regla de firewall del búnker contiene una vulnerabilidad que delata la dirección IP de la cámara de invocación.",
     type: "criminal_cipher",
-    timeLimit: 35,
-    maxAttempts: 3,
+    timeLimit: 65,
+    maxAttempts: 4,
     documentTitle: "REGLA DE FIREWALL DEFECTUOSA",
     criminalRegex: "^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$",
     criminalFlags: "",
@@ -1036,14 +1016,14 @@ espia@muelle.com`,
   },
   {
     id: 45,
-    tier: 9,
+    tier: 5,
     sceneType: "office",
     title: "Caso 45: Detonadores de TNT en los Cimientos",
     subtitle: "Sótano de la Clínica Renacer",
     description: "Falcone ha cebado los cimientos del hospital con cargas de TNT. Desactiva los detonadores activos antes de que exploten.",
     type: "construction",
-    timeLimit: 35,
-    maxAttempts: 3,
+    timeLimit: 65,
+    maxAttempts: 4,
     documentTitle: "MANIFIESTO DE DETONADORES ACTIVOS",
     sourceText: `CARGAS DE TNT ACTIVAS:
 TNT-8891-A (Activo)
@@ -1056,21 +1036,16 @@ C4-001-A (Otro tipo)`,
     recommendedFlags: "g",
     expectedMatches: ["TNT-8891-A", "TNT-1024-B"]
   },
-
-  // ========================================================
-  // TIER 10: COMISIONADO MAESTRO FORENSE (Niveles 46 a 50)
-  // Tiempo límite: 30s + 2 Intentos. Dificultad Máxima y Examen Maestro.
-  // ========================================================
   {
     id: 46,
-    tier: 10,
-    sceneType: "alley",
-    title: "Caso 46: Fuga de Camiones Frigoríficos (30s)",
+    tier: 5,
+    sceneType: "office",
+    title: "Caso 46: Fuga de Camiones Frigoríficos",
     subtitle: "Batida en los Muelles de Carga",
-    description: "¡Solo tienes 30 segundos y 2 vidas! Los últimos camiones con órganos extraídos están escapando.",
+    description: "¡Los últimos camiones con órganos extraídos están escapando hacia alta mar!",
     type: "construction",
-    timeLimit: 30,
-    maxAttempts: 2,
+    timeLimit: 65,
+    maxAttempts: 4,
     documentTitle: "RADAR PORTUARIO DE ALTA VELOCIDAD",
     sourceText: `VEHÍCULOS EN FUGA:
 TRUCK-401-X
@@ -1085,14 +1060,14 @@ TRUCK-002-B`,
   },
   {
     id: 47,
-    tier: 10,
-    sceneType: "alley",
+    tier: 5,
+    sceneType: "office",
     title: "Caso 47: El C4 del Capo Falcone",
-    subtitle: "El Maletín con C4 en la Bóveda",
+    subtitle: "El Maletín con C4 en el Callejón",
     description: "Carmine Falcone activa su último detonador de C4 para inmolarse y llevarse el secreto a la tumba.",
     type: "criminal_cipher",
-    timeLimit: 30,
-    maxAttempts: 2,
+    timeLimit: 65,
+    maxAttempts: 4,
     documentTitle: "CIRCUITO DEL DETONADOR DE C4",
     criminalRegex: "^(?:ALPHA|BETA)_\\d{4}_(?:WIN|END)$",
     criminalFlags: "m",
@@ -1110,14 +1085,14 @@ TRUCK-002-B`,
   },
   {
     id: 48,
-    tier: 10,
-    sceneType: "hotel",
+    tier: 5,
+    sceneType: "office",
     title: "Caso 48: Runas de Sangre en el Espejo",
     subtitle: "Cámara de Invocación • Espejo Empañado",
     description: "Runas rituales dejadas en el espejo por donde se manifiesta Malphas. Vance busca los renglones cifrados.",
     type: "construction",
-    timeLimit: 30,
-    maxAttempts: 2,
+    timeLimit: 65,
+    maxAttempts: 4,
     documentTitle: "INSCRIPCIÓN RITUAL EN EL ESPEJO",
     sourceText: `#CLAVE_42
 TEXTO NORMAL
@@ -1131,14 +1106,14 @@ TEXTO NORMAL
   },
   {
     id: 49,
-    tier: 10,
-    sceneType: "hotel",
+    tier: 5,
+    sceneType: "office",
     title: "Caso 49: El Conspirador Supremo",
     subtitle: "Libreta del Sindicato Internacional",
     description: "Cuentas bancarias de la red criminal mayor que conecta la clínica con testaferros en todo el mundo.",
     type: "construction",
-    timeLimit: 30,
-    maxAttempts: 2,
+    timeLimit: 65,
+    maxAttempts: 4,
     documentTitle: "LIBRETA DEL JEFE DE MAFIA",
     sourceText: `FONDOS SECRETOS DEL PACTO:
 ACC-CH-9910-A
@@ -1153,22 +1128,1152 @@ ACC-FR-8812-C`,
   },
   {
     id: 50,
-    tier: 10,
+    tier: 5,
     sceneType: "office",
-    title: "Caso 50: El Destierro de Malphas",
-    subtitle: "Bóveda Clandestina de la Clínica Renacer",
-    description: "¡El clímax final! Vance abre el arcón arcano con la combinación que destruye el contrato de Malphas y anula el pacto para siempre.",
+    title: "Caso 50: La Puerta Blindada de la Clínica",
+    subtitle: "Acceso al Santuario de la Dra. Cross",
+    description: "Cerradura maestra de la puerta que conduce al santuario subterráneo.",
+    type: "construction",
+    timeLimit: 65,
+    maxAttempts: 4,
+    documentTitle: "CERRADURA DE CIRUGÍA MAYOR",
+    sourceText: `CÓDIGOS DE LA PUERTA:
+MASTER_KEY_AB8899ZZ (Aprobada)
+MASTER_KEY_7741KK99 (Aprobada)
+KEY_CERO_00000000 (Falsa)
+MASTER_KEY_123 (Corta)`,
+    task: "Abre la puerta del laboratorio localizando las llaves que inician con 'MASTER_KEY_' y tienen exactamente 8 caracteres alfanuméricos.",
+    hint: "Combina el prefijo fijo con una clase alfanumérica y un cuantificador exacto de 8 caracteres.",
+    recommendedRegex: "MASTER_KEY_[A-Z0-9]{8}",
+    recommendedFlags: "g",
+    expectedMatches: ["MASTER_KEY_AB8899ZZ", "MASTER_KEY_7741KK99"]
+  },
+
+  // ========================================================
+  // TIER 6: FORENSE DE INTELIGENCIA (Niveles 51 a 60) - Acto IV
+  // Tiempo: 55s + 3 Vidas. Compatibilidad HLA, bitácoras y furgones.
+  // ========================================================
+  {
+    id: 51,
+    tier: 6,
+    sceneType: "morgue",
+    title: "Caso 51: Compatibilidad Genética HLA",
+    subtitle: "Morgue Central • Laboratorio de Análisis",
+    description: "Los órganos cosechados poseen compatibilidad perfecta antinatural. Identifica los perfiles HLA.",
+    type: "construction",
+    timeLimit: 55,
+    maxAttempts: 3,
+    documentTitle: "EXPEDIENTE DE COMPATIBILIDAD BIOLÓGICA",
+    sourceText: `PERFILES COMPATIBLES:
+Donante 1: HLA-AB-102
+Donante 2: HLA-CD-994
+Donante 3: RECHAZO-00
+Donante 4: HLA-EF-771`,
+    task: "Filtra los perfiles de compatibilidad celular que inician con 'HLA-', dos letras mayúsculas, guion y tres dígitos.",
+    hint: "Combina 'HLA-', clase de mayúsculas cuantificada a 2, guion y dígitos cuantificados a 3.",
+    recommendedRegex: "HLA-[A-Z]{2}-\\d{3}",
+    recommendedFlags: "g",
+    expectedMatches: ["HLA-AB-102", "HLA-CD-994", "HLA-EF-771"]
+  },
+  {
+    id: 52,
+    tier: 6,
+    sceneType: "morgue",
+    title: "Caso 52: Nitrógeno Líquido Portuario",
+    subtitle: "Almacén 9 del Muelle",
+    description: "Tanques de nitrógeno criogénico usados para congelar órganos en menos de 15 minutos.",
+    type: "construction",
+    timeLimit: 55,
+    maxAttempts: 3,
+    documentTitle: "MANIFIESTO CRIOGÉNICO",
+    sourceText: `TANQUES REGISTRADOS:
+NITRO_101_A (Presurizado)
+NITRO_554_B (Presurizado)
+NITRO_99_Z (Fuga)
+NITRO_882_C (Presurizado)`,
+    task: "Localiza los tanques activos identificados con 'NITRO_', 3 cifras, guion bajo y una letra de sector.",
+    hint: "Usa el prefijo literal con 3 dígitos exactos y una clase mayúscula.",
+    recommendedRegex: "NITRO_\\d{3}_[A-Z]",
+    recommendedFlags: "g",
+    expectedMatches: ["NITRO_101_A", "NITRO_554_B", "NITRO_882_C"]
+  },
+  {
+    id: 53,
+    tier: 6,
+    sceneType: "morgue",
+    title: "Caso 53: El Terror del Conserje",
+    subtitle: "Grabadora de Alambre del Hotel",
+    description: "El conserje confiesa temblando cómo vio al hombre de traje negro y repite palabras de pánico.",
+    type: "construction",
+    timeLimit: 55,
+    maxAttempts: 3,
+    documentTitle: "TRANSCRIPCIÓN DE CINTA MAGNETOFÓNICA",
+    sourceText: `DECLARACIÓN DEL CONSERJE:
+Gritó: fuego fuego en el pasillo.
+Luego dijo: miedo miedo no puedo hablar.
+El guardia se calmó lentamente.`,
+    task: "Encuentra las palabras de 3 o más letras que se repiten de forma idéntica consecutivamente en el testimonio.",
+    hint: "Captura en un grupo palabras con letras de longitud 3 o más y referencia con '\\1'.",
+    recommendedRegex: "\\b([a-z]{3,})\\s+\\1\\b",
+    recommendedFlags: "g",
+    expectedMatches: ["fuego fuego", "miedo miedo"]
+  },
+  {
+    id: 54,
+    tier: 6,
+    sceneType: "morgue",
+    title: "Caso 54: La Bitácora de Falcone",
+    subtitle: "Despacho Central • Libreta Negra",
+    description: "El capo codificó los informes de las viviendas allanadas con una regla regex.",
+    type: "criminal_cipher",
+    timeLimit: 55,
+    maxAttempts: 3,
+    documentTitle: "BITÁCORA DE ALLANAMIENTOS",
+    criminalRegex: "^SAQUEO-\\d{2}-[A-Z]{3}$",
+    criminalFlags: "m",
+    sourceText: `CÓDIGOS DE CASAS SAQUEADAS:
+1: SAQUEO-14-NYC
+2: SAQUEO-9-LA
+3: ROBO-22-MIA
+4: SAQUEO-88-BOS`,
+    question: "¿Qué registros de saqueo cumplen el patrón ^SAQUEO-\\d{2}-[A-Z]{3}$?",
+    options: [
+      { id: "opt_a", text: "Solo el 1", isCorrect: false, feedback: "Incorrecto: El registro 4 también cumple exactamente." },
+      { id: "opt_b", text: "Los registros 1 y 4 (SAQUEO-14-NYC y SAQUEO-88-BOS)", isCorrect: true, feedback: "¡Correcto! Cumplen SAQUEO-, 2 dígitos y 3 letras mayúsculas de ciudad." },
+      { id: "opt_c", text: "Todos los registros", isCorrect: false, feedback: "Incorrecto: El registro 2 solo tiene 1 dígito y el 3 tiene prefijo ROBO." }
+    ]
+  },
+  {
+    id: 55,
+    tier: 6,
+    sceneType: "morgue",
+    title: "Caso 55: Lanchas Rápidas en la Bahía",
+    subtitle: "Control Costero • Radares",
+    description: "Embarcaciones clandestinas que transportan los contenedores hacia buques en aguas internacionales.",
+    type: "construction",
+    timeLimit: 55,
+    maxAttempts: 3,
+    documentTitle: "RADAR COSTEÑO NOCTURNO",
+    sourceText: `LANCHAS DETECTADAS:
+BOAT#1044 (Veloz)
+BOAT#8819 (Veloz)
+BOAT#22 (Demasiado lenta)
+SHIP-001 (Civil)`,
+    task: "Identifica las lanchas ilegales matriculadas con 'BOAT#' seguido exactamente de 4 números.",
+    hint: "Escribe 'BOAT#' y añade el metarácter de dígito cuantificado a cuatro repeticiones.",
+    recommendedRegex: "BOAT#\\d{4}",
+    recommendedFlags: "g",
+    expectedMatches: ["BOAT#1044", "BOAT#8819"]
+  },
+  {
+    id: 56,
+    tier: 6,
+    sceneType: "morgue",
+    title: "Caso 56: Rótulos de Órganos Vitales",
+    subtitle: "Morgue de la Dra. Cross • Frascos Clave",
+    description: "Los frascos están clasificados con los nombres en latín de corazón, riñón e hígado.",
+    type: "construction",
+    timeLimit: 55,
+    maxAttempts: 3,
+    documentTitle: "ETIQUETAS DE ÓRGANOS EN FORMOL",
+    sourceText: `FRASCOS PREPARADOS:
+Muestra 1: COR-1102 (Corazón)
+Muestra 2: REN-9941 (Riñón)
+Muestra 3: OJO-12 (Descartado)
+Muestra 4: HEPAR-4401 (Hígado)`,
+    task: "Aísla los frascos que inician con 'COR', 'REN' o 'HEPAR' seguidos de un guion y 4 números usando un grupo sin captura.",
+    hint: "Agrupa las tres opciones con alternancia '(?:COR|REN|HEPAR)' antes de los dígitos.",
+    recommendedRegex: "(?:COR|REN|HEPAR)-\\d{4}",
+    recommendedFlags: "g",
+    expectedMatches: ["COR-1102", "REN-9941", "HEPAR-4401"]
+  },
+  {
+    id: 57,
+    tier: 6,
+    sceneType: "morgue",
+    title: "Caso 57: Vehículos Fantasma",
+    subtitle: "Callejón de Emergencia • Clínica",
+    description: "Furgonetas y autos sin identificar que ingresan pacientes clandestinos por la puerta trasera.",
+    type: "construction",
+    timeLimit: 55,
+    maxAttempts: 3,
+    documentTitle: "REGISTRO DE GUARDIA NOCTURNA",
+    sourceText: `VEHÍCULOS EN LA PUERTA TRASERA:
+1) VAN-42X
+2) CAR-99A
+3) AMB-00 (Oficial)
+4) VAN-11Z`,
+    task: "Filtra los vehículos no registrados con prefijo 'VAN' o 'CAR', guion, 2 dígitos y una letra mayúscula final.",
+    hint: "Usa un grupo sin captura '(?:VAN|CAR)' seguido de guion, \\d{2} y [A-Z].",
+    recommendedRegex: "(?:VAN|CAR)-\\d{2}[A-Z]",
+    recommendedFlags: "g",
+    expectedMatches: ["VAN-42X", "CAR-99A", "VAN-11Z"]
+  },
+  {
+    id: 58,
+    tier: 6,
+    sceneType: "morgue",
+    title: "Caso 58: Contratos Sellados con Sangre",
+    subtitle: "Caja de Pergaminos Clandestinos",
+    description: "Contratos milenarios donde cada deudor se identifica al final de la línea como deudor oficial.",
+    type: "construction",
+    timeLimit: 55,
+    maxAttempts: 3,
+    documentTitle: "ARCHIVOS PERGAMINADOS",
+    sourceText: `CONTRATOS DE SANGRE:
+Contrato de Arthur Miller: DEUDOR_1002
+Contrato roto por muerte prematura
+Contrato de Sarah Vance: DEUDOR_4491
+Contrato inválido`,
+    task: "Encuentra las firmas de deudores que finalizan la línea con 'DEUDOR_' y 4 números exactos.",
+    hint: "Combina la palabra clave con dígitos cuantificados y el ancla de fin de línea '$'.",
+    recommendedRegex: "DEUDOR_\\d{4}$",
+    recommendedFlags: "gm",
+    expectedMatches: ["DEUDOR_1002", "DEUDOR_4491"]
+  },
+  {
+    id: 59,
+    tier: 6,
+    sceneType: "morgue",
+    title: "Caso 59: Llamadas de Auxilio Interceptadas",
+    subtitle: "Centralita Telefónica Savoy",
+    description: "Los deudores faustianos intentaban pedir auxilio al darse cuenta de que su plazo vencía.",
+    type: "construction",
+    timeLimit: 55,
+    maxAttempts: 3,
+    documentTitle: "REGISTRO DE CONMUTADOR",
+    sourceText: `LLAMADAS DE ALERTA:
+Operadora: CALL-102-11
+Operadora: CALL-994-55
+Emergencia: 911
+Operadora: CALL-881-99`,
+    task: "Extrae los registros de llamadas que inician con 'CALL-', 3 dígitos, guion y 2 dígitos.",
+    hint: "Estructura 'CALL-\\d{3}-\\d{2}' con precisión de cifras.",
+    recommendedRegex: "CALL-\\d{3}-\\d{2}",
+    recommendedFlags: "g",
+    expectedMatches: ["CALL-102-11", "CALL-994-55", "CALL-881-99"]
+  },
+  {
+    id: 60,
+    tier: 6,
+    sceneType: "morgue",
+    title: "Caso 60: La Caja Blindada de Vance",
+    subtitle: "Despacho Forense • Bóveda Secreta",
+    description: "Vance protege las pruebas originales recolectadas en una caja de seguridad con código maestro.",
+    type: "construction",
+    timeLimit: 55,
+    maxAttempts: 3,
+    documentTitle: "SISTEMA DE SEGURIDAD PRIVADO",
+    sourceText: `ARCHIVADORES BLINDADOS:
+Caja de Homicidios: VANCE_SAFE_10029
+Caja de Drogas: VANCE_SAFE_44019
+Caja común: SAFE_11
+Caja de Aduana: VANCE_SAFE_88310`,
+    task: "Encuentra los identificadores que comienzan con 'VANCE_SAFE_' y tienen exactamente 5 números.",
+    hint: "Combina el prefijo literal con \\d{5}.",
+    recommendedRegex: "VANCE_SAFE_\\d{5}",
+    recommendedFlags: "g",
+    expectedMatches: ["VANCE_SAFE_10029", "VANCE_SAFE_44019", "VANCE_SAFE_88310"]
+  },
+
+  // ========================================================
+  // TIER 7: AGENTE ESPECIAL ENCUBIERTO (Niveles 61 a 70) - Acto IV
+  // Tiempo: 50s + 3 Vidas. Citas textuales, químicos y catacumbas.
+  // ========================================================
+  {
+    id: 61,
+    tier: 7,
+    sceneType: "boiler_room",
+    title: "Caso 61: Declaraciones Textuales en Actas",
+    subtitle: "Despacho Judicial de la Dra. Cross",
+    description: "Citas textuales entre comillas donde se describen las apariciones del demonio en la noche.",
+    type: "construction",
+    timeLimit: 50,
+    maxAttempts: 3,
+    documentTitle: "ACTA JUDICIAL CONFIDENCIAL",
+    sourceText: `CONFESIÓN BAJO JURAMENTO:
+La doctora declaró: "el plazo de las almas nunca se prorroga" ante el tribunal.
+El fiscal anotó: "las cirugías no son humanas" en su informe.`,
+    task: "Aísla cada frase textual entrecomillada de manera individual utilizando cuantificadores perezosos.",
+    hint: "Usa comillas dobles y comodín perezoso \".+?\".",
+    recommendedRegex: "\".+?\"",
+    recommendedFlags: "g",
+    expectedMatches: ["\"el plazo de las almas nunca se prorroga\"", "\"las cirugías no son humanas\""]
+  },
+  {
+    id: 62,
+    tier: 7,
+    sceneType: "boiler_room",
+    title: "Caso 62: Dosificación de Conservante Celular",
+    subtitle: "Laboratorio Químico de la Morgue",
+    description: "Mililitros exactos de suero biológico usados para mantener frescos los riñones y corazones.",
+    type: "construction",
+    timeLimit: 50,
+    maxAttempts: 3,
+    documentTitle: "HOJA DE DOSIFICACIÓN CLÍNICA",
+    sourceText: `DOSIS PREPARADAS:
+Dosis Riñón: 25.50ml
+Dosis Córnea: 5.75ml
+Dosis desechada: 10ml
+Dosis Corazón: 100.25ml`,
+    task: "Captura los volúmenes en mililitros que incluyan exactamente dos decimales seguidos de la unidad 'ml'.",
+    hint: "Combina uno o más dígitos, punto decimal escapado, dos dígitos y 'ml'.",
+    recommendedRegex: "\\d+\\.\\d{2}ml",
+    recommendedFlags: "g",
+    expectedMatches: ["25.50ml", "5.75ml", "100.25ml"]
+  },
+  {
+    id: 63,
+    tier: 7,
+    sceneType: "boiler_room",
+    title: "Caso 63: El Criptograma de Compatibilidad",
+    subtitle: "Morgue Central • Algoritmo de Falcone",
+    description: "El clasificador del sindicato comprueba muestras de sangre o médula con resultado POS o NEG.",
+    type: "criminal_cipher",
+    timeLimit: 50,
+    maxAttempts: 3,
+    documentTitle: "CIRCUITO DEL ANALIZADOR DE TEJIDO",
+    criminalRegex: "^(?:SANGRE|MEDULA)_[A-Z]{2}_(POS|NEG)$",
+    criminalFlags: "m",
+    sourceText: `MUESTRAS BIOLÓGICAS:
+Línea 1: SANGRE_AB_POS
+Línea 2: TEJIDO_XX_POS
+Línea 3: MEDULA_OR_NEG
+Línea 4: SANGRE_A_POS`,
+    question: "¿Cuáles muestras son validadas por ^(?:SANGRE|MEDULA)_[A-Z]{2}_(POS|NEG)$?",
+    options: [
+      { id: "opt_a", text: "Solo la Línea 1", isCorrect: false, feedback: "Incorrecto: La línea 3 (MEDULA_OR_NEG) también coincide perfectamente." },
+      { id: "opt_b", text: "Las Líneas 1 y 3 (SANGRE_AB_POS y MEDULA_OR_NEG)", isCorrect: true, feedback: "¡Exacto! Cumplen el tipo de muestra, 2 letras de grupo y el estado POS o NEG." },
+      { id: "opt_c", text: "Todas las líneas", isCorrect: false, feedback: "Incorrecto: Ni TEJIDO ni SANGRE_A cumplen las 2 letras obligatorias." }
+    ]
+  },
+  {
+    id: 64,
+    tier: 7,
+    sceneType: "boiler_room",
+    title: "Caso 64: Instrumental Quirúrgico Militar",
+    subtitle: "Aduana Portuaria • Caja Fuerte 4",
+    description: "Cajas de instrumental importadas clandestinamente con prefijo 'SURGERY-' y 4 números.",
+    type: "construction",
+    timeLimit: 50,
+    maxAttempts: 3,
+    documentTitle: "MANIFIESTO DE IMPORTACIÓN",
+    sourceText: `CAJAS IMPORTADAS:
+Lote 1: SURGERY-1092 (Bisturís)
+Lote 2: SURGERY-4491 (Sierras de hueso)
+Lote 3: MED-11 (Común)
+Lote 4: SURGERY-8812 (Catéteres)`,
+    task: "Localiza los números de lote del instrumental que inician con 'SURGERY-' y tienen 4 dígitos.",
+    hint: "Escribe 'SURGERY-\\d{4}'.",
+    recommendedRegex: "SURGERY-\\d{4}",
+    recommendedFlags: "g",
+    expectedMatches: ["SURGERY-1092", "SURGERY-4491", "SURGERY-8812"]
+  },
+  {
+    id: 65,
+    tier: 7,
+    sceneType: "boiler_room",
+    title: "Caso 65: Los Candelabros del Santuario",
+    subtitle: "Catacumbas • Entrada al Círculo",
+    description: "Candelabros encendidos para el ritual de invocación marcados como activos.",
+    type: "construction",
+    timeLimit: 50,
+    maxAttempts: 3,
+    documentTitle: "REGISTRO DE LLAMAS RITUALES",
+    sourceText: `ESTADO DE CANDELABROS:
+Candelabro 1: CANDLE_01_ON
+Candelabro 2: CANDLE_02_ON
+Candelabro 3: CANDLE_03_OFF
+Candelabro 4: TORCH_01_ON`,
+    task: "Encuentra los candelabros rituales activos que inician con 'CANDLE_', 2 dígitos y finalizan en '_ON'.",
+    hint: "Estructura 'CANDLE_\\d{2}_ON'.",
+    recommendedRegex: "CANDLE_\\d{2}_ON",
+    recommendedFlags: "g",
+    expectedMatches: ["CANDLE_01_ON", "CANDLE_02_ON"]
+  },
+  {
+    id: 66,
+    tier: 7,
+    sceneType: "boiler_room",
+    title: "Caso 66: Las Palabras del Pacto",
+    subtitle: "Habitación 404 • Mensaje en Cenizas",
+    description: "Papeles quemados en la chimenea donde se lee el encabezado ritual del pacto con palabras de 6 mayúsculas.",
+    type: "construction",
+    timeLimit: 50,
+    maxAttempts: 3,
+    documentTitle: "FRAGMENTO RESCATADO DEL FUEGO",
+    sourceText: `FRAGMENTO:
+El encabezado decía: PACTO: PACTUM en la primera línea.
+En la segunda decía: PACTO: MORTEM sellado con sangre.
+En la tercera decía: PACTO: NO válido.`,
+    task: "Captura los nombres rituales de 6 letras mayúsculas precedidos por 'PACTO: '.",
+    hint: "Escribe 'PACTO:\\s' seguido de una clase de mayúsculas de 6 repeticiones.",
+    recommendedRegex: "PACTO:\\s[A-Z]{6}",
+    recommendedFlags: "g",
+    expectedMatches: ["PACTO: PACTUM", "PACTO: MORTEM"]
+  },
+  {
+    id: 67,
+    tier: 7,
+    sceneType: "boiler_room",
+    title: "Caso 67: Cámaras Clandestinas del Hampa",
+    subtitle: "Callejón de Miller • Farolas Vigiladas",
+    description: "Dispositivos ópticos instalados por Falcone para vigilar a los policías que se acercan a la clínica.",
+    type: "construction",
+    timeLimit: 50,
+    maxAttempts: 3,
+    documentTitle: "RECONOCIMIENTO DE DISPOSITIVOS ÓPTICOS",
+    sourceText: `CÁMARAS DETECTADAS:
+Poste A: CAM-01-A
+Poste B: CAM-02-B
+Farola C: LIGHT-99
+Poste D: CAM-03-C`,
+    task: "Extrae los identificadores de cámaras formados por 'CAM-', dos dígitos, guion y una letra mayúscula.",
+    hint: "Usa 'CAM-\\d{2}-[A-Z]'.",
+    recommendedRegex: "CAM-\\d{2}-[A-Z]",
+    recommendedFlags: "g",
+    expectedMatches: ["CAM-01-A", "CAM-02-B", "CAM-03-C"]
+  },
+  {
+    id: 68,
+    tier: 7,
+    sceneType: "boiler_room",
+    title: "Caso 68: Servidores Satélite del Sanatorio",
+    subtitle: "Terminal Central de Redes",
+    description: "Direcciones IP privadas de la red hospitalaria clandestina que inician en 10 o 192.",
+    type: "construction",
+    timeLimit: 50,
+    maxAttempts: 3,
+    documentTitle: "TABLA DE RUTEO PRIVADA",
+    sourceText: `DIRECCIONES IP DE LA CLÍNICA:
+1) 10.0.1.50
+2) 192.168.1.100
+3) 8.8.8.8 (Pública descartada)
+4) 10.200.5.1`,
+    task: "Filtra las IPs privadas que comienzan por '10.' o '192.' seguidas de sus correspondientes octetos numéricos.",
+    hint: "Usa un grupo sin captura para los dos comienzos posibles seguido de los tres bloques de dígitos restantes.",
+    recommendedRegex: "(?:10|192)\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}",
+    recommendedFlags: "g",
+    expectedMatches: ["10.0.1.50", "192.168.1.100", "10.200.5.1"]
+  },
+  {
+    id: 69,
+    tier: 7,
+    sceneType: "boiler_room",
+    title: "Caso 69: Rótulos entre Llaves",
+    subtitle: "Morgue de la Dra. Cross • Sala B",
+    description: "Etiquetas sagradas talladas entre llaves literales en los frascos de trasplante primario.",
+    type: "construction",
+    timeLimit: 50,
+    maxAttempts: 3,
+    documentTitle: "FRASCOS CON CÓDIGOS DE CIRUGÍA",
+    sourceText: `FRASCOS DE ALTA PRIORIDAD:
+Frasco {COR} preparado para trasplante.
+Frasco {REN} en refrigerador.
+Frasco sin llaves.
+Frasco {HEPAR} listo.`,
+    task: "Captura los términos en mayúsculas encerrados entre llaves literales '{' y '}'.",
+    hint: "Escapa las llaves \\{ y \\} con una clase mayúscula adentro.",
+    recommendedRegex: "\\{[A-Z]+\\}",
+    recommendedFlags: "g",
+    expectedMatches: ["{COR}", "{REN}", "{HEPAR}"]
+  },
+  {
+    id: 70,
+    tier: 7,
+    sceneType: "boiler_room",
+    title: "Caso 70: Tokens de la Junta Directiva",
+    subtitle: "Despacho del Banco Central",
+    description: "Tokens alfanuméricos de 6 caracteres con los que los senadores aprueban las transferencias ilícitas.",
+    type: "construction",
+    timeLimit: 50,
+    maxAttempts: 3,
+    documentTitle: "AUTORIZACIONES BANCARIAS",
+    sourceText: `TOKENS DE AUTORIZACIÓN:
+Aprobado: AUTH-AB12CD
+Aprobado: AUTH-99ZZ88
+Rechazado: AUTH-00 (Muy corto)
+Aprobado: AUTH-KL44MN`,
+    task: "Localiza los tokens oficiales que inician con 'AUTH-' y poseen exactamente 6 caracteres alfanuméricos.",
+    hint: "Combina 'AUTH-' con [A-Z0-9]{6}.",
+    recommendedRegex: "AUTH-[A-Z0-9]{6}",
+    recommendedFlags: "g",
+    expectedMatches: ["AUTH-AB12CD", "AUTH-99ZZ88", "AUTH-KL44MN"]
+  },
+
+  // ========================================================
+  // TIER 8: UNIDAD DE DELITOS MAYORES (Niveles 71 a 80) - Acto IV
+  // Tiempo: 45s + 3 Vidas. Lookbehinds, negaciones y candelabros.
+  // ========================================================
+  {
+    id: 71,
+    tier: 8,
+    sceneType: "server_room",
+    title: "Caso 71: Lookbehind de Tarifas Clínicas",
+    subtitle: "Archivo de la Dra. Cross",
+    description: "Precios de rescate y adquisición de órganos precedidos de la palabra 'COSTE: '.",
+    type: "construction",
+    timeLimit: 45,
+    maxAttempts: 3,
+    documentTitle: "TARIFARIO PRIVADO",
+    sourceText: `PRESUPUESTOS CLÍNICOS:
+COSTE: $5000 (Riñón sano)
+RESERVA: $200 (Adelanto)
+COSTE: $12000 (Corazón joven)
+ENVIO: $50`,
+    task: "Extrae únicamente los montos en dólares precedidos por 'COSTE: ' sin incluir dicha palabra en la coincidencia.",
+    hint: "Aplica un lookbehind positivo (?<=COSTE:\\s) seguido del signo de dólar escapado y dígitos.",
+    recommendedRegex: "(?<=COSTE:\\s)\\$\\d+",
+    recommendedFlags: "g",
+    expectedMatches: ["$5000", "$12000"]
+  },
+  {
+    id: 72,
+    tier: 8,
+    sceneType: "server_room",
+    title: "Caso 72: Líquidos No Tóxicos",
+    subtitle: "Muelle de Carga • Bodega de Barriles",
+    description: "Barriles de conservantes biológicos seguros rotulados como 'LIQUIDO' que NO correspondan a sustancias tóxicas.",
+    type: "construction",
+    timeLimit: 45,
+    maxAttempts: 3,
+    documentTitle: "INSPECCIÓN DE BARRILES QUÍMICOS",
+    sourceText: `BARRILES EN BODEGA:
+LIQUIDO SALINO
+LIQUIDO TOXICO (Peligro)
+LIQUIDO CELULAR`,
+    task: "Captura la palabra 'LIQUIDO' solo cuando NO esté seguida de la etiqueta 'TOXICO'.",
+    hint: "Utiliza un lookahead negativo (?<!\\sTOXICO) o (?!\\sTOXICO).",
+    recommendedRegex: "LIQUIDO(?!\\sTOXICO)",
+    recommendedFlags: "g",
+    expectedMatches: ["LIQUIDO", "LIQUIDO"]
+  },
+  {
+    id: 73,
+    tier: 8,
+    sceneType: "server_room",
+    title: "Caso 73: Detonador Múltiple de Falcone",
+    subtitle: "Búnker de la Calle 8",
+    description: "El detonador del escondite de Falcone se activa solo con comandos de detonación armada.",
+    type: "criminal_cipher",
+    timeLimit: 45,
+    maxAttempts: 3,
+    documentTitle: "CIRCUITO DEL DETONADOR MÚLTIPLE",
+    criminalRegex: "^(?:DET|ARM)_\\d{3}_(?:READY|FIRE)$",
+    criminalFlags: "m",
+    sourceText: `SEÑALES DE CONTROL:
+1: DET_101_READY
+2: BOM_555_FIRE
+3: ARM_882_FIRE
+4: DET_99_READY`,
+    question: "¿Cuáles señales activan el detonador con la regla ^(?:DET|ARM)_\\d{3}_(?:READY|FIRE)$?",
+    options: [
+      { id: "opt_a", text: "Solo la Señal 1", isCorrect: false, feedback: "Incorrecto: La señal 3 también cumple el prefijo ARM, 3 dígitos y FIRE." },
+      { id: "opt_b", text: "Las Señales 1 y 3 (DET_101_READY y ARM_882_FIRE)", isCorrect: true, feedback: "¡Desactivado! Ambas cumplen el prefijo, los 3 dígitos y el sufijo autorizado." },
+      { id: "opt_c", text: "Todas las señales", isCorrect: false, feedback: "Incorrecto: La señal 2 tiene prefijo BOM y la señal 4 solo tiene 2 dígitos." }
+    ]
+  },
+  {
+    id: 74,
+    tier: 8,
+    sceneType: "server_room",
+    title: "Caso 74: Runas Grabadas en la Piedra",
+    subtitle: "Umbral del Santuario Subterráneo",
+    description: "Símbolos mágicos grabados en la puerta de piedra con código hexadecimal de 4 caracteres.",
+    type: "construction",
+    timeLimit: 45,
+    maxAttempts: 3,
+    documentTitle: "INSCRIPCIONES EN EL PORTAL",
+    sourceText: `SÍMBOLOS EN EL ARCO:
+Runa 1: RUNE_A1F0 (Brillante)
+Runa 2: RUNE_3B9C (Brillante)
+Runa 3: RUNE_ZZ (Invalida)
+Runa 4: RUNE_F882 (Brillante)`,
+    task: "Extrae los códigos de runa válidos que inician con 'RUNE_' y tienen 4 caracteres hexadecimales (letras A-F o números 0-9).",
+    hint: "Combina 'RUNE_' con una clase [A-F0-9] cuantificada a 4.",
+    recommendedRegex: "RUNE_[A-F0-9]{4}",
+    recommendedFlags: "g",
+    expectedMatches: ["RUNE_A1F0", "RUNE_3B9C", "RUNE_F882"]
+  },
+  {
+    id: 75,
+    tier: 8,
+    sceneType: "server_room",
+    title: "Caso 75: Nombres en Clave de Senadores",
+    subtitle: "Despacho Central • Archivo Clasificado",
+    description: "Identificadores en clave de los senadores y magistrados que recibieron trasplantes ilegales.",
+    type: "construction",
+    timeLimit: 45,
+    maxAttempts: 3,
+    documentTitle: "LISTA DE BENEFICIARIOS POLÍTICOS",
+    sourceText: `MAGISTRADOS OPERADOS:
+Paciente: SENATOR-WSH
+Paciente: SENATOR-BOS
+Paciente: JUEZ-01 (Sin código)
+Paciente: SENATOR-CHI`,
+    task: "Encuentra los identificadores que comienzan con 'SENATOR-' y terminan en 3 letras mayúsculas.",
+    hint: "Usa 'SENATOR-[A-Z]{3}'.",
+    recommendedRegex: "SENATOR-[A-Z]{3}",
+    recommendedFlags: "g",
+    expectedMatches: ["SENATOR-WSH", "SENATOR-BOS", "SENATOR-CHI"]
+  },
+  {
+    id: 76,
+    tier: 8,
+    sceneType: "server_room",
+    title: "Caso 76: Temperaturas de Criogenización",
+    subtitle: "Cámara Frigorífica de la Morgue",
+    description: "Lecturas térmicas bajo cero de los congeladores de órganos que inician con signo negativo y símbolo de grado.",
+    type: "construction",
+    timeLimit: 45,
+    maxAttempts: 3,
+    documentTitle: "TERMÓMETROS DE CONGELACIÓN",
+    sourceText: `REGISTRO TÉRMICO:
+Congelador A: -18°C
+Congelador B: -24°C
+Ambiente: +20°C
+Congelador C: -40°C`,
+    task: "Captura los registros de temperatura bajo cero que inician con '-', dos cifras y terminan en '°C'.",
+    hint: "Combina '-', \\d{2} y '°C'.",
+    recommendedRegex: "-\\d{2}°C",
+    recommendedFlags: "g",
+    expectedMatches: ["-18°C", "-24°C", "-40°C"]
+  },
+  {
+    id: 77,
+    tier: 8,
+    sceneType: "server_room",
+    title: "Caso 77: Líneas Eléctricas de Emergencia",
+    subtitle: "Subestación del Muelle",
+    description: "Líneas de energía de alta tensión que mantienen activos los congeladores portuarios.",
+    type: "construction",
+    timeLimit: 45,
+    maxAttempts: 3,
+    documentTitle: "PANEL DE CONTROL ELÉCTRICO",
+    sourceText: `CIRCUITOS ACTIVOS:
+Circuito 1: LINEA_101_OK
+Circuito 2: LINEA_882_OK
+Circuito 3: LINEA_12_FALLA
+Circuito 4: LINEA_440_OK`,
+    task: "Aísla las líneas activas que inician con 'LINEA_', 3 dígitos y concluyen con '_OK'.",
+    hint: "Estructura 'LINEA_\\d{3}_OK'.",
+    recommendedRegex: "LINEA_\\d{3}_OK",
+    recommendedFlags: "g",
+    expectedMatches: ["LINEA_101_OK", "LINEA_882_OK", "LINEA_440_OK"]
+  },
+  {
+    id: 78,
+    tier: 8,
+    sceneType: "server_room",
+    title: "Caso 78: Órdenes de Captura de Fiscales",
+    subtitle: "Despacho del Comisario Briggs",
+    description: "Órdenes judiciales emitidas para arrestar a los fiscales cómplices de la clínica.",
+    type: "construction",
+    timeLimit: 45,
+    maxAttempts: 3,
+    documentTitle: "MANDATOS JUDICIALES",
+    sourceText: `ORDENES DE DETENCIÓN:
+Caso A: WARRANT-10029 (Fiscal Davis)
+Caso B: WARRANT-44019 (Juez Taylor)
+Caso C: AVISO-11 (Invalido)
+Caso D: WARRANT-88310 (Comisionado Adjunto)`,
+    task: "Captura los mandatos judiciales de captura que inician con 'WARRANT-' y tienen 5 números.",
+    hint: "Combina 'WARRANT-' con \\d{5}.",
+    recommendedRegex: "WARRANT-\\d{5}",
+    recommendedFlags: "g",
+    expectedMatches: ["WARRANT-10029", "WARRANT-44019", "WARRANT-88310"]
+  },
+  {
+    id: 79,
+    tier: 8,
+    sceneType: "server_room",
+    title: "Caso 79: Las Velas Negras del Pacto",
+    subtitle: "Altar Subterráneo de Malphas",
+    description: "Velas consagradas con sebo humano para alimentar la presencia del demonio.",
+    type: "construction",
+    timeLimit: 45,
+    maxAttempts: 3,
+    documentTitle: "INVENTARIO DEL ALTAR",
+    sourceText: `VELAS DEL RITUAL:
+Altar norte: CANDLE_BLACK_1
+Altar este: CANDLE_BLACK_5
+Altar roto: CANDLE_WHITE_0
+Altar oeste: CANDLE_BLACK_9`,
+    task: "Localiza las velas oscuras consagradas identificadas con 'CANDLE_BLACK_' y uno o más números.",
+    hint: "Escribe 'CANDLE_BLACK_\\d+'.",
+    recommendedRegex: "CANDLE_BLACK_\\d+",
+    recommendedFlags: "g",
+    expectedMatches: ["CANDLE_BLACK_1", "CANDLE_BLACK_5", "CANDLE_BLACK_9"]
+  },
+  {
+    id: 80,
+    tier: 8,
+    sceneType: "server_room",
+    title: "Caso 80: El Cerrojo de la Bóveda de Malphas",
+    subtitle: "Entrada a las Profundidades",
+    description: "Cerradura de triple combinación que custodia el arcón primigenio del contrato.",
+    type: "construction",
+    timeLimit: 45,
+    maxAttempts: 3,
+    documentTitle: "CERRADURA DE HIERRO FORJADO",
+    sourceText: `COMBINACIONES CANDIDATAS:
+Cerradura 1: VAULT-AB-1029 (Aprobada)
+Cerradura 2: VAULT-CD-4401 (Aprobada)
+Cerradura 3: VAULT-11-XX (Invalida)
+Cerradura 4: VAULT-EF-8812 (Aprobada)`,
+    task: "Encuentra las combinaciones que inician con 'VAULT-', 2 letras mayúsculas, guion y 4 números.",
+    hint: "Usa 'VAULT-[A-Z]{2}-\\d{4}'.",
+    recommendedRegex: "VAULT-[A-Z]{2}-\\d{4}",
+    recommendedFlags: "g",
+    expectedMatches: ["VAULT-AB-1029", "VAULT-CD-4401", "VAULT-EF-8812"]
+  },
+
+  // ========================================================
+  // TIER 9: AUDITORÍA ANTITERRORISTA (Niveles 81 a 90) - Acto V
+  // Tiempo: 35s + 3 Vidas. ReDoS avanzado, mercurio y calderas.
+  // ========================================================
+  {
+    id: 81,
+    tier: 9,
+    sceneType: "sanctuary",
+    title: "Caso 81: La Trampa de ReDoS Anidado",
+    subtitle: "Terminal Central de Redes",
+    description: "El demonio introdujo un patrón malicioso ^(x+)+y$ que congela los servidores policiales.",
+    type: "criminal_cipher",
+    timeLimit: 35,
+    maxAttempts: 3,
+    documentTitle: "ALERTA DE SEGURIDAD DEL SISTEMA",
+    criminalRegex: "^(x+)+y$",
+    criminalFlags: "",
+    sourceText: `CADENA ANALIZADA:
+xxxxxxxxxxxxxxxxxxxxxxxxxxxx (sin 'y' al final)`,
+    question: "¿Por qué ^(x+)+y$ produce una denegación de servicio (ReDoS) al fallar la 'y' final?",
+    options: [
+      { id: "opt_a", text: "Porque el motor de regex prueba todas las particiones posibles de las 'x' de forma exponencial O(2^N) antes de fallar", isCorrect: true, feedback: "¡Magistral! Es la definición teórica del backtracking catastrófico." },
+      { id: "opt_b", text: "Porque la letra 'y' no es un carácter válido en expresiones regulares", isCorrect: false, feedback: "Incorrecto: La 'y' es un literal perfectamente válido." },
+      { id: "opt_c", text: "Porque falta una barra invertida", isCorrect: false, feedback: "Incorrecto: La sintaxis es válida pero ineficiente." }
+    ]
+  },
+  {
+    id: 82,
+    tier: 9,
+    sceneType: "sanctuary",
+    title: "Caso 82: Parche de Blindaje Policial",
+    subtitle: "Consola de Seguridad Central",
+    description: "Vance implementa un token lineal sin anidamiento para reactivar los sistemas de emergencia.",
+    type: "construction",
+    timeLimit: 35,
+    maxAttempts: 3,
+    documentTitle: "TOKEN DE SEGURIDAD LINEAL",
+    sourceText: `TOKENS LINEALES:
+Token A: SEC_TOKEN_1029
+Token B: SEC_TOKEN_4401
+Token C: TOKEN_XX (Invalido)
+Token D: SEC_TOKEN_8812`,
+    task: "Verifica los tokens lineales que inician con 'SEC_TOKEN_' y contienen exactamente 4 dígitos.",
+    hint: "Estructura 'SEC_TOKEN_\\d{4}'.",
+    recommendedRegex: "SEC_TOKEN_\\d{4}",
+    recommendedFlags: "g",
+    expectedMatches: ["SEC_TOKEN_1029", "SEC_TOKEN_4401", "SEC_TOKEN_8812"]
+  },
+  {
+    id: 83,
+    tier: 9,
+    sceneType: "sanctuary",
+    title: "Caso 83: Detonadores de Mercurio",
+    subtitle: "Subestación de la Morgue",
+    description: "Falcone instaló detonadores de mercurio hipersensibles en las paredes del hospital.",
+    type: "construction",
+    timeLimit: 35,
+    maxAttempts: 3,
+    documentTitle: "ESQUEMA DE EXPLOSIVOS DE MERCURIO",
+    sourceText: `DETONADORES ACTIVOS:
+Bomba 1: MERCURY-101-A
+Bomba 2: MERCURY-554-B
+Bomba 3: DET-00 (Inerte)
+Bomba 4: MERCURY-882-C`,
+    task: "Localiza los detonadores que inician con 'MERCURY-', 3 dígitos, guion y una letra mayúscula.",
+    hint: "Usa 'MERCURY-\\d{3}-[A-Z]'.",
+    recommendedRegex: "MERCURY-\\d{3}-[A-Z]",
+    recommendedFlags: "g",
+    expectedMatches: ["MERCURY-101-A", "MERCURY-554-B", "MERCURY-882-C"]
+  },
+  {
+    id: 84,
+    tier: 9,
+    sceneType: "sanctuary",
+    title: "Caso 84: El Filtro de Invocación",
+    subtitle: "Grimorio Digital de la Dra. Cross",
+    description: "La doctora configuró un comando ritual para invocar el alma o la carne de los deudores.",
+    type: "criminal_cipher",
+    timeLimit: 35,
+    maxAttempts: 3,
+    documentTitle: "CONSOLA DEL RITUAL",
+    criminalRegex: "^INVOKE_[A-Z]{4}_(?:SOUL|FLESH)$",
+    criminalFlags: "m",
+    sourceText: `COMANDOS INGRESADOS:
+1: INVOKE_DARK_SOUL
+2: CALL_LIGHT_FLESH
+3: INVOKE_MORT_FLESH
+4: INVOKE_AB_SOUL`,
+    question: "¿Cuáles comandos activan la invocación según ^INVOKE_[A-Z]{4}_(?:SOUL|FLESH)$?",
+    options: [
+      { id: "opt_a", text: "Solo el 1", isCorrect: false, feedback: "Incorrecto: El comando 3 (INVOKE_MORT_FLESH) también tiene exactamente 4 letras y termina en FLESH." },
+      { id: "opt_b", text: "Los comandos 1 y 3 (INVOKE_DARK_SOUL e INVOKE_MORT_FLESH)", isCorrect: true, feedback: "¡Desactivado! Cumplen INVOKE_, 4 letras mayúsculas y SOUL o FLESH." },
+      { id: "opt_c", text: "Todos los comandos", isCorrect: false, feedback: "Incorrecto: El 2 tiene prefijo CALL y el 4 solo tiene 2 letras." }
+    ]
+  },
+  {
+    id: 85,
+    tier: 9,
+    sceneType: "sanctuary",
+    title: "Caso 85: Coches Bomba en el Callejón",
+    subtitle: "Salida de Emergencia de la Clínica",
+    description: "Falcone aparcó vehículos cargados con explosivos para impedir que la policía rescate a los heridos.",
+    type: "construction",
+    timeLimit: 35,
+    maxAttempts: 3,
+    documentTitle: "RADAR ANTIBOMBAS",
+    sourceText: `AMENAZAS DETECTADAS:
+Auto 1: CAR_BOMB_01 (Cebado)
+Auto 2: CAR_BOMB_02 (Cebado)
+Auto 3: TAXI_99 (Limpio)
+Auto 4: CAR_BOMB_03 (Cebado)`,
+    task: "Encuentra los identificadores que comienzan con 'CAR_BOMB_' y concluyen con dos dígitos.",
+    hint: "Estructura 'CAR_BOMB_\\d{2}'.",
+    recommendedRegex: "CAR_BOMB_\\d{2}",
+    recommendedFlags: "g",
+    expectedMatches: ["CAR_BOMB_01", "CAR_BOMB_02", "CAR_BOMB_03"]
+  },
+  {
+    id: 86,
+    tier: 9,
+    sceneType: "sanctuary",
+    title: "Caso 86: La Lancha del Capo Carmine Falcone",
+    subtitle: "Muelle Privado 2",
+    description: "La embarcación blindada de Falcone lista para zarpar con los últimos millones de dólares saqueados.",
+    type: "construction",
+    timeLimit: 35,
+    maxAttempts: 3,
+    documentTitle: "VIGILANCIA COSTERA",
+    sourceText: `EMBARCACIONES PRIVADAS:
+Lancha de Falcone: FALCONE_ESCAPE_101
+Lancha de señuelo: FALCONE_ESCAPE_202
+Lancha pesquera: PESCA_01
+Lancha de escolta: FALCONE_ESCAPE_303`,
+    task: "Captura los códigos de escape de la lancha de Falcone que inician con 'FALCONE_ESCAPE_' y tienen 3 números.",
+    hint: "Escribe 'FALCONE_ESCAPE_\\d{3}'.",
+    recommendedRegex: "FALCONE_ESCAPE_\\d{3}",
+    recommendedFlags: "g",
+    expectedMatches: ["FALCONE_ESCAPE_101", "FALCONE_ESCAPE_202", "FALCONE_ESCAPE_303"]
+  },
+  {
+    id: 87,
+    tier: 9,
+    sceneType: "sanctuary",
+    title: "Caso 87: Huellas No Humanas",
+    subtitle: "Mesa de Disección • Rastros Forenses",
+    description: "Huellas dactilares aberrantes dejadas sobre el acero que no pertenecen a ninguna especie conocida.",
+    type: "construction",
+    timeLimit: 35,
+    maxAttempts: 3,
+    documentTitle: "REPORTE DACTILOSCÓPICO",
+    sourceText: `EVIDENCIAS BIOLÓGICAS:
+Muestra A: PRINT_NON_HUMAN_01
+Muestra B: PRINT_NON_HUMAN_02
+Muestra C: PRINT_HUMAN_99
+Muestra D: PRINT_NON_HUMAN_03`,
+    task: "Aísla los registros de huellas no humanas formados por 'PRINT_NON_HUMAN_' y 2 números.",
+    hint: "Usa 'PRINT_NON_HUMAN_\\d{2}'.",
+    recommendedRegex: "PRINT_NON_HUMAN_\\d{2}",
+    recommendedFlags: "g",
+    expectedMatches: ["PRINT_NON_HUMAN_01", "PRINT_NON_HUMAN_02", "PRINT_NON_HUMAN_03"]
+  },
+  {
+    id: 88,
+    tier: 9,
+    sceneType: "sanctuary",
+    title: "Caso 88: Válvulas de Presión Crítica",
+    subtitle: "Sala de Calderas del Subsuelo",
+    description: "La caldera principal fue saboteada para hacer estallar el santuario si Vance desactiva el altar.",
+    type: "construction",
+    timeLimit: 35,
+    maxAttempts: 3,
+    documentTitle: "MONITOR DE PRESIÓN DE VAPOR",
+    sourceText: `VÁLVULAS DE VAPOR:
+Válvula 1: VALVE_01_CRITICAL (Sobrepresión)
+Válvula 2: VALVE_02_CRITICAL (Sobrepresión)
+Válvula 3: VALVE_03_NORMAL
+Válvula 4: VALVE_04_CRITICAL (Sobrepresión)`,
+    task: "Localiza las válvulas en peligro que inician con 'VALVE_', 2 dígitos y finalizan en '_CRITICAL'.",
+    hint: "Combina 'VALVE_\\d{2}_CRITICAL'.",
+    recommendedRegex: "VALVE_\\d{2}_CRITICAL",
+    recommendedFlags: "g",
+    expectedMatches: ["VALVE_01_CRITICAL", "VALVE_02_CRITICAL", "VALVE_04_CRITICAL"]
+  },
+  {
+    id: 89,
+    tier: 9,
+    sceneType: "sanctuary",
+    title: "Caso 89: La Confesión de la Dra. Cross",
+    subtitle: "Despacho Privado • Caja de Cristal",
+    description: "El diario íntimo de la doctora donde confiesa cómo firmó el pacto con Malphas al envejecer.",
+    type: "construction",
+    timeLimit: 35,
+    maxAttempts: 3,
+    documentTitle: "DIARIO CONFIDENCIAL DE LA DRA. CROSS",
+    sourceText: `NOTAS DEL DIARIO:
+Entrada 1: CONFESION_1945
+Entrada 2: CONFESION_1946
+Entrada descartada: BORRADOR_01
+Entrada 3: CONFESION_1947`,
+    task: "Encuentra las entradas del diario que inician con 'CONFESION_' seguidas de 4 números de año.",
+    hint: "Estructura 'CONFESION_\\d{4}'.",
+    recommendedRegex: "CONFESION_\\d{4}",
+    recommendedFlags: "g",
+    expectedMatches: ["CONFESION_1945", "CONFESION_1946", "CONFESION_1947"]
+  },
+  {
+    id: 90,
+    tier: 9,
+    sceneType: "sanctuary",
+    title: "Caso 90: El Portal Rúnico Abierto",
+    subtitle: "Entrada Principal al Sanctum de Malphas",
+    description: "Vance utiliza el Tratado de los Ecos para abrir las puertas selladas del abismo.",
+    type: "construction",
+    timeLimit: 35,
+    maxAttempts: 3,
+    documentTitle: "FÓRMULA DE APERTURA DEL PORTAL",
+    sourceText: `PORTALES SUBTERRÁNEOS:
+Portal 1: OPEN_GATE_CORP
+Portal 2: OPEN_GATE_SOUL
+Portal 3: CLOSE_GATE_00
+Portal 4: OPEN_GATE_FIRE`,
+    task: "Abre el portal capturando los comandos que inician con 'OPEN_GATE_' y 4 letras mayúsculas.",
+    hint: "Combina 'OPEN_GATE_[A-Z]{4}'.",
+    recommendedRegex: "OPEN_GATE_[A-Z]{4}",
+    recommendedFlags: "g",
+    expectedMatches: ["OPEN_GATE_CORP", "OPEN_GATE_SOUL", "OPEN_GATE_FIRE"]
+  },
+
+  // ========================================================
+  // TIER 10: COMISIONADO MAESTRO FORENSE (Niveles 91 a 100) - Acto V
+  // Tiempo: 30s + 2 Vidas. El Gran Exorcismo y la Derrota de Malphas.
+  // ========================================================
+  {
+    id: 91,
+    tier: 10,
+    sceneType: "abyss",
+    title: "Caso 91: La Firma Espectral de Malphas",
+    subtitle: "Círculo de Invocación • Humo Carmesí",
+    description: "Lecturas electromagnéticas que capturan la presencia física del demonio en la cripta.",
     type: "construction",
     timeLimit: 30,
     maxAttempts: 2,
-    documentTitle: "ARCÓN DEL CONTRATO PRIMIGENIO",
-    sourceText: `CÓDIGOS FINALES DEL CONJURO:
-MASTER_KEY_AB8899ZZ (Combinación Alfa)
-MASTER_KEY_7741KK99 (Combinación Beta)
-KEY_CERO_00000000 (Falsa)
-MASTER_KEY_123 (Corta)`,
-    task: "¡El caso definitivo! Abre la caja fuerte maestra localizando las llaves de seguridad que inician con 'MASTER_KEY_' y tienen exactamente 8 caracteres alfanuméricos.",
-    hint: "Combina el prefijo fijo con una clase alfanumérica y un cuantificador exacto de 8 caracteres.",
+    documentTitle: "DETECTOR DE FLUJO ESPECTRAL",
+    sourceText: `LECTURAS DE FRECUENCIA:
+Señal Alfa: MALPHAS_AURA_101
+Señal Beta: MALPHAS_AURA_554
+Ruido estático: NOISE_99
+Señal Gamma: MALPHAS_AURA_882`,
+    task: "Identifica las firmas espectrales que inician con 'MALPHAS_AURA_' y tienen 3 números.",
+    hint: "Combina 'MALPHAS_AURA_\\d{3}'.",
+    recommendedRegex: "MALPHAS_AURA_\\d{3}",
+    recommendedFlags: "g",
+    expectedMatches: ["MALPHAS_AURA_101", "MALPHAS_AURA_554", "MALPHAS_AURA_882"]
+  },
+  {
+    id: 92,
+    tier: 10,
+    sceneType: "abyss",
+    title: "Caso 92: El Último Camión en el Muelle",
+    subtitle: "Muelle 1 • Redada de la Guardia Nacional",
+    description: "¡Solo 30 segundos! El camión blindado con las últimas pruebas intenta abordar el buque.",
+    type: "construction",
+    timeLimit: 30,
+    maxAttempts: 2,
+    documentTitle: "BLOQUEO NAVAL POLICIAL",
+    sourceText: `CAMIONES BLOQUEADOS:
+Camión 1: FINAL_TRUCK_101
+Camión 2: FINAL_TRUCK_554
+Camioneta: CIVIL_12
+Camión 3: FINAL_TRUCK_882`,
+    task: "Intercepta los camiones fugitivos con prefijo 'FINAL_TRUCK_' y 3 cifras exactas.",
+    hint: "Usa 'FINAL_TRUCK_\\d{3}'.",
+    recommendedRegex: "FINAL_TRUCK_\\d{3}",
+    recommendedFlags: "g",
+    expectedMatches: ["FINAL_TRUCK_101", "FINAL_TRUCK_554", "FINAL_TRUCK_882"]
+  },
+  {
+    id: 93,
+    tier: 10,
+    sceneType: "abyss",
+    title: "Caso 93: El C4 del Sanctum Final",
+    subtitle: "Bóveda de Malphas • Carga de Demolición",
+    description: "Falcone programó la carga final de C4 para colapsar las catacumbas enteras sobre el detective.",
+    type: "criminal_cipher",
+    timeLimit: 30,
+    maxAttempts: 2,
+    documentTitle: "CIRCUITO DEL DETONADOR SUPREMO",
+    criminalRegex: "^(?:OMEGA|FINAL)_\\d{4}_EXTERMINATE$",
+    criminalFlags: "m",
+    sourceText: `SEÑALES DETECTADAS:
+1: OMEGA_9941_EXTERMINATE
+2: ALPHA_1102_EXTERMINATE
+3: FINAL_8820_EXTERMINATE
+4: OMEGA_12_EXTERMINATE`,
+    question: "¿Cuáles señales coinciden con el detonador de demolición de la bóveda?",
+    options: [
+      { id: "opt_a", text: "Solo la Señal 1", isCorrect: false, feedback: "Incorrecto: La señal 3 (FINAL_8820_EXTERMINATE) también es válida." },
+      { id: "opt_b", text: "Las Señales 1 y 3 (OMEGA_9941_EXTERMINATE y FINAL_8820_EXTERMINATE)", isCorrect: true, feedback: "¡DESACTIVASTE EL C4 FINAL! Cumplen OMEGA/FINAL, 4 dígitos y EXTERMINATE." },
+      { id: "opt_c", text: "Todas las señales", isCorrect: false, feedback: "Incorrecto: La señal 2 tiene prefijo ALPHA y la 4 solo tiene 2 dígitos." }
+    ]
+  },
+  {
+    id: 94,
+    tier: 10,
+    sceneType: "abyss",
+    title: "Caso 94: El Espejo de Azufre",
+    subtitle: "Cámara Ritual • Espejo de Sangre",
+    description: "Invocaciones reflejadas en el espejo que comienzan con '@DEMON_' y concluyen con el signo de dólar.",
+    type: "construction",
+    timeLimit: 30,
+    maxAttempts: 2,
+    documentTitle: "REFLEJO DE AZUFRE EN EL ESPEJO",
+    sourceText: `@DEMON_MALPHAS_PACT$
+TEXTO CORRUPTO
+@DEMON_CHAOS_END$
+@DEMON_FAIL`,
+    task: "Encuentra las inscripciones rituales que comienzan con '@DEMON_' y terminan exactamente con '$'.",
+    hint: "Combina '^@DEMON_.+\\$$' con la bandera multilínea 'm' y escapa el dólar final.",
+    recommendedRegex: "^@DEMON_.+\\$$",
+    recommendedFlags: "gm",
+    expectedMatches: ["@DEMON_MALPHAS_PACT$", "@DEMON_CHAOS_END$"]
+  },
+  {
+    id: 95,
+    tier: 10,
+    sceneType: "abyss",
+    title: "Caso 95: Cancelación de la Purga Digital",
+    subtitle: "Terminal Central de la Clínica",
+    description: "Vance detiene el borrado electromagnético de los expedientes de trasplante antes de que se pierdan.",
+    type: "construction",
+    timeLimit: 30,
+    maxAttempts: 2,
+    documentTitle: "PROTOCOLO DE ABORTO DE PURGA",
+    sourceText: `COMANDOS DE INTERRUPCIÓN:
+Comando 1: ABORT_PURGE_1029
+Comando 2: ABORT_PURGE_4401
+Comando 3: PURGE_NOW_00
+Comando 4: ABORT_PURGE_8812`,
+    task: "Detén el borrado aislando los comandos que inician con 'ABORT_PURGE_' y tienen 4 dígitos.",
+    hint: "Usa 'ABORT_PURGE_\\d{4}'.",
+    recommendedRegex: "ABORT_PURGE_\\d{4}",
+    recommendedFlags: "g",
+    expectedMatches: ["ABORT_PURGE_1029", "ABORT_PURGE_4401", "ABORT_PURGE_8812"]
+  },
+  {
+    id: 96,
+    tier: 10,
+    sceneType: "abyss",
+    title: "Caso 96: El Grimorio - Estrofa 1 (El Deudor Primigenio)",
+    subtitle: "Bóveda de Malphas • El Tratado de los Ecos",
+    description: "El libro indica la primera regla del conjuro: 'Una palabra de 6 mayúsculas que selle un pacto al inicio del renglón'. Coteja tus evidencias pasadas.",
+    type: "construction",
+    timeLimit: 30,
+    maxAttempts: 2,
+    documentTitle: "EVIDENCIA DEL BANCO CENTRAL (CASO 05/66)",
+    sourceText: `REGISTRO DE CONTRATOS ANTIGUOS:
+PACTUM selló el destino de los magnates.
+MORTEM fue la consecuencia.
+VERITAS prevalecerá al final.`,
+    task: "Aplica la primera regla del grimorio: encuentra la palabra de 6 letras mayúsculas ubicada al principio exacto del renglón.",
+    hint: "Combina el ancla de inicio '^' con una clase de mayúsculas cuantificada a 6 repeticiones.",
+    recommendedRegex: "^[A-Z]{6}",
+    recommendedFlags: "gm",
+    expectedMatches: ["PACTUM", "MORTEM"]
+  },
+  {
+    id: 97,
+    tier: 10,
+    sceneType: "abyss",
+    title: "Caso 97: El Grimorio - Estrofa 2 (El Cierre Terrenal)",
+    subtitle: "Bóveda de Malphas • El Tratado de los Ecos",
+    description: "La segunda regla del conjuro: 'El símbolo de clausura que rompe el contrato al final de la línea'. Coteja los telegramas del Caso 23.",
+    type: "construction",
+    timeLimit: 30,
+    maxAttempts: 2,
+    documentTitle: "TELEGRAMAS CIFRADOS DEL SINDICATO",
+    sourceText: `DESPACHOS DE LOS SICARIOS:
+La primera víctima entregada [FIN]
+La extracción de órganos fue completada [FIN]
+Transmisión sin terminar`,
+    task: "Encuentra los cierres legítimos del contrato compuestos por '[FIN]' exactamente al final de la línea.",
+    hint: "Escapa los corchetes literales \\[ y \\] y añade el ancla de fin de renglón '$'.",
+    recommendedRegex: "\\[FIN\\]$",
+    recommendedFlags: "gm",
+    expectedMatches: ["[FIN]", "[FIN]"]
+  },
+  {
+    id: 98,
+    tier: 10,
+    sceneType: "abyss",
+    title: "Caso 98: El Grimorio - Estrofa 3 (El Vínculo Robado)",
+    subtitle: "Bóveda de Malphas • El Tratado de los Ecos",
+    description: "La tercera regla: 'El tributo robado en los frascos: selecciona únicamente entre CARNE o COR sin gastar memoria de captura'.",
+    type: "construction",
+    timeLimit: 30,
+    maxAttempts: 2,
+    documentTitle: "RÓTULOS DE FRASCOS QUIRÚRGICOS",
+    sourceText: `FRASCOS EN EL ALTAR:
+Frasco 1: CARNE de pecadores inocentes
+Frasco 2: COR palpitante de la víctima
+Frasco 3: OJO de cristal`,
+    task: "Captura las palabras 'CARNE' o 'COR' usando un grupo sin captura.",
+    hint: "Utiliza '(?:CARNE|COR)'.",
+    recommendedRegex: "(?:CARNE|COR)",
+    recommendedFlags: "g",
+    expectedMatches: ["CARNE", "COR"]
+  },
+  {
+    id: 99,
+    tier: 10,
+    sceneType: "abyss",
+    title: "Caso 99: El Grimorio - Estrofa 4 (La Verdad Inmune)",
+    subtitle: "Bóveda de Malphas • El Tratado de los Ecos",
+    description: "La cuarta regla del libro: 'La palabra de la verdad que no esté precedida por el engaño del demonio'.",
+    type: "construction",
+    timeLimit: 30,
+    maxAttempts: 2,
+    documentTitle: "INSCRIPCIONES EN EL ESPEJO DEL TEMPLO",
+    sourceText: `TEXTOS DEL ESPEJO:
+DEMONVERITAS (Engaño del abismo)
+PURA VERITAS (Luz forense de Vance)
+SOLA VERITAS (Juicio final)`,
+    task: "Captura la palabra 'VERITAS' solo cuando NO esté inmediatamente precedida por 'DEMON'.",
+    hint: "Utiliza un lookbehind negativo '(?<!DEMON)VERITAS'.",
+    recommendedRegex: "(?<!DEMON)VERITAS",
+    recommendedFlags: "g",
+    expectedMatches: ["VERITAS", "VERITAS"]
+  },
+  {
+    id: 100,
+    tier: 10,
+    sceneType: "abyss",
+    title: "Caso 100: El Destierro Definitivo de Malphas",
+    subtitle: "Arcón del Pacto Primigenio • Bóveda de la Carne",
+    description: "¡El clímax supremo! Abre el arcón donde arde el contrato primigenio de Malphas introduciendo la combinación maestra sagrada que calcina el pacto y destierra al demonio para siempre.",
+    type: "construction",
+    timeLimit: 30,
+    maxAttempts: 2,
+    documentTitle: "ARCÓN PRIMIGENIO DE MALPHAS",
+    sourceText: `COMBINACIÓN FINAL DEL DESTIERRO:
+MASTER_KEY_AB8899ZZ (Combinación Alfa del Exorcismo)
+MASTER_KEY_7741KK99 (Combinación Beta del Destierro)
+KEY_MALPHAS_00000000 (Falsa)
+MASTER_KEY_666 (Incompleta)`,
+    task: "¡El exorcismo final! Abre el arcón arcano localizando las llaves que inician con 'MASTER_KEY_' y contienen exactamente 8 caracteres alfanuméricos.",
+    hint: "Combina el prefijo sagrado 'MASTER_KEY_' con una clase alfanumérica [A-Z0-9]{8}.",
     recommendedRegex: "MASTER_KEY_[A-Z0-9]{8}",
     recommendedFlags: "g",
     expectedMatches: ["MASTER_KEY_AB8899ZZ", "MASTER_KEY_7741KK99"]

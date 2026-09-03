@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Regex: The Crime - Videojuego web 3D indie retro pixel-art donde resuelves crímenes usando expresiones regulares." />
+  <meta name="description"
+    content="Regex: The Crime - Videojuego web 3D indie retro pixel-art donde resuelves crímenes usando expresiones regulares." />
   <title>Regex: The Crime — Detective Noir 3D</title>
-  
+
   <link rel="stylesheet" href="./src/styles/main.css" />
   <link rel="stylesheet" href="./src/styles/retro-canvas.css" />
   <link rel="stylesheet" href="./src/styles/notebook.css" />
   <link rel="stylesheet" href="./src/styles/academy.css" />
   <link rel="stylesheet" href="./src/styles/cutscene.css" />
+  <link rel="stylesheet" href="./src/styles/city_map.css" />
+  <link rel="stylesheet" href="./src/styles/inventory.css" />
 </head>
+
 <body>
   <div id="app-container">
     <!-- Viewport 3D Three.js montado aquí -->
-    
+
     <!-- Filtros visuales CRT y Retícula -->
     <div id="crt-overlay" aria-hidden="true"></div>
     <div id="reticle" aria-hidden="true"></div>
@@ -33,22 +38,31 @@
         </div>
 
         <div class="hud-pill" id="hud-clues-progress">
-          Progreso: <strong>1 / 50</strong>
+          Progreso: <strong>1 / 100</strong>
         </div>
 
-        <select id="case-select" class="hud-select" aria-label="Seleccionar caso o nivel">
+        <button id="btn-open-city-map" class="hud-btn hud-btn-highlight" title="Abrir Plano Policial de la Ciudad [M]">
+          🗺️ Mapa [M] <span id="hud-map-alert-dot" class="hud-alert-dot hidden">!</span>
+        </button>
+
+        <button id="btn-open-inventory" class="hud-btn" title="Abrir Inventario de Evidencias [I]">
+          💼 Evidencias [I]
+        </button>
+
+        <select id="case-select" class="hud-select" aria-label="Seleccionar caso o nivel" style="display: none;">
           <!-- Opciones cargadas dinámicamente -->
         </select>
 
         <button id="btn-open-notebook" class="hud-btn" title="Abrir Cuaderno de Evidencias">
-          📂 Evidencia [E]
+          📂 Pista [E]
         </button>
 
         <button id="btn-replay-cutscene" class="hud-btn" title="Ver la Cinemática de este Tier">
           🎬 Escena
         </button>
 
-        <select id="pixel-scale-select" class="hud-select" title="Escala de píxeles (Estética Retro)" aria-label="Escala de píxeles retro">
+        <select id="pixel-scale-select" class="hud-select" title="Escala de píxeles (Estética Retro)"
+          aria-label="Escala de píxeles retro">
           <option value="2">Resolución: Nítida (x2)</option>
           <option value="3" selected>Resolución: Retro Pixel (x3)</option>
           <option value="4">Resolución: Ultra Pixel (x4)</option>
@@ -74,7 +88,8 @@
       <div class="intro-card">
         <h1 id="intro-title">🕵️ REGEX: THE CRIME</h1>
         <p>
-          Bienvenido al Departamento de Investigaciones. Resuelve <strong>50 Casos Criminales</strong> organizados en 10 Tiers de dificultad progresiva con tiempo límite, vidas y trampas del criminal:
+          Bienvenido al Departamento de Investigaciones. Resuelve <strong>50 Casos Criminales</strong> organizados en 10
+          Tiers de dificultad progresiva con tiempo límite, vidas y trampas del criminal:
         </p>
 
         <div class="controls-hint-list">
@@ -140,7 +155,8 @@
           <!-- Consola 1: Modo Construcción de Regex -->
           <div id="construction-console">
             <div class="task-card">
-              Ingresa un patrón Regex para aislar los datos solicitados. El texto del documento se resaltará en tiempo real conforme escribas.
+              Ingresa un patrón Regex para aislar los datos solicitados. El texto del documento se resaltará en tiempo
+              real conforme escribas.
             </div>
 
             <label for="regex-input" class="matches-label">Expresión Regular:</label>
@@ -199,7 +215,8 @@
           <!-- Consola 2: Modo Desafío del Criminal (Criptoanálisis Inverso) -->
           <div id="cipher-console" class="cipher-console" style="display: none;">
             <div class="cipher-banner">
-              ⚠️ <strong>TRAMPA DEL CRIMINAL DETECTADA:</strong> El sospechoso programó un algoritmo regex. Descifra qué cadenas u opciones cumplen la regla.
+              ⚠️ <strong>TRAMPA DEL CRIMINAL DETECTADA:</strong> El sospechoso programó un algoritmo regex. Descifra qué
+              cadenas u opciones cumplen la regla.
             </div>
 
             <div class="cipher-regex-card">
@@ -287,7 +304,8 @@
       <div class="victory-box">
         <h2 id="victory-case-title">¡CASO RESUELTO!</h2>
         <p id="victory-case-message">
-          Todas las pistas han sido descifradas con éxito. El fiscal tiene pruebas suficientes para dictar orden de captura.
+          Todas las pistas han sido descifradas con éxito. El fiscal tiene pruebas suficientes para dictar orden de
+          captura.
         </p>
         <button id="btn-next-case" class="btn-proceed">
           Avanzar al Siguiente Caso ➔
@@ -346,15 +364,56 @@
           </div>
         </div>
       </div>
+      <!-- Modals to be moved out -->
+    </div>
 
-      <!-- Barra Widescreen Inferior -->
-      <div class="cutscene-letterbox-bottom">
-        <span style="font-size:0.75rem; color:#666; font-family: 'Inter', sans-serif;">Pulsa [Espacio] o [Enter] para avanzar diálogo</span>
-        <span style="font-size:0.75rem; color:#e5a93b; font-family: 'Special Elite', monospace;">REGEX: THE CRIME</span>
+    <!-- Modal: Plano Policial de New Haven (Mapa de la Ciudad) -->
+    <div id="city-map-modal" role="dialog" aria-modal="true" aria-labelledby="city-map-title">
+      <div class="city-map-container">
+        <div class="city-map-header">
+          <div class="city-map-title-group">
+            <h2 id="city-map-title">🗺️ PLANO POLICIAL DE NEW HAVEN</h2>
+            <p id="city-map-progress-summary">Casos Resueltos: 0 / 100</p>
+          </div>
+          <div class="city-map-header-badges">
+            <button id="city-map-close-btn" class="map-close-btn" title="Cerrar Mapa [Esc]">✕ Cerrar [Esc]</button>
+          </div>
+        </div>
+
+        <div class="city-map-body">
+          <div id="city-map-locations-grid" class="city-map-grid-view">
+            <!-- Tarjetas de locación dinámicas -->
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <script type="module" src="./src/main.js"></script>
+    <!-- Modal: Inventario de Evidencias Forenses -->
+    <div id="inventory-modal" role="dialog" aria-modal="true" aria-labelledby="inventory-title">
+      <div class="inventory-container">
+        <div class="inventory-header">
+          <div class="inventory-title-group">
+            <h2 id="inventory-title">💼 MALETÍN DE EVIDENCIAS FORENSES</h2>
+            <p>Registro de pistas recolectadas, objetos confiscados y fórmulas Regex resueltas.</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <span id="inventory-total-counter" class="inventory-counter-badge">0 / 100 Pruebas</span>
+            <button id="inventory-close-btn" class="inventory-close-btn" title="Cerrar Inventario [Esc]">✕ Cerrar
+              [Esc]</button>
+          </div>
+        </div>
+
+        <div id="inventory-filter-bar" class="inventory-filter-bar">
+          <!-- Filtros por Tier dinámicos -->
+        </div>
+
+        <div id="inventory-evidence-grid" class="inventory-grid">
+          <!-- Tarjetas de evidencia dinámica -->
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
 </body>
+
 </html>

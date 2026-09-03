@@ -42,40 +42,39 @@ Sin embargo, debajo de la niebla urbana opera un engranaje siniestro compuesto p
 
 ---
 
-### 🟡 ACTO II: Las Marcas del Bisturí (Niveles 11 a 20)
+### 🟡 ACTO II: Las Marcas del Bisturí (Niveles 11 a 20 - Tier 2)
 *La violencia escala. Empiezan a aparecer cadáveres desvalijados con precisión médica.*
-- **Nivel 11 - 15 (Tier 2):** Se investigan autos sospechosos (`CAR-7`, `CAR-8`), extensiones telefónicas clandestinas y cartas de chantaje dirigidas a médicos (`Dr.` y `Dra.`).
-  - *Evidencia descubierta:* Las autopsias de dos vagabundos revelan que les extrajeron riñones y córneas con instrumental quirúrgico militar.
-- **Nivel 16 - 20 (Tier 3):** Carreras contrarreloj en los muelles. Vance intercepta furgones sospechosos y transferencias con códigos `TX-XXXXX`.
-- **Casos de Distracción (Red Herrings):**
-  - *Caso 12:* Un robo de cigarrillos y whisky en aduanas (`BOX_XX`) que resulta ser una tapadera de los mismos estibadores.
-  - *Caso 14:* Un diario íntimo de un chantajista menor (`topo1`, `gato2`).
+- **Nivel 11 - 15:** Carreras contrarreloj en los muelles de carga (`[A-Z]{3}-\d{4}`), contenedores criogénicos (`BOX_\d{2}`), y transferencias de dinero sucio (`TX-XXXXX`).
+- **Nivel 16 - 20:** La primera bomba con trampa de Falcone (`^BOMB-`), frascos de sueros inmunosupresores (`\d+g`) y maletines con listas de apartamentos desvalijados.
 
 ---
 
-### 🟠 ACTO III: El Rastro de la Carne y el Saqueo (Niveles 21 a 50)
+### 🟠 ACTO III: El Rastro de la Carne y el Saqueo (Niveles 21 a 50 - Tiers 3, 4 y 5)
 *Vance descubre la conexión entre la mafia de Falcone y la Clínica Renacer.*
-- **Nivel 21 - 35 (Tier 4):** Se activa la Brigada Antinarcóticos. Vance descubre que lo que creían que era tráfico de drogas pesadas (`\d+g`) en realidad son dosis de **inmunosupresores y conservantes de órganos para trasplantes**.
-  - *La Trampa del Criminal #1 & #2:* Falcone comienza a dejar bombas y candados de tiempo con algoritmos cifrados al darse cuenta de que Vance los está acorralando.
-  - *Evidencia de Saqueo:* En las oficinas de Falcone hay listas de apartamentos allanados tras el fallecimiento de sus inquilinos.
-- **Nivel 36 - 50 (Tier 5):** Interrogatorios bajo la lluvia (`\bRob\b`). Vance descubre que las víctimas de los allanamientos no murieron de causas naturales: todas tenían citas privadas en la clínica.
+- **Nivel 21 - 30 (Tier 3 - Detective de Distrito):** Interrogatorios bajo la lluvia (`\bRob\b`). Vance descubre que las víctimas de los allanamientos tenían citas privadas en la clínica antes de desaparecer. Aparecen los telegramas sellados con `\[FIN\]$` y la cámara frigorífica `V\d{5}`.
+- **Nivel 31 - 40 (Tier 4 - Delitos Especiales):** Testimonios judiciales sobre rituales nocturnos, etiquetas de órganos `[PISTA_ALPHA]`, censo de deudores faustianos `(?:REF|ID)-\d{4}`, y las cajas con dinamita de Falcone `Caja(?=\sPELIGRO)`.
+- **Nivel 41 - 50 (Tier 5 - Investigador de Homicidios):** Ataque ReDoS demoníaco en los servidores (`^(a+)+$`), detonadores de TNT en los cimientos del hospital (`TNT-\d{4}-[AB]`), interceptación de camiones frigoríficos y asalto a la puerta de cirugía mayor (`MASTER_KEY_[A-Z0-9]{8}`).
 
 ---
 
-### 🔴 ACTO IV: La Revelación Oculta (Niveles 51 a 75)
+### 🔴 ACTO IV: La Revelación Oculta (Niveles 51 a 80 - Tiers 6, 7 y 8)
 *El horror sobrenatural emerge. Los contratos no son mercantiles: son espirituales.*
-- **Nivel 51 - 60 (Tier 6):** Cuentas secretas en Suiza (`ACC-CH-XXXX`) y desgrabaciones de cintas donde el testigo balbucea aterrorizado que *"el hombre del traje negro no tiene sombra"*.
-- **Nivel 61 - 70 (Tier 7):** Cuantificadores perezosos (`.*?`) para desencriptar cintas judiciales secretas. Vance allana el archivo privado de la Dra. Cross y halla contratos sellados en pergamino antiguo con sangre humana.
-- **Nivel 71 - 75 (Tier 8 - Lookaheads):** Inspección de contenedores de alta seguridad con explosivos y póliza de seguros. Vance descubre el pacto: la clínica recibe órganos de compatibilidad perfecta porque el demonio selecciona a personas que firmaron pactos previos por éxito y riqueza juvenil que ahora están vencidos.
+- **Nivel 51 - 60 (Tier 6 - Forense de Inteligencia):** Compatibilidad genética HLA antinatural (`HLA-[A-Z]{2}-\d{3}`), nitrógeno líquido portuario, grabaciones donde el conserje balbucea que *"el hombre del traje negro no tiene sombra"* y las cuentas secretas en Suiza.
+- **Nivel 61 - 70 (Tier 7 - Agente Encubierto):** Citas textuales de confesiones médicas (`".+?"`), dosificación de conservante celular, frascos de corazones robados (`{COR}`) y tokens de la junta directiva (`AUTH-[A-Z0-9]{6}`).
+- **Nivel 71 - 80 (Tier 8 - Delitos Mayores):** Tarifas clínicas con lookbehinds (`(?<=COSTE:\s)\$\d+`), líquidos seguros, runas grabadas en la piedra de la cripta (`RUNE_[A-F0-9]{4}`) y el cerrojo de la bóveda de Malphas (`VAULT-[A-Z]{2}-\d{4}`).
 
 ---
 
-### 🟣 ACTO V: El Exorcismo Forense (Niveles 76 a 100)
+### 🟣 ACTO V: El Exorcismo Forense (Niveles 81 a 100 - Tiers 9 y 10)
 *Redada en el santuario subterráneo de la Clínica Renacer. La entidad demoníaca se manifiesta para reclamar la ciudad entera.*
-- **Nivel 76 - 85 (Tier 9):** Auditoría antiterrorista para neutralizar los sabotajes de los servidores de la clínica (`ReDoS`, `Backtracking`, detonadores `TNT`). Vance descubre que Falcone planea detonar el hospital para borrar las pruebas.
-- **Nivel 86 - 95 (Tier 10):** La fuga contrarreloj de los camiones frigoríficos (`TRUCK-\d{3}-[A-Z]`) y descifrado de las runas y espejos empañados (`^#.+_\d{2}$`).
-- **El Regreso del Tratado Olvidado:** Al verse acorralado frente a sombras que devuelven los disparos y desafían las leyes físicas, Vance recuerda el libro confiscado en el Acto I. Al releerlo, comprende su verdadero secreto: **el libro es un manual de ingeniería lingüística**. No da las palabras del conjuro porque cada demonio se ata con palabras distintas según los crímenes cometidos; el libro solo enseña los **patrones estructurales (las expresiones regulares)** y el **orden cronológico exacto** en que deben encajar.
-- **Nivel 96 - 100:** El enfrentamiento final en la Bóveda Secreta de la Clínica (`MASTER_KEY_[A-Z0-9]{8}`). Vance debe inspeccionar sus notas de casos pasados para hallar los términos que satisfacen cada regla del grimorio.
+- **Nivel 81 - 90 (Tier 9 - Auditoría Antiterrorista):** Sabotajes de repetición anidada, detonadores de mercurio, coches bomba en el callejón de escape, huellas no humanas y la apertura del portal rúnico con el *Tratado de los Ecos* (`OPEN_GATE_[A-Z]{4}`).
+- **Nivel 91 - 95 (Tier 10 - Comisionado Maestro):** Lecturas de la firma espectral de Malphas (`MALPHAS_AURA_\d{3}`), detonador C4 supremo, runas en el espejo de azufre y detención de la purga de expedientes.
+- **Nivel 96 - 100 (El Gran Exorcismo):** El enfrentamiento final en la Bóveda Secreta de la Clínica. Vance descifra las 4 estrofas del *Tratado de los Ecos* cotejando las evidencias pasadas:
+  1. *Estrofa 1 (Nivel 96):* `^[A-Z]{6}` -> `PACTUM` (El Banco).
+  2. *Estrofa 2 (Nivel 97):* `\[FIN\]$` -> `[FIN]` (Los Telegramas).
+  3. *Estrofa 3 (Nivel 98):* `(?:CARNE|COR)` -> `COR` (Los Frascos Quirúrgicos).
+  4. *Estrofa 4 (Nivel 99):* `(?<!DEMON)VERITAS` -> `VERITAS` (El Espejo).
+  5. *Conjuro Maestro (Nivel 100):* `MASTER_KEY_[A-Z0-9]{8}` abre el arcón arcano, calcina el contrato con fuego azul y destierra a Malphas para siempre.
 
 ---
 
