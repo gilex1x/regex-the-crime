@@ -2,9 +2,12 @@ import { ALL_LEVELS, TIERS } from '../data/FullLevelsData.js';
 import { Level1_Alley } from './levels/Level1_Alley.js';
 import { Level2_Hotel } from './levels/Level2_Hotel.js';
 import { Level3_Office } from './levels/Level3_Office.js';
+import { Level4_Morgue } from './levels/Level4_Morgue.js';
+import { Level5_Docks } from './levels/Level5_Docks.js';
+import { Level6_Sanctuary } from './levels/Level6_Sanctuary.js';
 
 /**
- * Administrador de niveles (50 casos con 10 Tiers de dificultad)
+ * Administrador de niveles (100 casos con 10 Tiers de dificultad y 6 escenarios)
  */
 export class LevelManager {
   constructor(engine, controls, interaction, audio) {
@@ -64,12 +67,18 @@ export class LevelManager {
     this.currentCaseIndex = index;
     const caseData = this.levels[index];
 
-    // Posición conveniente de la pista según la escena 3D
+    // Posición conveniente de la pista según el escenario 3D
     let cluePos = [0.3, 0.85, -2.0];
     if (caseData.sceneType === 'hotel') {
       cluePos = [1.1, 0.85, -1.6];
     } else if (caseData.sceneType === 'office') {
       cluePos = [0.0, 0.85, -1.2];
+    } else if (caseData.sceneType === 'morgue') {
+      cluePos = [0.0, 0.95, -2.0];
+    } else if (caseData.sceneType === 'docks') {
+      cluePos = [0.0, 0.92, -2.5];
+    } else if (caseData.sceneType === 'sanctuary') {
+      cluePos = [0.0, 0.95, -2.2];
     }
 
     const clue = {
@@ -88,7 +97,7 @@ export class LevelManager {
     };
     this.currentClue = clue;
 
-    // Reiniciar posición de la cámara según la escena
+    // Reiniciar posición de la cámara y crear instancia según la escena 3D
     if (caseData.sceneType === 'alley') {
       this.engine.camera.position.set(0, 1.7, 4);
       this.controls.euler.set(0, 0, 0, 'YXZ');
@@ -104,6 +113,21 @@ export class LevelManager {
       this.controls.euler.set(0, 0, 0, 'YXZ');
       this.audio.stopRainAmbience();
       this.currentLevelInstance = new Level3_Office(this.engine.scene, [clue]);
+    } else if (caseData.sceneType === 'morgue') {
+      this.engine.camera.position.set(0, 1.7, 3.8);
+      this.controls.euler.set(0, 0, 0, 'YXZ');
+      this.audio.stopRainAmbience();
+      this.currentLevelInstance = new Level4_Morgue(this.engine.scene, [clue]);
+    } else if (caseData.sceneType === 'docks') {
+      this.engine.camera.position.set(0, 1.7, 4.0);
+      this.controls.euler.set(0, 0, 0, 'YXZ');
+      this.audio.startRainAmbience();
+      this.currentLevelInstance = new Level5_Docks(this.engine.scene, [clue]);
+    } else if (caseData.sceneType === 'sanctuary') {
+      this.engine.camera.position.set(0, 1.7, 4.2);
+      this.controls.euler.set(0, 0, 0, 'YXZ');
+      this.audio.stopRainAmbience();
+      this.currentLevelInstance = new Level6_Sanctuary(this.engine.scene, [clue]);
     }
 
     this.currentLevelInstance.build();

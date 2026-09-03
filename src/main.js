@@ -5,6 +5,7 @@ import { Interaction } from './core/Interaction.js';
 import { LevelManager } from './world/LevelManager.js';
 import { NotebookUI } from './ui/NotebookUI.js';
 import { AcademyUI } from './ui/AcademyUI.js';
+import { CutsceneUI } from './ui/CutsceneUI.js';
 import { HUD } from './ui/HUD.js';
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -25,10 +26,11 @@ window.addEventListener('DOMContentLoaded', () => {
   // 5. Inicializar Administrador de Niveles
   const levelManager = new LevelManager(engine, controls, interaction, audioManager);
 
-  // 6. Inicializar UI de Cuaderno, Academia y HUD
+  // 6. Inicializar UI de Cuaderno, Academia, Cinemáticas y HUD
   const notebookUI = new NotebookUI(audioManager, levelManager, controls);
   const academyUI = new AcademyUI(audioManager, controls);
-  new HUD(engine, levelManager, audioManager, academyUI, notebookUI);
+  const cutsceneUI = new CutsceneUI(audioManager, controls);
+  new HUD(engine, levelManager, audioManager, academyUI, notebookUI, cutsceneUI);
 
   // Conectar evento de inspeccionar pista
   interaction.onInspectClue = (clueData) => {
@@ -54,6 +56,14 @@ window.addEventListener('DOMContentLoaded', () => {
     startBtn.addEventListener('click', () => {
       audioManager.init();
       audioManager.ensureContext();
+
+      // Reproducir Prólogo si es la primera vez
+      const hasSeenPrologue = localStorage.getItem('regex_crime_prologue_seen');
+      if (!hasSeenPrologue) {
+        cutsceneUI.play('prologue', () => {
+          localStorage.setItem('regex_crime_prologue_seen', 'true');
+        });
+      }
     });
   }
 

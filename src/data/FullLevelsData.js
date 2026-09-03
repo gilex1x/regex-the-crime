@@ -28,16 +28,16 @@ export const ALL_LEVELS = [
     sceneType: "alley",
     title: "Caso 01: El Arma Descartada",
     subtitle: "Distrito Industrial • 02:00 AM",
-    description: "Una llamada reportó que el asaltante arrojó una pistola tras los botes de basura. Encuentra las menciones al arma.",
+    description: "Una llamada reportó que un borracho habitual fue hallado muerto tras los botes de basura con cortes extraños. Inspecciona el parte del arma.",
     type: "construction",
     timeLimit: null,
     maxAttempts: null,
     documentTitle: "PARTE POLICIAL INICIAL",
-    sourceText: `INFORME:
+    sourceText: `INFORME DE HOMICIDIOS:
 El sospechoso soltó el arma en la acera.
 No se halló otra arma en su gabardina.
-El cómplice huyó desarmado.`,
-    task: "Encuentra todas las apariciones de la palabra 'arma' en el texto.",
+El cómplice huyó desarmado hacia el muelle.`,
+    task: "Encuentra todas las apariciones de la palabra 'arma' en el texto del informe.",
     hint: "Escribe simplemente la palabra exacta: arma",
     recommendedRegex: "arma",
     recommendedFlags: "g",
@@ -49,15 +49,15 @@ El cómplice huyó desarmado.`,
     sceneType: "alley",
     title: "Caso 02: Banderas de Búsqueda",
     subtitle: "Muelle 14 • Niebla Espesa",
-    description: "El testigo dio descripciones usando la palabra sospechoso en mayúsculas y minúsculas. Usa la bandera /i.",
+    description: "El testigo vio a un individuo vigilando una tienda de empeños cercana. La radio policial transmitió varias alertas.",
     type: "construction",
     timeLimit: null,
     maxAttempts: null,
     documentTitle: "TRANSCRIPCIÓN DE RADIO POLICIAL",
-    sourceText: `CENTRAL:
-10:10 - SOSPECHOSO avistado cerca del faro.
-10:15 - El sospechoso viste gabardina gris.
-10:20 - Perdimos al Sospechoso en el túnel.`,
+    sourceText: `CENTRAL DE PATRULLAS:
+10:10 - SOSPECHOSO avistado cerca de la tienda de empeños.
+10:15 - El sospechoso viste gabardina gris y maletín médico.
+10:20 - Perdimos al Sospechoso en el túnel del tranvía.`,
     task: "Captura las 3 menciones a 'sospechoso' ignorando mayúsculas y minúsculas con la bandera 'i'.",
     hint: "Escribe sospechoso y activa la bandera 'i'.",
     recommendedRegex: "sospechoso",
@@ -68,19 +68,19 @@ El cómplice huyó desarmado.`,
     id: 3,
     tier: 1,
     sceneType: "hotel",
-    title: "Caso 03: Huéspedes Bajo Sospecha",
+    title: "Caso 03: El Tratado Olvidado",
     subtitle: "Hotel Savoy • Habitación 100",
-    description: "Los sospechosos ocuparon tres habitaciones contiguas. Filtra con corchetes [1-3].",
+    description: "En una redada en el Savoy, Vance confisca objetos abandonados, entre ellos un viejo libro de ocultismo: 'El Tratado de los Ecos'.",
     type: "construction",
     timeLimit: null,
     maxAttempts: null,
-    documentTitle: "LIBRO DE REGISTRO DEL HOTEL",
-    sourceText: `REGISTRO:
-Habitación 101: Arthur Vance
-Habitación 102: Frankie Miller
-Habitación 103: Sarah Connor
-Habitación 108: Limpieza`,
-    task: "El conserje asegura que los sospechosos se alojaron en las habitaciones 101, 102 y 103. Encuentra los números de esas tres habitaciones.",
+    documentTitle: "REGISTRO DE INCAUTACIÓN EN HABITACIONES",
+    sourceText: `REGISTRO SAVOY:
+Habitación 101: Arthur Vance (Apostador)
+Habitación 102: Frankie 'Dedos' Miller (Cerrajero)
+Habitación 103: Tratado de los Ecos (Grimorio Oculto)
+Habitación 108: Personal de limpieza`,
+    task: "El conserje asegura que las evidencias clave estaban en las habitaciones 101, 102 y 103. Encuentra los números de esas tres habitaciones.",
     hint: "Combina el prefijo '10' con un rango de corchetes para el dígito final.",
     recommendedRegex: "10[1-3]",
     recommendedFlags: "g",
@@ -91,13 +91,13 @@ Habitación 108: Limpieza`,
     tier: 1,
     sceneType: "hotel",
     title: "Caso 04: Calibres de Munición",
-    subtitle: "Armería Clandestina",
-    description: "El contrabandista guardó munición clasificada por lotes de armas.",
+    subtitle: "Armería Clandestina de la Banda",
+    description: "Los matones de Falcone custodiaban cajas de munición pesada clasificadas por lotes.",
     type: "construction",
     timeLimit: null,
     maxAttempts: null,
-    documentTitle: "MANIFIESTO DE CARGA",
-    sourceText: `LOTES:
+    documentTitle: "MANIFIESTO DE ARMERÍA",
+    sourceText: `LOTES DE MUNICIÓN:
 Lote A: 9mm parabellum
 Lote B: .45 ACP
 Lote C: .38 Especial
@@ -112,17 +112,17 @@ Lote Z: Inocuo`,
     id: 5,
     tier: 1,
     sceneType: "office",
-    title: "Caso 05: Los Códigos de Caja",
-    subtitle: "Banco Central • Bóveda",
-    description: "El banquero corrupto ocultó fondos en las cajas de seguridad del sector primario.",
+    title: "Caso 05: La Lista de Nombres Tachados",
+    subtitle: "Banco Central • Bóveda Subterránea",
+    description: "En la caja fuerte del banquero corrupto, Vance descubre llaves y un fajo de billetes con nombres tachados en rojo.",
     type: "construction",
     timeLimit: null,
     maxAttempts: null,
-    documentTitle: "LISTA DE LLAVES DE SEGURIDAD",
-    sourceText: `BÓVEDA:
-KEY-1 (Activa)
-KEY-3 (Activa)
-KEY-5 (Activa)
+    documentTitle: "LISTA DE CAJAS DE SEGURIDAD",
+    sourceText: `BÓVEDA DE FONDOS ILÍCITOS:
+KEY-1 (Fondo secreto - Nombres tachados)
+KEY-3 (Fondo secreto - Nombres tachados)
+KEY-5 (Fondo secreto - Nombres tachados)
 KEY-9 (Invalida)
 SAFE-0 (Externa)`,
     task: "El guardia reveló que los fondos robados están en las cajas KEY asignadas del 1 al 5. Localiza únicamente los códigos de esas llaves.",
@@ -141,13 +141,13 @@ SAFE-0 (Externa)`,
     tier: 2,
     sceneType: "alley",
     title: "Caso 06: La Pista Negada",
-    subtitle: "Almacén Abandonado",
-    description: "Los sospechosos usan vehículos con códigos específicos.",
+    subtitle: "Almacén Abandonado • Perímetro Clínico",
+    description: "Furgonetas de la banda merodean los alrededores de los hospitales nocturnos.",
     type: "construction",
     timeLimit: null,
     maxAttempts: 5,
-    documentTitle: "AVISTAMIENTOS NOCTURNOS",
-    sourceText: `CÓDIGOS:
+    documentTitle: "AVISTAMIENTOS DE FURGONETAS",
+    sourceText: `CÓDIGOS DE PATENTE:
 CAR-7
 CAR-8
 CAR-9
@@ -163,13 +163,13 @@ CAR-1 (Descartado)`,
     id: 7,
     tier: 2,
     sceneType: "alley",
-    title: "Caso 07: Dígitos Telefónicos",
+    title: "Caso 07: Conmutador de la Morgue",
     subtitle: "Cabina Pública 4B",
-    description: "El informante dictó extensiones telefónicas de la red clandestina.",
+    description: "El informante dictó extensiones telefónicas internas que comunican con la morgue y la red clínica.",
     type: "construction",
     timeLimit: null,
     maxAttempts: 5,
-    documentTitle: "AGENDA DEL CONTACTO",
+    documentTitle: "DIRECTORIO TELEFÓNICO CLANDESTINO",
     sourceText: `DIRECTORIO:
 Fiscalía: EXT#401
 Comisaría: EXT#911
@@ -185,17 +185,17 @@ Línea falsa: EXT#9`,
     id: 8,
     tier: 2,
     sceneType: "hotel",
-    title: "Caso 08: Espacios Sospechosos",
-    subtitle: "Habitación 404",
-    description: "Una máquina de escribir antigua registró los expedientes abiertos.",
+    title: "Caso 08: Autopsias Anómalas",
+    subtitle: "Habitación 404 • Expedientes de la Morgue",
+    description: "Los reportes forenses de las víctimas confirman la extirpación quirúrgica de riñones y córneas.",
     type: "construction",
     timeLimit: null,
     maxAttempts: 5,
-    documentTitle: "NOTA CONFIDENCIAL",
-    sourceText: `NOTA:
-Caso 1: Urgente
-Caso 2: Reservado
-Caso 3: Clandestino`,
+    documentTitle: "ACTAS FORENSES DE AUTOPSIA",
+    sourceText: `REGISTRO FORENSE:
+Caso 1: Mutilación de riñón
+Caso 2: Extirpación ocular
+Caso 3: Sin órganos vitales`,
     task: "Extrae los nombres de expedientes formados por la palabra 'Caso' seguida de su espacio y su número.",
     hint: "Representa el espacio en blanco y el dígito mediante sus metacaracteres abreviados.",
     recommendedRegex: "Caso\\s\\d",
@@ -206,14 +206,14 @@ Caso 3: Clandestino`,
     id: 9,
     tier: 2,
     sceneType: "hotel",
-    title: "Caso 09: Cifras de Extorsión",
+    title: "Caso 09: Extorsión y Saqueo",
     subtitle: "Recepción del Hotel",
-    description: "El extorsionador exige cantidades variables de dinero que inician con signo '$'.",
+    description: "La banda de Falcone exige rescates mientras desvalija las viviendas de los desaparecidos.",
     type: "construction",
     timeLimit: null,
     maxAttempts: 5,
-    documentTitle: "CARTA BAJO LA PUERTA",
-    sourceText: `DEMANDAS:
+    documentTitle: "DEMANDAS DE RESCATE",
+    sourceText: `DEMANDAS DE FALCONE:
 Primer pago: $50
 Segundo pago: $300
 Tercer pago: $15000
@@ -228,14 +228,14 @@ No acepto cheques.`,
     id: 10,
     tier: 2,
     sceneType: "office",
-    title: "Caso 10: La Letra Opcional",
-    subtitle: "Despacho Vance",
-    description: "El informante envió correspondencia a profesionales médicos.",
+    title: "Caso 10: Los Cirujanos de Élite",
+    subtitle: "Despacho Vance • Correspondencia Cifrada",
+    description: "Cartas enviadas a la Dra. Evelyn Cross y al Dr. Miller sobre pacientes de alta alcurnia.",
     type: "construction",
     timeLimit: null,
     maxAttempts: 5,
-    documentTitle: "CORRESPONDENCIA MÉDICA",
-    sourceText: `CARTAS:
+    documentTitle: "CORRESPONDENCIA MÉDICA CLANDESTINA",
+    sourceText: `CARTAS A CIRUJANOS:
 Atención de Dr. Miller
 Atención de Dra. Vance
 Atención de Dr. Smith
@@ -255,18 +255,18 @@ Sin título: Jones`,
     id: 11,
     tier: 3,
     sceneType: "alley",
-    title: "Caso 11: Matrículas Contrarreloj",
-    subtitle: "Persecución en el Callejón",
-    description: "¡El auto de huida se escapa! Tienes 90 segundos para capturar las matrículas estándar de 3 letras y 4 dígitos.",
+    title: "Caso 11: Furgones Frigoríficos (90s)",
+    subtitle: "Muelle 14 • Transporte Nocturno",
+    description: "¡Los camiones frigoríficos de transporte urgente de órganos están despegando del muelle! Tienes 90 segundos para capturar las matrículas oficiales.",
     type: "construction",
     timeLimit: 90,
     maxAttempts: 5,
-    documentTitle: "REGISTRO DE TRÁFICO",
-    sourceText: `AUTOS REGISTRADOS:
-Auto A: ABC-1234
-Auto B: XYZ-9876
-Auto C: TAXI-99
-Auto D: MET-5541`,
+    documentTitle: "CONTROL DE SALIDAS EN EL MUELLE",
+    sourceText: `FURGONES DETECTADOS:
+Furgón A: ABC-1234
+Furgón B: XYZ-9876
+Camioneta: TAXI-99
+Furgón D: MET-5541`,
     task: "¡El vehículo de fuga escapa! Identifica las matrículas oficiales con formato de 3 letras mayúsculas, guion y 4 números.",
     hint: "Combina un rango de letras mayúsculas con llaves para la cantidad y dígitos con llaves tras el guion.",
     recommendedRegex: "[A-Z]{3}-\\d{4}",
@@ -277,17 +277,17 @@ Auto D: MET-5541`,
     id: 12,
     tier: 3,
     sceneType: "alley",
-    title: "Caso 12: Palabras Alfanuméricas",
-    subtitle: "Contenedores del Muelle",
-    description: "Los contenedores con contrabando llevan códigos alfanuméricos.",
+    title: "Caso 12: Contenedores Biológicos",
+    subtitle: "Aduana Portuaria • Muelle 7",
+    description: "Los contenedores etiquetados con prefijo 'BOX_' contienen frascos con preservantes de tejido humano.",
     type: "construction",
     timeLimit: 90,
     maxAttempts: 5,
-    documentTitle: "MANIFIESTO DE ADUANAS",
-    sourceText: `CARGAMENTO:
-BOX_01 (Sospechoso)
-BOX_44 (Sospechoso)
-BOX_88 (Sospechoso)
+    documentTitle: "MANIFIESTO DE CARGA BIOLÓGICA",
+    sourceText: `CARGAMENTO ADUANERO:
+BOX_01 (Tejido criogenizado)
+BOX_44 (Preservante celular)
+BOX_88 (Suero fisiológico)
 ITEM# (Invalido)`,
     task: "Inspecciona los contenedores de carga y extrae los números de serie que inician con 'BOX_' y tienen dos dígitos.",
     hint: "Escribe el texto inicial fijo y representa los números con el metarácter correspondiente.",
@@ -299,17 +299,17 @@ ITEM# (Invalido)`,
     id: 13,
     tier: 3,
     sceneType: "hotel",
-    title: "Caso 13: La Fecha del Asalto",
-    subtitle: "Caja Fuerte del Hotel",
-    description: "La secretaria anotó fechas sospechosas en el calendario.",
+    title: "Caso 13: Calendario de Cirugías",
+    subtitle: "Caja Fuerte del Savoy • Agenda Secreta",
+    description: "Fechas registradas en la libreta del intermediario donde se anotaron las operaciones de trasplante.",
     type: "construction",
     timeLimit: 90,
     maxAttempts: 5,
-    documentTitle: "CALENDARIO DEL HOTEL",
-    sourceText: `CITAS:
-14/03/1947 - Encuentro en el muelle
-22/08/1947 - Pago de soborno
-05/11/1947 - Fuga internacional
+    documentTitle: "CALENDARIO DE TRASPLANTES",
+    sourceText: `CITAS QUIRÚRGICAS:
+14/03/1947 - Trasplante de córnea (Senador)
+22/08/1947 - Reemplazo de riñón (Banquero)
+05/11/1947 - Cirugía mayor (Juez)
 Ano 1945`,
     task: "Localiza las fechas clave del crimen escritas con formato estándar de día, mes y año de cuatro cifras separadas por barras.",
     hint: "Representa los pares de números y el bloque final de cuatro cifras intercalando las barras.",
@@ -321,17 +321,17 @@ Ano 1945`,
     id: 14,
     tier: 3,
     sceneType: "hotel",
-    title: "Caso 14: Filtro de Letras Minúsculas",
-    subtitle: "Libreta de Notas Íntima",
-    description: "El sospechoso escribió apodos en clave en su diario.",
+    title: "Caso 14: Los Saqueadores de Hogares",
+    subtitle: "Diario del Cerrajero Frankie Miller",
+    description: "Frankie anotó en clave los apodos de los miembros de Falcone que allanaban los apartamentos de las víctimas.",
     type: "construction",
     timeLimit: 90,
     maxAttempts: 5,
-    documentTitle: "DIARIO PERSONAL",
-    sourceText: `APUNTES:
-Clave: topo1
-Clave: gato2
-Clave: lobo9
+    documentTitle: "DIARIO CONFIDENCIAL DE FRANKIE",
+    sourceText: `INTEGRANTES DEL GRUPO DE SAQUEO:
+Clave: topo1 (Cerrajero)
+Clave: gato2 (Vigilante)
+Clave: lobo9 (Conductor)
 Falso: PERRO1`,
     task: "El espía firma sus notas con nombres en clave en minúsculas de 4 letras seguidas de un número. Aísla sus apodos.",
     hint: "Usa un rango de letras minúsculas con cantidad exacta de 4 caracteres y añade un dígito al final.",
@@ -343,17 +343,17 @@ Falso: PERRO1`,
     id: 15,
     tier: 3,
     sceneType: "office",
-    title: "Caso 15: Códigos de Barra en el Libro Mayor",
-    subtitle: "Banco Metropolitano",
-    description: "Transferencias bancarias clandestinas en el libro mayor.",
+    title: "Caso 15: Transferencias de la Clínica",
+    subtitle: "Banco Metropolitano • Cuentas Corrientes",
+    description: "Transferencias secretas emitidas por la Clínica Renacer hacia el sindicato criminal de Carmine Falcone.",
     type: "construction",
     timeLimit: 90,
     maxAttempts: 5,
-    documentTitle: "LIBRO MAYOR DE TRANSACCIONES",
-    sourceText: `TRANSFERENCIAS:
-TX-10029 (Válida)
-TX-440192 (Válida)
-TX-88310 (Válida)
+    documentTitle: "LIBRO DE PAGOS A LA MAFIA",
+    sourceText: `TRANSFERENCIAS DE LA CLÍNICA:
+TX-10029 (Abono por lote)
+TX-440192 (Abono por lote)
+TX-88310 (Abono por lote)
 TX-12 (Demasiado corta)`,
     task: "Audita el libro contable y captura las transferencias que inician con 'TX-' y contienen entre 5 y 6 cifras.",
     hint: "Añade llaves con el rango mínimo y máximo de repeticiones tras el metarácter de dígito.",
@@ -371,13 +371,13 @@ TX-12 (Demasiado corta)`,
     id: 16,
     tier: 4,
     sceneType: "alley",
-    title: "Caso 16: La Trampa del Criminal #1",
-    subtitle: "Mensaje Cifrado del Asesino",
-    description: "El criminal dejó una nota jactanciosa con una expresión regular programada en su detonador. ¿Qué texto capturará su trampa?",
+    title: "Caso 16: La Trampa de Falcone #1",
+    subtitle: "Bomba en el Callejón",
+    description: "Falcone intentó liquidar a Vance con un artefacto explosivo programado con Regex. ¿Qué códigos activan la detonación?",
     type: "criminal_cipher",
     timeLimit: 80,
     maxAttempts: 4,
-    documentTitle: "CARTA CON REGEX INTERCEPTADA",
+    documentTitle: "CIRCUITO TEMPORIZADO DE LA BOMBA",
     criminalRegex: "^BOMB-\\d{3}-[A-Z]$",
     criminalFlags: "m",
     sourceText: `CÓDIGOS DETECTADOS EN EL CIRCUITO:
@@ -396,14 +396,14 @@ Linea 4: BOMB-774-Z`,
     id: 17,
     tier: 4,
     sceneType: "alley",
-    title: "Caso 17: Drogas y Gramajes",
-    subtitle: "Almacén Clandestino",
-    description: "El cargamento reporta paquetes de sustancias en el inventario.",
+    title: "Caso 17: Suero Inmunosupresor",
+    subtitle: "Almacén Clandestino de Falcone",
+    description: "Antinarcóticos creía que eran drogas, pero los pesajes en gramos corresponden a suero para evitar el rechazo de los órganos.",
     type: "construction",
     timeLimit: 80,
     maxAttempts: 4,
-    documentTitle: "PESAJE DE SUSTANCIAS",
-    sourceText: `INVENTARIO:
+    documentTitle: "PESAJE DE REACTIVOS DE LABORATORIO",
+    sourceText: `INVENTARIO DE CONSERVACIÓN:
 Paquete A: 100g
 Paquete B: 250g
 Paquete C: 500g
@@ -418,9 +418,9 @@ Paquete D: 2kg`,
     id: 18,
     tier: 4,
     sceneType: "hotel",
-    title: "Caso 18: La Trampa del Criminal #2",
+    title: "Caso 18: La Trampa de Falcone #2",
     subtitle: "Habitación 404 • Maletín con Candado",
-    description: "El gángster bloqueó su maletín con un algoritmo regex. Descifra qué contraseña abrirá el cerrojo.",
+    description: "El maletín de Falcone contiene las listas de apartamentos saqueados tras desvivir a sus ocupantes. Descifra la clave.",
     type: "criminal_cipher",
     timeLimit: 80,
     maxAttempts: 4,
@@ -443,14 +443,14 @@ Clave 4: TX*12*CA`,
     id: 19,
     tier: 4,
     sceneType: "hotel",
-    title: "Caso 19: Teléfonos con Guion",
-    subtitle: "Recepción Savoy",
-    description: "Llamadas telefónicas intervenidas en la centralita del hotel.",
+    title: "Caso 19: Conexión con la Clínica",
+    subtitle: "Recepción Savoy • Intervención Telefónica",
+    description: "Llamadas telefónicas entre los lugartenientes de Falcone y la centralita privada de la Clínica Renacer.",
     type: "construction",
     timeLimit: 80,
     maxAttempts: 4,
-    documentTitle: "REGISTRO DE LLAMADAS DE LA HABITACIÓN",
-    sourceText: `LLAMADAS:
+    documentTitle: "REGISTRO DE LLAMADAS INTERCEPTADAS",
+    sourceText: `LLAMADAS A LA CLÍNICA:
 Fiscal: 555-1234
 Muelle: 555-9081
 Policía: 911
@@ -465,14 +465,14 @@ Contacto: 555-7744`,
     id: 20,
     tier: 4,
     sceneType: "office",
-    title: "Caso 20: Cuentas Bancarias Suizas",
-    subtitle: "Despacho Vance",
-    description: "Cuentas en paraísos fiscales asociadas a la trama corporativa.",
+    title: "Caso 20: Cuentas Suizas de la Dra. Cross",
+    subtitle: "Despacho Vance • Auditoría Financiera",
+    description: "Cuentas en Ginebra y Zúrich desde donde magnates pagan fortunas por los trasplantes clandestinos.",
     type: "construction",
     timeLimit: 80,
     maxAttempts: 4,
-    documentTitle: "DOCUMENTO FINANCIERO",
-    sourceText: `CUENTAS SECRETAS:
+    documentTitle: "REGISTRO DE CUENTAS EN SUIZA",
+    sourceText: `CUENTAS SECRETAS DE LA CLÍNICA:
 Ginebra: CH-10928
 Zúrich: CH-44910
 Berna: CH-88123
@@ -492,14 +492,14 @@ Nueva York: US-991`,
     id: 21,
     tier: 5,
     sceneType: "alley",
-    title: "Caso 21: El Límite de Palabra",
-    subtitle: "La Coartada de Rob",
-    description: "El testigo mencionó a 'Rob'. No captures 'Roberto' ni 'robaron'. ¡Tienes 60 segundos!",
+    title: "Caso 21: El Testimonio de Rob",
+    subtitle: "La Coartada Bajo la Lluvia",
+    description: "Rob confiesa aterrado que las víctimas del allanamiento tenían citas previas en la Clínica Renacer antes de desaparecer.",
     type: "construction",
     timeLimit: 60,
     maxAttempts: 4,
     documentTitle: "INTERROGATORIO BAJO LA LLUVIA",
-    sourceText: `TESTIMONIO:
+    sourceText: `TESTIMONIO DE ROB:
 Vi a Rob correr hacia la avenida.
 Roberto no estuvo en la escena.
 Me robaron el reloj ayer.
@@ -514,16 +514,16 @@ Nadie ayudó a Rob en la fuga.`,
     id: 22,
     tier: 5,
     sceneType: "alley",
-    title: "Caso 22: Comienzo de Línea",
-    subtitle: "Rastros en el Pavimento",
-    description: "Solo los reportes que comienzan formalmente con la palabra 'ALERTA:' son auténticos.",
+    title: "Caso 22: Desapariciones en Cadena",
+    subtitle: "Boletín de la Comisaría Central",
+    description: "Aumentan las alertas policiales por desapariciones de personas que acudieron a consultas privadas en la clínica.",
     type: "construction",
     timeLimit: 60,
     maxAttempts: 4,
-    documentTitle: "BOLETÍN POLICIAL",
-    sourceText: `ALERTA: Sospechoso armado en el callejón.
+    documentTitle: "BOLETÍN POLICIAL DE DESAPARECIDOS",
+    sourceText: `ALERTA: Paciente desaparecido en el callejón.
 AVISO: Calle cerrada por obras.
-ALERTA: Vehículo robado cerca del club.
+ALERTA: Furgón no identificado cerca del club.
 RUMOR: Se escucharon disparos.`,
     task: "Filtra los boletines oficiales que inician formalmente con 'ALERTA:' al principio del renglón.",
     hint: "Utiliza el ancla de inicio de línea '^' junto con la palabra clave y la bandera multilínea 'm'.",
@@ -535,13 +535,13 @@ RUMOR: Se escucharon disparos.`,
     id: 23,
     tier: 5,
     sceneType: "hotel",
-    title: "Caso 23: Final de Línea",
-    subtitle: "Habitación 404 • Mensaje Cortado",
-    description: "El espía solo enviaba mensajes cifrados que terminan exactamente en la palabra '[FIN]'.",
+    title: "Caso 23: El Sello de Clausura [FIN]",
+    subtitle: "Habitación 404 • Telegramas Cifrados",
+    description: "Los mensajes de los sicarios que confirman las extracciones terminan con la palabra ritual '[FIN]' (segundo sello del destierro).",
     type: "construction",
     timeLimit: 60,
     maxAttempts: 4,
-    documentTitle: "TELEGRAMAS CONFIDENCIALES",
+    documentTitle: "TELEGRAMAS DEL SINDICATO",
     sourceText: `Línea de contacto 1 [FIN]
 Línea interrumpida por disparos
 Transmisión segura completada [FIN]
@@ -556,13 +556,13 @@ Mensaje sin confirmar`,
     id: 24,
     tier: 5,
     sceneType: "hotel",
-    title: "Caso 24: La Trampa del Criminal #3",
-    subtitle: "Caja de Seguridad del Armario",
-    description: "El criminal dejó este patrón para verificar identidades: ^AGENT_\\d{3}_[A-Z]{2}$. ¿Cuál es el carné válido?",
+    title: "Caso 24: La Trampa de Falcone #3",
+    subtitle: "Caja Fuerte de la Habitación",
+    description: "Los sicarios usaban carnés médicos falsos para circular por los hospitales sin levantar sospechas.",
     type: "criminal_cipher",
     timeLimit: 60,
     maxAttempts: 4,
-    documentTitle: "REGISTRO DE AGENTES SECRETOS",
+    documentTitle: "REGISTRO DE AGENTES CUESTIONADOS",
     criminalRegex: "^AGENT_\\d{3}_[A-Z]{2}$",
     criminalFlags: "",
     sourceText: `Carné 1: AGENT_007_US
@@ -580,14 +580,14 @@ Carné 4: AGENT_555_ru (en minúscula)`,
     id: 25,
     tier: 5,
     sceneType: "office",
-    title: "Caso 25: Perímetro de Bóveda",
-    subtitle: "Cerradura Alfanumérica",
-    description: "Códigos de 6 caracteres que inician con 'V' y terminan en número.",
+    title: "Caso 25: Cámara Frigorífica Subterránea",
+    subtitle: "Cerradura Digital de la Bóveda",
+    description: "Códigos de 6 caracteres que abren la cámara refrigerada donde reposan los órganos recién extirpados.",
     type: "construction",
     timeLimit: 60,
     maxAttempts: 4,
-    documentTitle: "MEMORIA DE LA BÓVEDA",
-    sourceText: `CÓDIGOS:
+    documentTitle: "MEMORIA DE LA CÁMARA FRIGORÍFICA",
+    sourceText: `CÓDIGOS DE LA CÁMARA:
 V12345 (Aceptado)
 V99881 (Aceptado)
 V77770 (Aceptado)
@@ -607,14 +607,14 @@ X99999 (Invalido)`,
     id: 26,
     tier: 6,
     sceneType: "alley",
-    title: "Caso 26: La Elección del Vehículo",
-    subtitle: "Pista de Aterrizaje Clandestina",
-    description: "Los sospechosos solo escapan en determinados transportes.",
+    title: "Caso 26: La Fuga de los Cirujanos",
+    subtitle: "Pista Clandestina de la Mafia",
+    description: "Los cómplices de la Dra. Cross solo huyen en 'Sedan' o 'Avioneta' bimotor. Filtra ambos transportes.",
     type: "construction",
     timeLimit: 55,
     maxAttempts: 3,
     documentTitle: "BITÁCORA DE CONTROL AÉREO",
-    sourceText: `TRANSPORTE:
+    sourceText: `TRANSPORTE DE LA RED:
 1. Huida en Sedan negro
 2. Fuga en Avioneta bimotor
 3. Carga en Camión pesado
@@ -629,9 +629,9 @@ X99999 (Invalido)`,
     id: 27,
     tier: 6,
     sceneType: "alley",
-    title: "Caso 27: La Trampa del Criminal #4",
+    title: "Caso 27: La Trampa de Falcone #4",
     subtitle: "Terminal de Cifrado Mafia",
-    description: "El capo programó un filtro para clasificar cargamentos: ^(DROGA|ARMAS)-\\d+-(ALTA|BAJA)$.",
+    description: "Falcone configuró un filtro para encubrir los envíos de órganos bajo la etiqueta de armas y sustancias.",
     type: "criminal_cipher",
     timeLimit: 55,
     maxAttempts: 3,
@@ -654,14 +654,14 @@ Línea D: ARMAS-MEDIA`,
     id: 28,
     tier: 6,
     sceneType: "hotel",
-    title: "Caso 28: Palabras Repetidas",
-    subtitle: "Grabación de Escucha Telefónica",
-    description: "El informante balbuceó palabras repetidas cuando lo amenazaron.",
+    title: "Caso 28: El Hombre Sin Sombra",
+    subtitle: "Grabación Telefónica de la Morgue",
+    description: "El testigo tartamudea aterrorizado al relatar cómo vio a un ser de traje oscuro que no proyecta sombra.",
     type: "construction",
     timeLimit: 55,
     maxAttempts: 3,
     documentTitle: "DESGRABACIÓN DE CINTA DE AUDIO",
-    sourceText: `AUDIO:
+    sourceText: `AUDIO INTERCEPTADO:
 El testigo dijo: muy muy peligroso.
 Luego gritó: auxilio auxilio en la sala.
 El oficial respondió con calma.`,
@@ -675,14 +675,14 @@ El oficial respondió con calma.`,
     id: 29,
     tier: 6,
     sceneType: "hotel",
-    title: "Caso 29: Fechas con Separador Mixto",
-    subtitle: "Diario del Testigo Clave",
-    description: "Fechas escritas tanto con barra como con guion.",
+    title: "Caso 29: Fechas de Rejuvenecimiento",
+    subtitle: "Libro de Pacientes Ilustres",
+    description: "Fechas registradas en la agenda que marcan las milagrosas recuperaciones de magnates ancianos tras sus trasplantes.",
     type: "construction",
     timeLimit: 55,
     maxAttempts: 3,
-    documentTitle: "AGENDA DEL HOTEL",
-    sourceText: `FECHAS:
+    documentTitle: "AGENDA PRIVADA DE LA CLÍNICA",
+    sourceText: `FECHAS DE CIRUGÍA:
 12/04/1946
 28-08-1946
 15/10/1947
@@ -697,14 +697,14 @@ Ano 1890`,
     id: 30,
     tier: 6,
     sceneType: "office",
-    title: "Caso 30: Cuentas Corporativas",
-    subtitle: "Servidor del Banco",
-    description: "Cuentas bancarias de la red corporativa.",
+    title: "Caso 30: Fondos de la Dra. Cross",
+    subtitle: "Servidor Financiero del Banco Central",
+    description: "Cuentas corporativas en EE.UU. y Suiza que financian los experimentos biomecánicos del sanatorio.",
     type: "construction",
     timeLimit: 55,
     maxAttempts: 3,
-    documentTitle: "LISTA DE FONDOS",
-    sourceText: `CUENTAS:
+    documentTitle: "LISTA DE FONDOS INTERNACIONALES",
+    sourceText: `CUENTAS SECRETAS:
 ACC-US-1029 (Nueva York)
 ACC-CH-4491 (Ginebra)
 ACC-UK-9011 (Londres)
@@ -724,14 +724,14 @@ ACC-US-8812 (Miami)`,
     id: 31,
     tier: 7,
     sceneType: "alley",
-    title: "Caso 31: Citas entre Comillas",
+    title: "Caso 31: Testimonio del Ritual",
     subtitle: "Interrogatorio en el Callejón",
-    description: "El sospechoso tiene dos frases entre comillas en su declaración.",
+    description: "Declaración judicial donde el testigo confiesa haber presenciado cánticos y figuras oscuras en el sótano de la clínica.",
     type: "construction",
     timeLimit: 45,
     maxAttempts: 3,
-    documentTitle: "INFORME DE TESTIGOS",
-    sourceText: `DECLARACIÓN:
+    documentTitle: "ACTA JUDICIAL DE DECLARACIÓN",
+    sourceText: `DECLARACIÓN DEL ENFERMERO:
 El testigo gritó: "¡cuidado con el arma!" y luego "¡corran todos!".`,
     task: "El acta judicial contiene dos frases textuales entre comillas. Aísla cada cita entrecomillada de manera individual.",
     hint: "Usa el cuantificador comodín perezoso añadiendo '?' para que no atrape todo de golpe.",
@@ -743,9 +743,9 @@ El testigo gritó: "¡cuidado con el arma!" y luego "¡corran todos!".`,
     id: 32,
     tier: 7,
     sceneType: "alley",
-    title: "Caso 32: La Trampa del Criminal #5",
+    title: "Caso 32: La Trampa de Falcone #5",
     subtitle: "Detonador con Cuenta Regresiva",
-    description: "¡Bomba de tiempo de 45 segundos! El terrorista configuró: <bomb>.*?</bomb> vs <bomb>.*</bomb>.",
+    description: "¡Bomba de tiempo de 45 segundos en el túnel! Los criminales configuraron un validador con etiquetas HTML.",
     type: "criminal_cipher",
     timeLimit: 45,
     maxAttempts: 3,
@@ -764,14 +764,14 @@ El testigo gritó: "¡cuidado con el arma!" y luego "¡corran todos!".`,
     id: 33,
     tier: 7,
     sceneType: "hotel",
-    title: "Caso 33: Clases Negadas vs Perezosos",
-    subtitle: "Habitación 404",
-    description: "Búsqueda óptima de bloques delimitados.",
+    title: "Caso 33: Frascos de Tejido Biológico",
+    subtitle: "Laboratorio Subterráneo de la Dra. Cross",
+    description: "Recipientes de vidrio rotulados entre corchetes que contienen los órganos preservados para los trasplantes.",
     type: "construction",
     timeLimit: 45,
     maxAttempts: 3,
-    documentTitle: "MANUSCRITO CIFRADO",
-    sourceText: `REGISTROS:
+    documentTitle: "REGISTRO DE MUESTRAS EN FRASCOS",
+    sourceText: `REGISTROS DEL LABORATORIO:
 [PISTA_ALPHA] encontrada en la mesa.
 [PISTA_BETA] oculta en el piso.
 Texto sin corchetes.`,
@@ -785,14 +785,14 @@ Texto sin corchetes.`,
     id: 34,
     tier: 7,
     sceneType: "hotel",
-    title: "Caso 34: Paréntesis Sin Captura",
-    subtitle: "Despacho Clandestino",
-    description: "Agrupar sin gastar memoria de captura para prefijos clasificados.",
+    title: "Caso 34: Censo de Almas Deudoras",
+    subtitle: "Despacho Clandestino de la Clínica",
+    description: "Base de datos con las identidades deudoras clasificadas con prefijos sin captura '(?:REF|ID)-\\d{4}'.",
     type: "construction",
     timeLimit: 45,
     maxAttempts: 3,
-    documentTitle: "BASE DE DATOS FORENSE",
-    sourceText: `ITEMS:
+    documentTitle: "CENSO DE DEUDORES FAUSTIANOS",
+    sourceText: `DEUDORES REGISTRADOS:
 REF-9988 (Inspeccionado)
 ID-1102 (Inspeccionado)
 COD-00 (Descartado)`,
@@ -806,14 +806,14 @@ COD-00 (Descartado)`,
     id: 35,
     tier: 7,
     sceneType: "office",
-    title: "Caso 35: Importes Decimales",
-    subtitle: "Caja Fuerte Bancaria",
-    description: "Cifras de dinero con decimales exactos.",
+    title: "Caso 35: Facturas de Rejuvenecimiento",
+    subtitle: "Balanza de la Dra. Cross",
+    description: "Tarifas astronómicas en dólares pagadas por la élite por extender sus vidas a costa de víctimas inocentes.",
     type: "construction",
     timeLimit: 45,
     maxAttempts: 3,
-    documentTitle: "BALANZA CONTABLE",
-    sourceText: `TRANSACCIONES:
+    documentTitle: "BALANZA CONTABLE DE TRASPLANTES",
+    sourceText: `TRANSACCIONES DE TRASPLANTE:
 Cobro: $120.50
 Depósito: $500.00
 Comisión: $15.75
@@ -833,14 +833,14 @@ Sin centavos: $99`,
     id: 36,
     tier: 8,
     sceneType: "alley",
-    title: "Caso 36: Vigilancia Lookahead",
-    subtitle: "Almacén de Armas",
-    description: "Inspección de cajas de suministros de alto riesgo.",
+    title: "Caso 36: Cajas con Dinamita",
+    subtitle: "Almacén de la Mafia • Demolición",
+    description: "Falcone ha colocado dinamita en las cajas de suministros para volar las pruebas forenses.",
     type: "construction",
     timeLimit: 40,
     maxAttempts: 3,
-    documentTitle: "INSPECCIÓN DE CARGA",
-    sourceText: `BODEGA:
+    documentTitle: "INSPECCIÓN DE CARGAS EXPLOSIVAS",
+    sourceText: `BODEGA AMENAZADA:
 Caja PELIGRO (No tocar)
 Caja SEGURA (Verificada)
 Caja PELIGRO (Dinamita)`,
@@ -854,13 +854,13 @@ Caja PELIGRO (Dinamita)`,
     id: 37,
     tier: 8,
     sceneType: "alley",
-    title: "Caso 37: Lookahead Negativo",
-    subtitle: "Puerto Marítimo",
-    description: "Control de tráfico marítimo no autorizado.",
+    title: "Caso 37: Escape por el Canal",
+    subtitle: "Puerto Marítimo de la Bahía",
+    description: "Los cirujanos intentan huir en buques no militares antes de que llegue la Guardia Nacional.",
     type: "construction",
     timeLimit: 40,
     maxAttempts: 3,
-    documentTitle: "CONTROL DE EMBARCACIONES",
+    documentTitle: "CONTROL DE EMBARCACIONES EN FUGA",
     sourceText: `PUERTO:
 BARCO CARGA
 BARCO MILITAR (Prohibido)
@@ -875,13 +875,13 @@ BARCO PESQUERO`,
     id: 38,
     tier: 8,
     sceneType: "hotel",
-    title: "Caso 38: La Trampa del Criminal #6",
-    subtitle: "Bóveda Cifrada del Hotel",
-    description: "El informante protegió su clave con una regla de validación múltiple.",
+    title: "Caso 38: La Trampa de la Dra. Cross #6",
+    subtitle: "Sanctum Privado de la Dra. Cross",
+    description: "El despacho de la doctora está blindado con un validador complejo de contraseña con lookaheads.",
     type: "criminal_cipher",
     timeLimit: 40,
     maxAttempts: 3,
-    documentTitle: "VALIDADOR DE ACCESO",
+    documentTitle: "VALIDADOR DEL SANCTUM MÉDICO",
     criminalRegex: "^(?=.*[A-Z])(?=.*\\d).{6,}$",
     criminalFlags: "",
     sourceText: `CLAVES CANDIDATAS:
@@ -900,14 +900,14 @@ Clave D: Ab1 (Muy corta)`,
     id: 39,
     tier: 8,
     sceneType: "hotel",
-    title: "Caso 39: Lookbehind Positivo",
-    subtitle: "Archivo de Pagos",
-    description: "Auditoría de libros contables clandestinos.",
+    title: "Caso 39: El Libro de Sangre de Malphas",
+    subtitle: "Caja Oculta • Contratos Fausto",
+    description: "Libro de registro arcaico donde se anotaron los pagos de sangre del pacto.",
     type: "construction",
     timeLimit: 40,
     maxAttempts: 3,
-    documentTitle: "RECIBOS CLANDESTINOS",
-    sourceText: `CONTABILIDAD:
+    documentTitle: "RECIBOS DE SANGRE Y TRIBUTO",
+    sourceText: `CONTABILIDAD DEL PACTO:
 PAGO: 500
 MULTA: 100
 PAGO: 1200
@@ -922,14 +922,14 @@ COBRO: 80`,
     id: 40,
     tier: 8,
     sceneType: "office",
-    title: "Caso 40: Contraseñas de Alta Seguridad",
-    subtitle: "Caja Fuerte Principal",
-    description: "Llaves autorizadas de acceso a la bóveda.",
+    title: "Caso 40: Servidores de la Clínica Renacer",
+    subtitle: "Terminal Central de la Clínica",
+    description: "Códigos de autenticación para ingresar a los servidores maestros antes de que se inicie el protocolo de autodestrucción.",
     type: "construction",
     timeLimit: 40,
     maxAttempts: 3,
-    documentTitle: "SISTEMA DE SEGURIDAD",
-    sourceText: `CÓDIGOS:
+    documentTitle: "TERMINAL MAESTRA DE CONTROL",
+    sourceText: `CÓDIGOS DE ACCESO:
 KEY_8841_OK
 KEY_1029_OK
 KEY_99_OK (Corta)
@@ -949,9 +949,9 @@ PASS_4412_OK`,
     id: 41,
     tier: 9,
     sceneType: "alley",
-    title: "Caso 41: La Trampa de Backtracking",
-    subtitle: "Centralita Telefónica Saboteada",
-    description: "El hacker colapsó el sistema con una regex maliciosa (a+)+$. Identifica por qué es peligrosa.",
+    title: "Caso 41: El Sabotaje ReDoS del Demonio",
+    subtitle: "Servidores Centrales Colapsados",
+    description: "Una fuerza sobrenatural introdujo un ataque ReDoS ^(a+)+$ en el sistema para colapsar las redes de la ciudad.",
     type: "criminal_cipher",
     timeLimit: 35,
     maxAttempts: 3,
@@ -971,13 +971,13 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaab (falla al final)`,
     id: 42,
     tier: 9,
     sceneType: "alley",
-    title: "Caso 42: Refactorización Lineal",
-    subtitle: "Parche de Seguridad Policial",
-    description: "Reemplaza el patrón ineficiente de búsqueda por una expresión lineal segura.",
+    title: "Caso 42: Parche Lineal de Vance",
+    subtitle: "Reactivación de Servidores",
+    description: "Vance reescribe el algoritmo de autenticación de forma lineal para restablecer las alarmas antes de la detonación.",
     type: "construction",
     timeLimit: 35,
     maxAttempts: 3,
-    documentTitle: "PARCHE DE CÓDIGO",
+    documentTitle: "PARCHE DE CÓDIGO FORENSE",
     sourceText: `CADENAS A VERIFICAR:
 TOKEN_ALPHA_99
 TOKEN_BETA_10
@@ -992,14 +992,14 @@ TOKEN_GAMMA_44`,
     id: 43,
     tier: 9,
     sceneType: "hotel",
-    title: "Caso 43: Auditoría de Correo Electrónico",
-    subtitle: "Ordenador de la Embajada",
-    description: "Comunicaciones interceptadas en la embajada.",
+    title: "Caso 43: Orden de Cosecha de Almas",
+    subtitle: "Terminal Diplomática",
+    description: "Correos electrónicos intervenidos que autorizan la entrega de deudores para su intervención quirúrgica.",
     type: "construction",
     timeLimit: 35,
     maxAttempts: 3,
-    documentTitle: "BANDEJA DE ENTRADA",
-    sourceText: `CONTACTOS:
+    documentTitle: "BANDEJA DIPLOMÁTICA INTERCEPTADA",
+    sourceText: `CONTACTOS DE LA RED:
 agente@embajada.com
 informante@safe.org
 invalido@@mail
@@ -1015,12 +1015,12 @@ espia@muelle.com`,
     tier: 9,
     sceneType: "hotel",
     title: "Caso 44: La Trampa del Criminal #7",
-    subtitle: "Firewall Desactivado",
-    description: "El criminal intentó validar una IP con una regla defectuosa.",
+    subtitle: "Firewall del Búnker Subterráneo",
+    description: "La regla de firewall del búnker contiene una vulnerabilidad que delata la dirección IP de la cámara de invocación.",
     type: "criminal_cipher",
     timeLimit: 35,
     maxAttempts: 3,
-    documentTitle: "REGLA DE FIREWALL",
+    documentTitle: "REGLA DE FIREWALL DEFECTUOSA",
     criminalRegex: "^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$",
     criminalFlags: "",
     sourceText: `IPS INGRESADAS:
@@ -1038,14 +1038,14 @@ espia@muelle.com`,
     id: 45,
     tier: 9,
     sceneType: "office",
-    title: "Caso 45: Protocolo Antiterrorista",
-    subtitle: "Bóveda Central Vance",
-    description: "Carga de explosivos militares interceptada.",
+    title: "Caso 45: Detonadores de TNT en los Cimientos",
+    subtitle: "Sótano de la Clínica Renacer",
+    description: "Falcone ha cebado los cimientos del hospital con cargas de TNT. Desactiva los detonadores activos antes de que exploten.",
     type: "construction",
     timeLimit: 35,
     maxAttempts: 3,
-    documentTitle: "MANIFIESTO DE EXPLOSIVOS",
-    sourceText: `EXPLOSIVOS:
+    documentTitle: "MANIFIESTO DE DETONADORES ACTIVOS",
+    sourceText: `CARGAS DE TNT ACTIVAS:
 TNT-8891-A (Activo)
 TNT-1024-B (Activo)
 TNT-9910-Z (Desactivado)
@@ -1065,13 +1065,13 @@ C4-001-A (Otro tipo)`,
     id: 46,
     tier: 10,
     sceneType: "alley",
-    title: "Caso 46: La Redada Final",
-    subtitle: "Batida en los Muelles",
-    description: "¡Solo tienes 30 segundos y 2 vidas! Los camiones de escape están arrancando.",
+    title: "Caso 46: Fuga de Camiones Frigoríficos (30s)",
+    subtitle: "Batida en los Muelles de Carga",
+    description: "¡Solo tienes 30 segundos y 2 vidas! Los últimos camiones con órganos extraídos están escapando.",
     type: "construction",
     timeLimit: 30,
     maxAttempts: 2,
-    documentTitle: "RADAR POLICIAL",
+    documentTitle: "RADAR PORTUARIO DE ALTA VELOCIDAD",
     sourceText: `VEHÍCULOS EN FUGA:
 TRUCK-401-X
 TRUCK-889-Z
@@ -1087,13 +1087,13 @@ TRUCK-002-B`,
     id: 47,
     tier: 10,
     sceneType: "alley",
-    title: "Caso 47: La Trampa del Criminal #8",
-    subtitle: "El Maletín con C4",
-    description: "El líder del cártel codificó su detonador con: ^(?:ALPHA|BETA)_\\d{4}_(?:WIN|END)$.",
+    title: "Caso 47: El C4 del Capo Falcone",
+    subtitle: "El Maletín con C4 en la Bóveda",
+    description: "Carmine Falcone activa su último detonador de C4 para inmolarse y llevarse el secreto a la tumba.",
     type: "criminal_cipher",
     timeLimit: 30,
     maxAttempts: 2,
-    documentTitle: "CIRCUITO DEL DETONADOR",
+    documentTitle: "CIRCUITO DEL DETONADOR DE C4",
     criminalRegex: "^(?:ALPHA|BETA)_\\d{4}_(?:WIN|END)$",
     criminalFlags: "m",
     sourceText: `SEÑALES DETECTADAS:
@@ -1112,13 +1112,13 @@ TRUCK-002-B`,
     id: 48,
     tier: 10,
     sceneType: "hotel",
-    title: "Caso 48: Criptograma Multilínea",
-    subtitle: "Habitación 404 • Mensaje en el Espejo",
-    description: "Mensaje críptico dejado con lápiz labial en el espejo.",
+    title: "Caso 48: Runas de Sangre en el Espejo",
+    subtitle: "Cámara de Invocación • Espejo Empañado",
+    description: "Runas rituales dejadas en el espejo por donde se manifiesta Malphas. Vance busca los renglones cifrados.",
     type: "construction",
     timeLimit: 30,
     maxAttempts: 2,
-    documentTitle: "ESPEJO EMPAÑADO",
+    documentTitle: "INSCRIPCIÓN RITUAL EN EL ESPEJO",
     sourceText: `#CLAVE_42
 TEXTO NORMAL
 #SECRETO_99
@@ -1134,13 +1134,13 @@ TEXTO NORMAL
     tier: 10,
     sceneType: "hotel",
     title: "Caso 49: El Conspirador Supremo",
-    subtitle: "Grabadora de la Mafia",
-    description: "Cuentas bancarias de la red criminal mayor.",
+    subtitle: "Libreta del Sindicato Internacional",
+    description: "Cuentas bancarias de la red criminal mayor que conecta la clínica con testaferros en todo el mundo.",
     type: "construction",
     timeLimit: 30,
     maxAttempts: 2,
     documentTitle: "LIBRETA DEL JEFE DE MAFIA",
-    sourceText: `FONDOS SECRETOS:
+    sourceText: `FONDOS SECRETOS DEL PACTO:
 ACC-CH-9910-A
 ACC-US-4402-B
 ACC-UK-12-Z (Inválida)
@@ -1155,14 +1155,14 @@ ACC-FR-8812-C`,
     id: 50,
     tier: 10,
     sceneType: "office",
-    title: "Caso 50: La Prueba del Comisionado",
-    subtitle: "Bóveda Secreta de la Ciudad",
-    description: "¡Último caso! Descifra la combinación maestra de la caja fuerte mayor.",
+    title: "Caso 50: El Destierro de Malphas",
+    subtitle: "Bóveda Clandestina de la Clínica Renacer",
+    description: "¡El clímax final! Vance abre el arcón arcano con la combinación que destruye el contrato de Malphas y anula el pacto para siempre.",
     type: "construction",
     timeLimit: 30,
     maxAttempts: 2,
-    documentTitle: "ARCHIVADOR SUPREMO DE LA POLICÍA",
-    sourceText: `CÓDIGOS FINALES:
+    documentTitle: "ARCÓN DEL CONTRATO PRIMIGENIO",
+    sourceText: `CÓDIGOS FINALES DEL CONJURO:
 MASTER_KEY_AB8899ZZ (Combinación Alfa)
 MASTER_KEY_7741KK99 (Combinación Beta)
 KEY_CERO_00000000 (Falsa)

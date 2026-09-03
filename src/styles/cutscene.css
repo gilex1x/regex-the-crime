@@ -1,0 +1,282 @@
+/* ========================================================
+   CINEMATIC CUTSCENE STYLES (NOIR FILM AESTHETICS)
+   ======================================================== */
+
+.cutscene-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: rgba(5, 7, 10, 0.96);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  user-select: none;
+}
+
+.cutscene-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Cinematic Letterbox Bars */
+.cutscene-letterbox-top,
+.cutscene-letterbox-bottom {
+  height: 60px;
+  background: #020305;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cutscene-letterbox-bottom {
+  border-bottom: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cutscene-scene-badge {
+  font-family: 'Special Elite', monospace, serif;
+  font-size: 0.85rem;
+  color: var(--color-gold, #e5a93b);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.cutscene-skip-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.6);
+  padding: 4px 14px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.2s ease;
+}
+
+.cutscene-skip-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Stage Area (Atmospheric center) */
+.cutscene-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  position: relative;
+  background: radial-gradient(circle at center, rgba(28, 22, 18, 0.25) 0%, rgba(5, 7, 10, 0.95) 75%);
+}
+
+.cutscene-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15) 0px,
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Scene Title Card (Header inside stage) */
+.cutscene-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  z-index: 2;
+  animation: fadeInDown 0.6s ease;
+}
+
+.cutscene-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: #f3efe6;
+  letter-spacing: 3px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  margin-bottom: 0.4rem;
+}
+
+.cutscene-subtitle {
+  font-family: 'Special Elite', monospace, serif;
+  font-size: 0.9rem;
+  color: #9d8b70;
+  letter-spacing: 1.5px;
+}
+
+/* Dialogue Box Container */
+.cutscene-dialogue-card {
+  width: 100%;
+  max-width: 820px;
+  background: rgba(18, 20, 26, 0.88);
+  border: 1px solid rgba(229, 169, 59, 0.25);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  padding: 2rem 2.5rem;
+  position: relative;
+  z-index: 2;
+  backdrop-filter: blur(8px);
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Speaker Profile */
+.cutscene-speaker-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.8rem;
+}
+
+.cutscene-avatar {
+  font-size: 2.2rem;
+  background: rgba(0, 0, 0, 0.4);
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid rgba(229, 169, 59, 0.4);
+  box-shadow: 0 0 12px rgba(229, 169, 59, 0.2);
+}
+
+.speaker-vance .cutscene-avatar { border-color: #e5a93b; box-shadow: 0 0 15px rgba(229, 169, 59, 0.3); }
+.speaker-briggs .cutscene-avatar { border-color: #4a90e2; box-shadow: 0 0 15px rgba(74, 144, 226, 0.3); }
+.speaker-falcone .cutscene-avatar { border-color: #e24a4a; box-shadow: 0 0 15px rgba(226, 74, 74, 0.3); }
+.speaker-cross .cutscene-avatar { border-color: #4ae2b6; box-shadow: 0 0 15px rgba(74, 226, 182, 0.3); }
+.speaker-malphas .cutscene-avatar { border-color: #a44ae2; box-shadow: 0 0 20px rgba(164, 74, 226, 0.5); }
+.speaker-narrator .cutscene-avatar { border-color: #999; box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); }
+
+.cutscene-speaker-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.cutscene-speaker-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.cutscene-speaker-role {
+  font-family: 'Special Elite', monospace, serif;
+  font-size: 0.8rem;
+  color: #8c9ba5;
+  letter-spacing: 0.5px;
+}
+
+/* Typewritten speech text */
+.cutscene-text {
+  font-family: 'Special Elite', 'Courier New', monospace;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: #e6dfd1;
+  min-height: 4rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.typing-caret {
+  display: inline-block;
+  width: 9px;
+  height: 1.2rem;
+  background: var(--color-gold, #e5a93b);
+  margin-left: 4px;
+  vertical-align: middle;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Footer inside Card */
+.cutscene-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  padding-top: 0.8rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.cutscene-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.cutscene-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  transition: all 0.3s ease;
+}
+
+.cutscene-dot.active {
+  background: var(--color-gold, #e5a93b);
+  box-shadow: 0 0 8px rgba(229, 169, 59, 0.6);
+  transform: scale(1.25);
+}
+
+.cutscene-next-btn {
+  background: linear-gradient(135deg, #e5a93b 0%, #b87b1c 100%);
+  color: #0b0d11;
+  border: none;
+  padding: 8px 24px;
+  border-radius: 4px;
+  font-family: 'Special Elite', monospace;
+  font-size: 0.95rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cutscene-next-btn:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(229, 169, 59, 0.3);
+}
+
+.cutscene-next-btn:active {
+  transform: translateY(0);
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

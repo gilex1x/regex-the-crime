@@ -29,15 +29,17 @@ export class Interaction {
         return;
       }
 
-      // Ignorar si hay algún modal abierto (Cuaderno, Academia, Victoria o Fallo)
+      // Ignorar si hay algún modal abierto (Cuaderno, Academia, Victoria, Fallo o Cinemática)
       const notebookModal = document.getElementById('notebook-modal');
       const academyModal = document.getElementById('academy-modal');
       const victoryModal = document.getElementById('case-completed-modal');
       const failedModal = document.getElementById('case-failed-modal');
+      const cutsceneModal = document.getElementById('cutscene-modal');
       const isAnyModalActive = (notebookModal && notebookModal.classList.contains('active')) ||
                                (academyModal && academyModal.classList.contains('active')) ||
                                (victoryModal && victoryModal.classList.contains('active')) ||
-                               (failedModal && failedModal.classList.contains('active'));
+                               (failedModal && failedModal.classList.contains('active')) ||
+                               (cutsceneModal && cutsceneModal.classList.contains('active'));
       if (isAnyModalActive) {
         return;
       }

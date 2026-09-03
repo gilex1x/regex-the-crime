@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="./src/styles/retro-canvas.css" />
   <link rel="stylesheet" href="./src/styles/notebook.css" />
   <link rel="stylesheet" href="./src/styles/academy.css" />
+  <link rel="stylesheet" href="./src/styles/cutscene.css" />
 </head>
 <body>
   <div id="app-container">
@@ -41,6 +42,10 @@
 
         <button id="btn-open-notebook" class="hud-btn" title="Abrir Cuaderno de Evidencias">
           📂 Evidencia [E]
+        </button>
+
+        <button id="btn-replay-cutscene" class="hud-btn" title="Ver la Cinemática de este Tier">
+          🎬 Escena
         </button>
 
         <select id="pixel-scale-select" class="hud-select" title="Escala de píxeles (Estética Retro)" aria-label="Escala de píxeles retro">
@@ -300,6 +305,52 @@
         <button id="btn-retry-case" class="btn-retry">
           🔄 Reintentar Caso
         </button>
+      </div>
+    </div>
+
+    <!-- Modal: Cinemática Noir Inter-Tier -->
+    <div id="cutscene-modal" class="cutscene-modal" role="dialog" aria-modal="true" aria-labelledby="cutscene-title">
+      <!-- Barra Widescreen Superior -->
+      <div class="cutscene-letterbox-top">
+        <span id="cutscene-scene-badge" class="cutscene-scene-badge">ESCENA NOIR</span>
+        <button id="cutscene-btn-skip" class="cutscene-skip-btn">Saltar Escena [Esc]</button>
+      </div>
+
+      <!-- Escenario Central con Diálogos -->
+      <div class="cutscene-stage">
+        <div class="cutscene-header">
+          <h2 id="cutscene-title" class="cutscene-title">PRÓLOGO: LA LLUVIA DE NEW HAVEN</h2>
+          <span id="cutscene-subtitle" class="cutscene-subtitle">Noviembre de 1947 • Medianoche</span>
+        </div>
+
+        <div id="cutscene-dialogue-card" class="cutscene-dialogue-card">
+          <div class="cutscene-speaker-meta">
+            <div id="cutscene-avatar" class="cutscene-avatar">🕵️‍♂️</div>
+            <div class="cutscene-speaker-details">
+              <span id="cutscene-speaker-name" class="cutscene-speaker-name">Detective Vincent Vance</span>
+              <span id="cutscene-speaker-role" class="cutscene-speaker-role">Investigador Forense</span>
+            </div>
+          </div>
+
+          <div id="cutscene-text" class="cutscene-text">
+            <!-- Texto typewriter dinámico -->
+          </div>
+
+          <div class="cutscene-footer">
+            <div id="cutscene-dots" class="cutscene-dots">
+              <!-- Indicadores de avance -->
+            </div>
+            <button id="cutscene-btn-next" class="cutscene-next-btn">
+              Siguiente ➔
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barra Widescreen Inferior -->
+      <div class="cutscene-letterbox-bottom">
+        <span style="font-size:0.75rem; color:#666; font-family: 'Inter', sans-serif;">Pulsa [Espacio] o [Enter] para avanzar diálogo</span>
+        <span style="font-size:0.75rem; color:#e5a93b; font-family: 'Special Elite', monospace;">REGEX: THE CRIME</span>
       </div>
     </div>
   </div>

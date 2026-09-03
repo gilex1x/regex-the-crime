@@ -119,6 +119,8 @@ El juego cuenta con un catálogo de **50 casos criminales** organizados en **10 
 ```
 regex-the-crime/
 ├── index.html                   # Canvas 3D, HUD por Tiers y Cuaderno Dual (Construcción / Criminal)
+├── HISTORIA_DEL_JUEGO.md        # Trama completa: Clínica de élite, tráfico de órganos y pacto demoníaco
+├── ACADEMIA_DETECTIVES.md       # Guía didáctica forense estilo W3Schools
 ├── src/
 │   ├── main.js                  # Inicialización y ciclo principal
 │   ├── data/

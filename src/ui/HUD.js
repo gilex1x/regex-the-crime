@@ -4,12 +4,13 @@ import { TIERS } from '../data/FullLevelsData.js';
  * Gestor del HUD (retícula, audio, selector de 50 casos por Tier y modal de victoria)
  */
 export class HUD {
-  constructor(engine, levelManager, audioManager, academyUI, notebookUI) {
+  constructor(engine, levelManager, audioManager, academyUI, notebookUI, cutsceneUI) {
     this.engine = engine;
     this.levelManager = levelManager;
     this.audio = audioManager;
     this.academyUI = academyUI;
     this.notebookUI = notebookUI;
+    this.cutsceneUI = cutsceneUI;
 
     this.victoryModal = document.getElementById('case-completed-modal');
     this.victoryTitle = document.getElementById('victory-case-title');
@@ -26,6 +27,18 @@ export class HUD {
       openNotebookBtn.addEventListener('click', () => {
         if (this.notebookUI && this.levelManager.currentClue) {
           this.notebookUI.open(this.levelManager.currentClue);
+        }
+      });
+    }
+
+    // Botón ver cinemática del Tier actual
+    const replayCutsceneBtn = document.getElementById('btn-replay-cutscene');
+    if (replayCutsceneBtn) {
+      replayCutsceneBtn.addEventListener('click', () => {
+        const currentTier = this.levelManager.getCurrentTier();
+        const cutsceneKey = this.getCutsceneForTier(currentTier.id);
+        if (this.cutsceneUI && cutsceneKey) {
+          this.cutsceneUI.play(cutsceneKey);
         }
       });
     }
@@ -78,17 +91,19 @@ export class HUD {
       });
     }
 
-    // Botón continuar caso resuelto
+    // Botón continuar caso resuelto con chequeo de cinemáticas inter-tier
     if (this.btnNextCase) {
       this.btnNextCase.addEventListener('click', () => {
         this.victoryModal.classList.remove('active');
-        if (this.levelManager.currentCaseIndex < this.levelManager.levels.length - 1) {
-          this.levelManager.nextCase();
-          if (caseSelect) {
-            caseSelect.value = String(this.levelManager.currentCaseIndex);
-          }
+        const completedCase = this.levelManager.getCurrentCase();
+        const cutsceneKey = this.getCutsceneForCompletedCase(completedCase.id);
+
+        if (this.cutsceneUI && cutsceneKey) {
+          this.cutsceneUI.play(cutsceneKey, () => {
+            this.advanceToNextCase(caseSelect);
+          });
         } else {
-          alert("🏆 ¡ENHORABUENA COMISIONADO! Has resuelto con éxito los 50 casos de Regex: The Crime.");
+          this.advanceToNextCase(caseSelect);
         }
       });
     }
@@ -97,6 +112,49 @@ export class HUD {
     this.levelManager.onCaseCompleted = (caseData) => {
       this.showCaseCompleted(caseData);
     };
+  }
+
+  getCutsceneForCompletedCase(caseId) {
+    const transitions = {
+      10: 'tier_1_to_2',
+      20: 'tier_2_to_3',
+      30: 'tier_3_to_4',
+      40: 'tier_4_to_5',
+      50: 'tier_5_to_6',
+      60: 'tier_6_to_7',
+      70: 'tier_7_to_8',
+      80: 'tier_8_to_9',
+      90: 'tier_9_to_10',
+      100: 'epilogue'
+    };
+    return transitions[caseId] || null;
+  }
+
+  getCutsceneForTier(tierId) {
+    const tierScenes = {
+      1: 'prologue',
+      2: 'tier_1_to_2',
+      3: 'tier_2_to_3',
+      4: 'tier_3_to_4',
+      5: 'tier_4_to_5',
+      6: 'tier_5_to_6',
+      7: 'tier_6_to_7',
+      8: 'tier_7_to_8',
+      9: 'tier_8_to_9',
+      10: 'tier_9_to_10'
+    };
+    return tierScenes[tierId] || 'prologue';
+  }
+
+  advanceToNextCase(caseSelect) {
+    if (this.levelManager.currentCaseIndex < this.levelManager.levels.length - 1) {
+      this.levelManager.nextCase();
+      if (caseSelect) {
+        caseSelect.value = String(this.levelManager.currentCaseIndex);
+      }
+    } else {
+      alert("🏆 ¡ENHORABUENA COMISIONADO! Has resuelto con éxito los 100 casos de Regex: The Crime y desterrado al demonio Malphas.");
+    }
   }
 
   showCaseCompleted(caseData) {

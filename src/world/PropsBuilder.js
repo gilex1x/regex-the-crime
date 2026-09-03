@@ -97,6 +97,63 @@ export class PropsBuilder {
   }
 
   /**
+   * Textura de azulejos clínicos para la morgue / laboratorio
+   */
+  static getHospitalTileTexture() {
+    return this.createPixelTexture(32, 32, (ctx, w, h) => {
+      ctx.fillStyle = '#1e292b';
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#101718'; // Juntas de azulejos
+      for (let y = 0; y < h; y += 8) ctx.fillRect(0, y, w, 1);
+      for (let x = 0; x < w; x += 8) ctx.fillRect(x, 0, 1, h);
+      // Manchas y reflejos cerámicos
+      for (let i = 0; i < 25; i++) {
+        ctx.fillStyle = Math.random() > 0.6 ? '#2a3a3d' : '#142022';
+        ctx.fillRect(Math.floor(Math.random() * w), Math.floor(Math.random() * h), 2, 2);
+      }
+    });
+  }
+
+  /**
+   * Textura de metal acanalado industrial para contenedores de los muelles
+   */
+  static getContainerMetalTexture() {
+    return this.createPixelTexture(32, 32, (ctx, w, h) => {
+      ctx.fillStyle = '#1e293b';
+      ctx.fillRect(0, 0, w, h);
+      // Corrugación vertical
+      for (let x = 0; x < w; x += 4) {
+        ctx.fillStyle = x % 8 === 0 ? '#334155' : '#0f172a';
+        ctx.fillRect(x, 0, 2, h);
+      }
+      // Óxido y suciedad portuaria
+      for (let i = 0; i < 30; i++) {
+        ctx.fillStyle = Math.random() > 0.5 ? '#7c2d12' : '#451a03';
+        ctx.fillRect(Math.floor(Math.random() * w), Math.floor(Math.random() * h), 1, 1);
+      }
+    });
+  }
+
+  /**
+   * Textura de sillería de piedra rúnica para el santuario subterráneo
+   */
+  static getRuneStoneTexture() {
+    return this.createPixelTexture(32, 32, (ctx, w, h) => {
+      ctx.fillStyle = '#120f17';
+      ctx.fillRect(0, 0, w, h);
+      // Bloques de sillería
+      ctx.fillStyle = '#0a080d';
+      for (let y = 0; y < h; y += 8) ctx.fillRect(0, y, w, 1);
+      for (let x = 0; x < w; x += 16) ctx.fillRect(x, 0, 1, h);
+      // Grietas y símbolos rúnicos rojos tenues
+      for (let i = 0; i < 20; i++) {
+        ctx.fillStyle = Math.random() > 0.7 ? '#4a1525' : '#1c1624';
+        ctx.fillRect(Math.floor(Math.random() * w), Math.floor(Math.random() * h), 1, 2);
+      }
+    });
+  }
+
+  /**
    * Farola callejera estilo noir con luz volumétrica simulada
    */
   static createStreetLamp(x, z) {
