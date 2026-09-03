@@ -1,0 +1,550 @@
+/* Modal Cuaderno de Detective y Consola Regex */
+
+#notebook-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(4, 6, 9, 0.88);
+  backdrop-filter: blur(10px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 60;
+  padding: 24px;
+}
+
+#notebook-modal.active {
+  display: flex;
+}
+
+.notebook-folder {
+  display: flex;
+  width: 95vw;
+  max-width: 1060px;
+  height: 85vh;
+  max-height: 720px;
+  background: #d8cbb0;
+  background-image: radial-gradient(#c7b99c 15%, transparent 16%);
+  background-size: 16px 16px;
+  border: 4px solid #4a3928;
+  border-radius: 8px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  color: #1a1612;
+  position: relative;
+}
+
+/* Columna Izquierda: Documento de Evidencia Física */
+.evidence-side {
+  flex: 1.1;
+  padding: 32px;
+  border-right: 2px dashed #8c7355;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  position: relative;
+}
+
+.case-file-stamp {
+  font-family: var(--font-typewriter);
+  color: #991b1b;
+  border: 2px solid #991b1b;
+  display: inline-block;
+  padding: 4px 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transform: rotate(-3deg);
+  margin-bottom: 14px;
+  align-self: flex-start;
+}
+
+.evidence-header h2 {
+  font-family: var(--font-typewriter);
+  font-size: 1.25rem;
+  color: #261c14;
+  margin-bottom: 8px;
+  border-bottom: 2px solid #8c7355;
+  padding-bottom: 6px;
+}
+
+.evidence-brief {
+  font-size: 0.9rem;
+  color: #574635;
+  margin-bottom: 18px;
+  line-height: 1.4;
+}
+
+.document-sheet {
+  background: #fdfbf7;
+  border: 1px solid #dcd1be;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.05), 2px 2px 8px rgba(0,0,0,0.15);
+  padding: 20px;
+  border-radius: 4px;
+  font-family: var(--font-typewriter);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  flex: 1;
+  overflow-y: auto;
+  color: #1c1917;
+  position: relative;
+}
+
+/* Resaltador amarillo fluorescente retro para matches */
+mark.regex-match {
+  background: #fef08a;
+  color: #854d0e;
+  font-weight: bold;
+  padding: 1px 3px;
+  border-radius: 2px;
+  border-bottom: 2px solid #eab308;
+  box-shadow: 0 0 6px rgba(234, 179, 8, 0.4);
+  animation: match-flash 0.3s ease-out;
+}
+
+@keyframes match-flash {
+  0% { background: #ca8a04; color: #fff; }
+  100% { background: #fef08a; color: #854d0e; }
+}
+
+/* Sello de evidencia confirmada */
+.stamp-approved {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-12deg);
+  border: 4px dashed #15803d;
+  color: #15803d;
+  font-family: var(--font-typewriter);
+  font-size: 1.8rem;
+  font-weight: bold;
+  padding: 12px 28px;
+  background: rgba(240, 253, 244, 0.9);
+  pointer-events: none;
+  box-shadow: 0 0 20px rgba(21, 128, 61, 0.3);
+  animation: stamp-drop 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+@keyframes stamp-drop {
+  0% { transform: translate(-50%, -50%) scale(2) rotate(10deg); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(1) rotate(-12deg); opacity: 1; }
+}
+
+/* Columna Derecha: Consola Regex del Investigador */
+.investigation-side {
+  flex: 1;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  background: #231c16;
+  color: #e2e8f0;
+  overflow-y: auto;
+}
+
+.terminal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.terminal-header h3 {
+  font-family: var(--font-typewriter);
+  color: var(--gold-detective);
+  font-size: 1.15rem;
+}
+
+.btn-close-modal {
+  background: transparent;
+  border: 1px solid #64748b;
+  color: #94a3b8;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.btn-close-modal:hover {
+  background: #334155;
+  color: #fff;
+}
+
+.task-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 14px;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin-bottom: 18px;
+  color: #cbd5e1;
+}
+
+/* Regex Input Box */
+.regex-console-box {
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.regex-slash {
+  font-family: monospace;
+  color: var(--gold-detective);
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+#regex-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #38bdf8;
+  font-family: 'Courier New', monospace;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.regex-flags {
+  font-family: monospace;
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+
+/* Feedback & Matches preview */
+.feedback-box {
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-bottom: 14px;
+  background: rgba(30, 41, 59, 0.6);
+  border-left: 4px solid var(--accent-blue);
+  color: #94a3b8;
+}
+
+.feedback-box.success {
+  background: rgba(22, 101, 52, 0.35);
+  border-left-color: var(--accent-green);
+  color: #86efac;
+}
+
+.feedback-box.error {
+  background: rgba(153, 27, 27, 0.35);
+  border-left-color: var(--accent-red);
+  color: #fca5a5;
+}
+
+.feedback-box.warning {
+  background: rgba(180, 83, 9, 0.35);
+  border-left-color: var(--gold-detective);
+  color: #fde047;
+}
+
+.matches-preview-area {
+  margin-bottom: 16px;
+}
+
+.matches-label {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#matches-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 32px;
+}
+
+.match-badge {
+  background: #1e293b;
+  border: 1px solid #0284c7;
+  color: #38bdf8;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.85rem;
+}
+
+.empty-msg {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-style: italic;
+}
+
+/* Acciones y Pistas */
+.cheat-accordion {
+  margin-top: auto;
+  margin-bottom: 16px;
+}
+
+#cheat-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--gold-detective);
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  margin-bottom: 8px;
+}
+
+#cheat-content {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid #475569;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  color: #cbd5e1;
+  line-height: 1.4;
+}
+
+#cheat-content.hidden {
+  display: none;
+}
+
+.hint-example {
+  margin-top: 6px;
+  color: var(--gold-light);
+}
+
+.hint-example code {
+  background: #1e293b;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+#btn-submit-clue {
+  background: var(--gold-detective);
+  color: #0f172a;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#btn-submit-clue:hover:not(:disabled) {
+  background: #fbbf24;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+}
+
+#btn-submit-clue:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   MECÁNICAS DE DIFICULTAD Y PRESIÓN
+   ========================================= */
+
+/* Barra de Estado Superior del Cuaderno */
+.notebook-pressure-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 14px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.pressure-timer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fbbf24;
+}
+
+.pressure-timer.critical {
+  color: #ef4444;
+  animation: pulse-crit 0.8s infinite alternate;
+}
+
+@keyframes pulse-crit {
+  from { transform: scale(1); opacity: 0.85; }
+  to { transform: scale(1.04); opacity: 1; text-shadow: 0 0 10px #ef4444; }
+}
+
+.pressure-attempts {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #f43f5e;
+  letter-spacing: 2px;
+}
+
+/* Consola del Criptoanálisis del Criminal */
+.cipher-console {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.cipher-banner {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-left: 4px solid #ef4444;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.86rem;
+  color: #fca5a5;
+}
+
+.cipher-regex-card {
+  background: #07090e;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-family: monospace;
+  font-size: 1.1rem;
+  color: #38bdf8;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.cipher-regex-card .cipher-tag {
+  background: #1e293b;
+  color: var(--gold-detective);
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-family: sans-serif;
+  font-weight: 700;
+}
+
+.cipher-question-text {
+  font-size: 0.95rem;
+  color: #f1f5f9;
+  line-height: 1.5;
+  font-weight: 500;
+  margin: 4px 0;
+}
+
+.cipher-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cipher-option-card {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid #475569;
+  border-radius: 8px;
+  padding: 12px 14px;
+  text-align: left;
+  cursor: pointer;
+  color: #e2e8f0;
+  font-size: 0.88rem;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cipher-option-card:hover:not(:disabled) {
+  background: rgba(51, 65, 85, 0.9);
+  border-color: var(--gold-detective);
+  transform: translateX(4px);
+}
+
+.cipher-option-card.correct {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: #10b981;
+  color: #a7f3d0;
+}
+
+.cipher-option-card.incorrect {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+  color: #fca5a5;
+}
+
+.cipher-option-card:disabled {
+  cursor: default;
+}
+
+/* Modal de Derrota / Caso Fallido */
+#case-failed-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(8, 0, 0, 0.88);
+  backdrop-filter: blur(10px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 90;
+  padding: 20px;
+}
+
+#case-failed-modal.active {
+  display: flex;
+}
+
+.failure-box {
+  background: #15090b;
+  border: 2px solid #ef4444;
+  border-radius: 12px;
+  padding: 36px 40px;
+  max-width: 480px;
+  text-align: center;
+  color: #f8fafc;
+  box-shadow: 0 0 40px rgba(239, 68, 68, 0.35);
+}
+
+.failure-box h2 {
+  font-family: var(--font-typewriter);
+  color: #ef4444;
+  font-size: 2rem;
+  margin-bottom: 14px;
+}
+
+.failure-box p {
+  color: #cbd5e1;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.btn-retry {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-retry:hover {
+  background: #dc2626;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+  transform: translateY(-2px);
+}

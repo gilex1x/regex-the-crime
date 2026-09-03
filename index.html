@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Regex: The Crime - Videojuego web 3D indie retro pixel-art donde resuelves crímenes usando expresiones regulares." />
+  <title>Regex: The Crime — Detective Noir 3D</title>
+  
+  <link rel="stylesheet" href="./src/styles/main.css" />
+  <link rel="stylesheet" href="./src/styles/retro-canvas.css" />
+  <link rel="stylesheet" href="./src/styles/notebook.css" />
+  <link rel="stylesheet" href="./src/styles/academy.css" />
+</head>
+<body>
+  <div id="app-container">
+    <!-- Viewport 3D Three.js montado aquí -->
+    
+    <!-- Filtros visuales CRT y Retícula -->
+    <div id="crt-overlay" aria-hidden="true"></div>
+    <div id="reticle" aria-hidden="true"></div>
+
+    <!-- HUD Superior -->
+    <header id="hud-top-bar" role="banner">
+      <div class="case-info-badge">
+        <h1 id="hud-case-title">Caso 01: El Arma Descartada</h1>
+        <span id="hud-case-subtitle">Distrito Industrial • 02:00 AM</span>
+      </div>
+
+      <div class="hud-controls-group">
+        <div class="hud-pill" id="hud-tier-badge">
+          ⭐ Tier 1: Recluta
+        </div>
+
+        <div class="hud-pill" id="hud-clues-progress">
+          Progreso: <strong>1 / 50</strong>
+        </div>
+
+        <select id="case-select" class="hud-select" aria-label="Seleccionar caso o nivel">
+          <!-- Opciones cargadas dinámicamente -->
+        </select>
+
+        <button id="btn-open-notebook" class="hud-btn" title="Abrir Cuaderno de Evidencias">
+          📂 Evidencia [E]
+        </button>
+
+        <select id="pixel-scale-select" class="hud-select" title="Escala de píxeles (Estética Retro)" aria-label="Escala de píxeles retro">
+          <option value="2">Resolución: Nítida (x2)</option>
+          <option value="3" selected>Resolución: Retro Pixel (x3)</option>
+          <option value="4">Resolución: Ultra Pixel (x4)</option>
+        </select>
+
+        <button id="btn-open-academy" class="hud-btn" title="Ir a la Academia de Detectives">
+          🎓 Academia
+        </button>
+
+        <button id="btn-toggle-sound" class="hud-btn" title="Alternar audio">
+          🔊 Audio
+        </button>
+      </div>
+    </header>
+
+    <!-- Prompt de interacción en pantalla -->
+    <div id="interaction-prompt" role="status" aria-live="polite">
+      <span class="key-badge">E</span> Inspeccionar Pista
+    </div>
+
+    <!-- Pantalla de Bienvenida / Selección de Modo -->
+    <div id="instructions-overlay" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+      <div class="intro-card">
+        <h1 id="intro-title">🕵️ REGEX: THE CRIME</h1>
+        <p>
+          Bienvenido al Departamento de Investigaciones. Resuelve <strong>50 Casos Criminales</strong> organizados en 10 Tiers de dificultad progresiva con tiempo límite, vidas y trampas del criminal:
+        </p>
+
+        <div class="controls-hint-list">
+          <div class="control-item">
+            <span class="control-key">W A S D</span>
+            <span>Moverse</span>
+          </div>
+          <div class="control-item">
+            <span class="control-key">RATÓN</span>
+            <span>Mirar alrededor</span>
+          </div>
+          <div class="control-item">
+            <span class="control-key">E</span>
+            <span>Inspeccionar Pista</span>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+          <button class="click-prompt-btn" id="btn-start-investigation">
+            🕵️ MODO NORMAL (50 Casos)
+          </button>
+          <button class="click-prompt-btn" id="btn-start-academy" style="background: #2563eb; color: #fff;">
+            🎓 MODO ACADEMIA (Aprender Regex)
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Cuaderno de Detective y Consola Regex -->
+    <div id="notebook-modal" role="dialog" aria-modal="true" aria-labelledby="notebook-doc-title">
+      <div class="notebook-folder">
+        <!-- Columna Izquierda: Documento de Evidencia -->
+        <section class="evidence-side" aria-label="Documento de evidencia">
+          <span class="case-file-stamp">DEPARTAMENTO DE POLICÍA • CONFIDENCIAL</span>
+          <div class="evidence-header">
+            <h2 id="notebook-doc-title">DOCUMENTO ENCONTRADO EN LA ESCENA</h2>
+            <div id="notebook-instructions" class="evidence-brief">
+              <!-- Instrucciones de la pista -->
+            </div>
+          </div>
+          <div id="notebook-doc-body" class="document-sheet">
+            <!-- Texto de la pista con resaltado dinámico de Regex -->
+          </div>
+        </section>
+
+        <!-- Columna Derecha: Terminal de Descifrado Regex -->
+        <section class="investigation-side" aria-label="Terminal de descifrado Regex">
+          <div class="terminal-header">
+            <h3>TERMINAL FORENSE</h3>
+            <button id="btn-close-notebook" class="btn-close-modal" title="Cerrar cuaderno [ESC]">✕ Salir [ESC]</button>
+          </div>
+
+          <!-- Barra de Presión y Dificultad (Tiempo e Intentos) -->
+          <div id="notebook-pressure-bar" class="notebook-pressure-bar" style="display: none;">
+            <div id="notebook-timer-display" class="pressure-timer" style="display: none;">
+              <span>⏱️ Tiempo:</span> <strong id="timer-val">00:00</strong>
+            </div>
+            <div id="notebook-attempts-display" class="pressure-attempts" style="display: none;">
+              <span>Vidas:</span> <strong id="attempts-val">❤️❤️❤️</strong>
+            </div>
+          </div>
+
+          <!-- Consola 1: Modo Construcción de Regex -->
+          <div id="construction-console">
+            <div class="task-card">
+              Ingresa un patrón Regex para aislar los datos solicitados. El texto del documento se resaltará en tiempo real conforme escribas.
+            </div>
+
+            <label for="regex-input" class="matches-label">Expresión Regular:</label>
+            <div class="regex-console-box">
+              <span class="regex-slash">/</span>
+              <input type="text" id="regex-input" placeholder="ej. \$\d+" autocomplete="off" spellcheck="false" />
+              <span class="regex-slash">/</span>
+              <span class="regex-flags" id="notebook-flags-display">g</span>
+            </div>
+
+            <!-- Selector de banderas en el cuaderno -->
+            <div class="flags-selector-bar" style="margin-top: 6px;">
+              <span class="flags-label">Banderas:</span>
+              <label class="flag-chip-label">
+                <input type="checkbox" id="nb-flag-g" checked>
+                <code>g</code> Global
+              </label>
+              <label class="flag-chip-label">
+                <input type="checkbox" id="nb-flag-i">
+                <code>i</code> Ignorar Mayúsculas
+              </label>
+            </div>
+
+            <!-- Botón Probar Ejemplo -->
+            <div style="margin: 8px 0;">
+              <button type="button" class="btn-try-solution" id="btn-notebook-try-solution">
+                💡 Ver Solución Sugerida
+              </button>
+            </div>
+
+            <!-- Estado y Feedback -->
+            <div id="regex-feedback" class="feedback-box">
+              Escribe un patrón Regex para comenzar la búsqueda.
+            </div>
+
+            <div class="matches-preview-area">
+              <div class="matches-label">Coincidencias Detectadas:</div>
+              <div id="matches-list">
+                <span class="empty-msg">Sin coincidencias</span>
+              </div>
+            </div>
+
+            <!-- Apuntes del detective (ayuda pedagógica de sintaxis) -->
+            <div class="cheat-accordion">
+              <button id="cheat-toggle-btn" type="button">💡 Ver Apuntes del Detective</button>
+              <div id="cheat-content" class="hidden">
+                <!-- Ayuda cargada dinámicamente -->
+              </div>
+            </div>
+
+            <button id="btn-submit-clue" type="button">
+              🔍 Archivar Evidencia
+            </button>
+          </div>
+
+          <!-- Consola 2: Modo Desafío del Criminal (Criptoanálisis Inverso) -->
+          <div id="cipher-console" class="cipher-console" style="display: none;">
+            <div class="cipher-banner">
+              ⚠️ <strong>TRAMPA DEL CRIMINAL DETECTADA:</strong> El sospechoso programó un algoritmo regex. Descifra qué cadenas u opciones cumplen la regla.
+            </div>
+
+            <div class="cipher-regex-card">
+              <span class="cipher-tag">Regex Criminal</span>
+              <code id="cipher-regex-val">/pattern/flags</code>
+            </div>
+
+            <div class="cipher-question-text" id="cipher-question-text">
+              ¿Cuáles cadenas coinciden con la expresión?
+            </div>
+
+            <div class="cipher-options-list" id="cipher-options-list">
+              <!-- Opciones cargadas dinámicamente -->
+            </div>
+
+            <div id="cipher-feedback" class="feedback-box" style="margin-top: 10px;">
+              Selecciona una opción para probar tu deducción.
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Modal: Academia de Detectives Forenses -->
+    <div id="academy-modal" role="dialog" aria-modal="true" aria-labelledby="academy-brand-title">
+      <div class="academy-container">
+        <!-- Sidebar Izquierdo -->
+        <aside class="academy-sidebar">
+          <div class="academy-brand">
+            <span style="font-size: 1.6rem;">🎓</span>
+            <div>
+              <h2 id="academy-brand-title">ACADEMIA REGEX</h2>
+              <span style="font-size: 0.75rem; color: #64748b;">Escuela de Detectives</span>
+            </div>
+          </div>
+
+          <div class="academy-progress-tracker">
+            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #94a3b8;">
+              <span>Progreso:</span>
+              <strong id="academy-progress-text" style="color: var(--gold-light);">0 / 10 (0%)</strong>
+            </div>
+            <div class="progress-bar-bg">
+              <div id="academy-progress-fill" class="progress-bar-fill"></div>
+            </div>
+          </div>
+
+          <nav class="lessons-nav-list" id="academy-lessons-nav" aria-label="Lista de lecciones">
+            <!-- Cargado dinámicamente -->
+          </nav>
+        </aside>
+
+        <!-- Área Principal -->
+        <main class="academy-main">
+          <header class="academy-top-nav">
+            <div class="lesson-meta">
+              <span class="lesson-category-tag" id="academy-lesson-category">Construcción</span>
+              <h3 id="academy-lesson-title" style="font-size: 1.1rem; color: #f1f5f9;">Lección</h3>
+            </div>
+            <button class="btn-exit-academy" id="btn-exit-academy">✕ Volver a la Escena [ESC]</button>
+          </header>
+
+          <div class="academy-split">
+            <!-- Panel Izquierdo: Teoría -->
+            <section class="academy-theory-pane">
+              <div class="theory-content-box" id="academy-theory-content">
+                <!-- Teoría -->
+              </div>
+
+              <div class="academy-task-card" id="academy-task-content">
+                <!-- Misión -->
+              </div>
+            </section>
+
+            <!-- Panel Derecho: Laboratorio / Reto -->
+            <section class="academy-lab-pane" id="academy-lab-area">
+              <!-- Laboratorio interactivo o preguntas -->
+            </section>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Modal: Caso Completado / Victoria de Nivel -->
+    <div id="case-completed-modal" role="dialog" aria-modal="true" aria-labelledby="victory-case-title">
+      <div class="victory-box">
+        <h2 id="victory-case-title">¡CASO RESUELTO!</h2>
+        <p id="victory-case-message">
+          Todas las pistas han sido descifradas con éxito. El fiscal tiene pruebas suficientes para dictar orden de captura.
+        </p>
+        <button id="btn-next-case" class="btn-proceed">
+          Avanzar al Siguiente Caso ➔
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal: Caso Fallido (Tiempo Agotado o Sin Vidas) -->
+    <div id="case-failed-modal" role="dialog" aria-modal="true" aria-labelledby="failed-case-title">
+      <div class="failure-box">
+        <h2 id="failed-case-title">¡CASO FALLIDO!</h2>
+        <p id="failed-case-message">
+          El tiempo se ha agotado y el sospechoso logró escapar sin dejar rastro.
+        </p>
+        <button id="btn-retry-case" class="btn-retry">
+          🔄 Reintentar Caso
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
