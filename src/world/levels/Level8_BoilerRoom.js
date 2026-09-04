@@ -133,6 +133,16 @@ export class Level8_BoilerRoom {
     this.group.add(ambientLight);
 
     // 7. Pistas interactivas
+
+    // -- DETALLES EXTRA: BOILER ROOM --
+    const pipeGeo = new THREE.CylinderGeometry(0.2, 0.2, 8, 8);
+    const extraPipeMat = new THREE.MeshStandardMaterial({ color: 0x7c2d12, metalness: 0.6 });
+    for (let i = 0; i < 5; i++) {
+      const pipe = new THREE.Mesh(pipeGeo, extraPipeMat);
+      pipe.position.set(-5 + i * 2.5, 4, -4);
+      pipe.rotation.x = Math.PI / 2;
+      this.group.add(pipe);
+    }
     this.clueDataList.forEach(clue => {
       const clueObj = PropsBuilder.createClueObject(clue);
       this.group.add(clueObj);

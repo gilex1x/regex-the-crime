@@ -165,6 +165,22 @@ export class Level4_Morgue {
     this.group.add(ambientLight);
 
     // 7. Renderizar pistas interactivas
+
+    // -- DETALLES EXTRA: MORGUE --
+    const bedGeo = new THREE.BoxGeometry(1.2, 0.9, 2.5);
+    const bedMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.8 });
+    for (let i = 0; i < 2; i++) {
+      const bed = new THREE.Mesh(bedGeo, bedMat);
+      bed.position.set(-3 + (i * 6), 0.45, -2);
+      this.group.add(bed);
+      this.colliders.push(new THREE.Box3().setFromObject(bed));
+    }
+    const bloodGeo = new THREE.CircleGeometry(0.8, 16);
+    const bloodMat = new THREE.MeshBasicMaterial({ color: 0x7f1d1d, transparent: true, opacity: 0.6 });
+    const blood = new THREE.Mesh(bloodGeo, bloodMat);
+    blood.rotation.x = -Math.PI / 2;
+    blood.position.set(-2, 0.02, -1);
+    this.group.add(blood);
     this.clueDataList.forEach(clue => {
       const clueObj = PropsBuilder.createClueObject(clue);
       this.group.add(clueObj);

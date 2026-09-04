@@ -167,6 +167,20 @@ export class Level6_Sanctuary {
     this.group.add(ambientLight);
 
     // 7. Renderizar pistas interactivas
+
+    // -- DETALLES EXTRA: SANCTUARY --
+    const pillarGeo = new THREE.CylinderGeometry(0.5, 0.5, 6, 8);
+    const extraPillarMat = new THREE.MeshStandardMaterial({ color: 0x1c1917, roughness: 0.9 });
+    for (let i = 0; i < 4; i++) {
+      const pillar = new THREE.Mesh(pillarGeo, extraPillarMat);
+      pillar.position.set(i % 2 === 0 ? -4 : 4, 3, -2 - Math.floor(i / 2) * 4);
+      this.group.add(pillar);
+      this.colliders.push(new THREE.Box3().setFromObject(pillar));
+
+      const fire = new THREE.PointLight(0xf97316, 5, 8);
+      fire.position.set(pillar.position.x, 2, pillar.position.z + 0.6);
+      this.group.add(fire);
+    }
     this.clueDataList.forEach(clue => {
       const clueObj = PropsBuilder.createClueObject(clue);
       this.group.add(clueObj);

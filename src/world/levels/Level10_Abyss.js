@@ -161,6 +161,19 @@ export class Level10_Abyss {
     this.group.add(ambientLight);
 
     // 6. Pistas interactivas
+
+    // -- DETALLES EXTRA: ABYSS --
+    const crystalGeo = new THREE.OctahedronGeometry(1, 0);
+    const crystalMat = new THREE.MeshStandardMaterial({ color: 0xa855f7, transparent: true, opacity: 0.8 });
+    for (let i = 0; i < 8; i++) {
+      const cry = new THREE.Mesh(crystalGeo, crystalMat);
+      cry.position.set(-6 + Math.random() * 12, 0.5 + Math.random(), -2 - Math.random() * 8);
+      cry.rotation.set(Math.random(), Math.random(), Math.random());
+      this.group.add(cry);
+      const light = new THREE.PointLight(0xa855f7, 3, 5);
+      light.position.copy(cry.position);
+      this.group.add(light);
+    }
     this.clueDataList.forEach(clue => {
       const clueObj = PropsBuilder.createClueObject(clue);
       this.group.add(clueObj);

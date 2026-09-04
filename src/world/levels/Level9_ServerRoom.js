@@ -143,6 +143,16 @@ export class Level9_ServerRoom {
     this.group.add(ambientLight);
 
     // 6. Pistas interactivas
+
+    // -- DETALLES EXTRA: SERVER ROOM --
+    const srvGeo = new THREE.BoxGeometry(1.5, 4, 1.5);
+    const srvMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.8 });
+    for (let i = 0; i < 6; i++) {
+      const srv = new THREE.Mesh(srvGeo, srvMat);
+      srv.position.set(i % 2 === 0 ? -3 : 3, 2, -2 - Math.floor(i / 2) * 3);
+      this.group.add(srv);
+      this.colliders.push(new THREE.Box3().setFromObject(srv));
+    }
     this.clueDataList.forEach(clue => {
       const clueObj = PropsBuilder.createClueObject(clue);
       this.group.add(clueObj);

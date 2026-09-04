@@ -71,27 +71,22 @@ export class LevelManager {
     this.currentCaseIndex = index;
     const caseData = this.levels[index];
 
-    // Posición conveniente de la pista según el escenario 3D
-    let cluePos = [0.3, 0.85, -2.0];
-    if (caseData.sceneType === 'hotel') {
-      cluePos = [1.1, 0.85, -1.6];
-    } else if (caseData.sceneType === 'office') {
-      cluePos = [0.0, 0.85, -1.2];
-    } else if (caseData.sceneType === 'morgue') {
-      cluePos = [0.0, 0.95, -2.0];
-    } else if (caseData.sceneType === 'docks') {
-      cluePos = [0.0, 0.92, -2.5];
-    } else if (caseData.sceneType === 'sanctuary') {
-      cluePos = [0.0, 0.95, -2.2];
-    } else if (caseData.sceneType === 'mansion') {
-      cluePos = [0.0, 0.85, -2.2];
-    } else if (caseData.sceneType === 'boiler_room') {
-      cluePos = [0.0, 0.85, -2.0];
-    } else if (caseData.sceneType === 'server_room') {
-      cluePos = [0.0, 0.85, -2.0];
-    } else if (caseData.sceneType === 'abyss') {
-      cluePos = [0.0, 1.05, -2.2];
-    }
+    // Posición conveniente de la pista según el escenario 3D (con aleatorización)
+    const clueSpawnPoints = {
+      alley: [ [0.3, 0.85, -2.0], [-2.0, 0.85, -4.0], [2.5, 0.85, -1.0], [0.0, 0.85, -6.0] ],
+      hotel: [ [1.1, 0.85, -1.6], [-1.5, 0.85, -2.5], [2.0, 0.85, -0.5], [-0.5, 0.85, -3.0] ],
+      office: [ [0.0, 0.85, -1.2], [-1.8, 0.85, -2.0], [1.5, 0.85, -2.5], [-1.0, 0.85, -0.5] ],
+      morgue: [ [0.0, 0.95, -2.0], [-1.5, 0.95, -3.5], [1.5, 0.95, -1.5], [2.0, 0.95, -3.0] ],
+      docks: [ [0.0, 0.92, -2.5], [-2.5, 0.92, -4.0], [2.0, 0.92, -2.0], [1.5, 0.92, -5.0] ],
+      sanctuary: [ [0.0, 0.95, -2.2], [-2.0, 0.95, -3.0], [2.0, 0.95, -3.0], [0.0, 0.95, -4.5] ],
+      mansion: [ [0.0, 0.85, -2.2], [-1.5, 0.85, -3.0], [1.5, 0.85, -1.5], [-2.5, 0.85, -2.0] ],
+      boiler_room: [ [0.0, 0.85, -2.0], [-2.0, 0.85, -3.5], [1.5, 0.85, -2.5], [2.5, 0.85, -1.0] ],
+      server_room: [ [0.0, 0.85, -2.0], [-1.5, 0.85, -3.0], [1.5, 0.85, -3.0], [-2.5, 0.85, -1.5] ],
+      abyss: [ [0.0, 1.05, -2.2], [-2.0, 1.05, -3.5], [2.0, 1.05, -3.5], [0.0, 1.05, -5.0] ]
+    };
+    
+    const spawns = clueSpawnPoints[caseData.sceneType] || [[0, 0.85, -2.0]];
+    const cluePos = spawns[Math.floor(Math.random() * spawns.length)];
 
     const clue = {
       id: `clue_case_${caseData.id}`,

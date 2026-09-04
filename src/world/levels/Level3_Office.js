@@ -125,6 +125,16 @@ export class Level3_Office {
     this.group.add(officeFill);
 
     // 7. Pistas interactivas
+
+    // -- DETALLES EXTRA: OFFICE --
+    const cabinetGeo = new THREE.BoxGeometry(1.2, 2.5, 0.8);
+    const cabinetMat = new THREE.MeshStandardMaterial({ color: 0x475569, metalness: 0.5 });
+    for (let i = 0; i < 3; i++) {
+      const cabinet = new THREE.Mesh(cabinetGeo, cabinetMat);
+      cabinet.position.set(-4 + (i * 1.3), 1.25, -5.5);
+      this.group.add(cabinet);
+      this.colliders.push(new THREE.Box3().setFromObject(cabinet));
+    }
     this.clueDataList.forEach(clue => {
       const clueObj = PropsBuilder.createClueObject(clue);
       this.group.add(clueObj);

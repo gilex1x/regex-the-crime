@@ -147,6 +147,17 @@ export class Level5_Docks {
     });
 
     // 7. Renderizar pistas interactivas
+
+    // -- DETALLES EXTRA: DOCKS --
+    const contGeo = new THREE.BoxGeometry(2.5, 2.5, 6);
+    const contMat = new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.7 });
+    for (let i = 0; i < 3; i++) {
+      const cont = new THREE.Mesh(contGeo, contMat);
+      cont.position.set(4, 1.25, -2 - (i * 3));
+      cont.rotation.y = 0.1 * i;
+      this.group.add(cont);
+      this.colliders.push(new THREE.Box3().setFromObject(cont));
+    }
     this.clueDataList.forEach(clue => {
       const clueObj = PropsBuilder.createClueObject(clue);
       this.group.add(clueObj);

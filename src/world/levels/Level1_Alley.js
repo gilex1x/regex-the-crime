@@ -163,6 +163,18 @@ export class Level1_Alley {
     });
 
     // 8. Crear las pistas físicas
+
+    // -- DETALLES EXTRA: ALLEY --
+    const crateGeo = new THREE.BoxGeometry(0.8, 0.8, 0.8);
+    const crateMat = new THREE.MeshStandardMaterial({ color: 0x2e1a10, roughness: 0.9 });
+    for (let i = 0; i < 4; i++) {
+      const crate = new THREE.Mesh(crateGeo, crateMat);
+      crate.position.set(-3 + Math.random() * 6, 0.4, -4 - Math.random() * 5);
+      crate.rotation.y = Math.random() * Math.PI;
+      crate.castShadow = true;
+      this.group.add(crate);
+      this.colliders.push(new THREE.Box3().setFromObject(crate));
+    }
     this.clueDataList.forEach(clue => {
       const clueObj = PropsBuilder.createClueObject(clue);
       this.group.add(clueObj);

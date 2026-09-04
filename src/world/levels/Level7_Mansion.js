@@ -166,6 +166,14 @@ export class Level7_Mansion {
     this.group.add(ambientLight);
 
     // 5. Pistas interactivas
+
+    // -- DETALLES EXTRA: MANSION --
+    const sofaGeo = new THREE.BoxGeometry(3, 1, 1.2);
+    const extraSofaMat = new THREE.MeshStandardMaterial({ color: 0x4c1d95, roughness: 0.8 });
+    const sofa = new THREE.Mesh(sofaGeo, extraSofaMat);
+    sofa.position.set(0, 0.5, -1);
+    this.group.add(sofa);
+    this.colliders.push(new THREE.Box3().setFromObject(sofa));
     this.clueDataList.forEach(clue => {
       const clueObj = PropsBuilder.createClueObject(clue);
       this.group.add(clueObj);

@@ -150,6 +150,20 @@ export class Level2_Hotel {
     this.group.add(moonLight);
 
     // 7. Pistas interactivas
+
+    // -- DETALLES EXTRA: HOTEL --
+    const rugGeo = new THREE.PlaneGeometry(5, 7);
+    const rugMat = new THREE.MeshStandardMaterial({ color: 0x7f1d1d, roughness: 0.9 });
+    const rug = new THREE.Mesh(rugGeo, rugMat);
+    rug.rotation.x = -Math.PI / 2;
+    rug.position.set(0, 0.01, -1);
+    this.group.add(rug);
+
+    const paintingGeo = new THREE.BoxGeometry(2.5, 3.5, 0.1);
+    const paintingMat = new THREE.MeshStandardMaterial({ color: 0x0f172a });
+    const painting = new THREE.Mesh(paintingGeo, paintingMat);
+    painting.position.set(-5.9, 2.5, -1);
+    this.group.add(painting);
     this.clueDataList.forEach(clue => {
       const clueObj = PropsBuilder.createClueObject(clue);
       this.group.add(clueObj);
