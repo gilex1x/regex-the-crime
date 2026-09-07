@@ -164,13 +164,32 @@ export class Level1_Alley {
 
     // 8. Crear las pistas físicas
 
-    // -- DETALLES EXTRA: ALLEY --
-    const crateGeo = new THREE.BoxGeometry(0.8, 0.8, 0.8);
-    const crateMat = new THREE.MeshStandardMaterial({ color: 0x2e1a10, roughness: 0.9 });
+    // -- DETALLES EXTRA: ALLEY ENRIQUECIDO --
+    // Escalera de incendios en la pared izquierda
+    const fireEscape = PropsBuilder.createFireEscape();
+    fireEscape.position.set(-3.8, 0, -12);
+    this.group.add(fireEscape);
+
+    // Contenedor de basura industrial en la pared derecha
+    const dumpster = PropsBuilder.createDumpster();
+    dumpster.position.set(2.8, 0, -6);
+    dumpster.rotation.y = -0.15;
+    this.group.add(dumpster);
+    this.colliders.push(new THREE.Box3().setFromObject(dumpster));
+
+    // Farola clásica de hierro fundido en la esquina
+    const lamp = PropsBuilder.createStreetLamp();
+    lamp.position.set(-3.2, 0, 3.5);
+    this.group.add(lamp);
+    this.colliders.push(new THREE.Box3().setFromObject(lamp));
+
+    // Cajas de madera con cinchas
+    const crateGeo = new THREE.BoxGeometry(0.85, 0.85, 0.85);
+    const crateMat = new THREE.MeshStandardMaterial({ color: 0x3d2817, roughness: 0.85, flatShading: true });
     for (let i = 0; i < 4; i++) {
       const crate = new THREE.Mesh(crateGeo, crateMat);
-      crate.position.set(-3 + Math.random() * 6, 0.4, -4 - Math.random() * 5);
-      crate.rotation.y = Math.random() * Math.PI;
+      crate.position.set(-2.8 + (i * 1.8), 0.425, -5 - (i * 3));
+      crate.rotation.y = 0.2 * i;
       crate.castShadow = true;
       this.group.add(crate);
       this.colliders.push(new THREE.Box3().setFromObject(crate));
@@ -189,6 +208,96 @@ export class Level1_Alley {
           }
         }
       });
+    });
+
+    // -- PATRULLAS FUERA DE LA ESCENA --
+    const patrol1 = PropsBuilder.createPoliceCar();
+    patrol1.position.set(-2.5, 0, 9);
+    patrol1.rotation.y = Math.PI / 4;
+    this.group.add(patrol1);
+
+    const patrol2 = PropsBuilder.createPoliceCar();
+    patrol2.position.set(3, 0, 11);
+    patrol2.rotation.y = -Math.PI / 6;
+    this.group.add(patrol2);
+    
+    // Animación sirenas
+    this.animatedObjects.push({
+      update: (time) => {
+        // Intercalar luces rojas y azules cada 0.3 segundos
+        const state = (time % 0.6) > 0.3;
+        
+        [patrol1, patrol2].forEach(p => {
+          const { redLight, blueLight, redMat, blueMat } = p.userData;
+          if (state) {
+            redLight.intensity = 15;
+            redMat.emissiveIntensity = 1.0;
+            blueLight.intensity = 0;
+            blueMat.emissiveIntensity = 0.2;
+          } else {
+            redLight.intensity = 0;
+            redMat.emissiveIntensity = 0.2;
+            blueLight.intensity = 15;
+            blueMat.emissiveIntensity = 1.0;
+          }
+        });
+      }
+    });
+
+    // -- OFICIAL DE POLICÍA PATRULLANDO --
+    const officer = PropsBuilder.createOfficer();
+    officer.position.set(0, 0, -10);
+    officer.userData = {
+      isNPC: true,
+      npcData: {
+        name: "Oficial O'Malley",
+        role: "Patrullero del Departamento",
+        avatar: "👮",
+        dialogues: [
+          "Mala noche para un homicidio, Vance... La lluvia está borrando los rastros de pisadas y el forense aún no se aparece.",
+          "Dicen que la víctima era un tipo honrado, pero en este callejón nadie muere por casualidad. Eche un vistazo a las cajas y al maletín.",
+          "Tenga cuidado si va hacia los muelles más tarde. Los muchachos del turno nocturno juran que ven furgones negros sin matrícula."
+        ]
+      }
+    };
+    this.group.add(officer);
+    this.interactiveObjects.push(officer);
+    
+    // Animación oficial (30 segundos ida y vuelta)
+    this.animatedObjects.push({
+      update: (time) => {
+        const period = 30; // Segundos
+        const phase = (time % period) / period; // 0 a 1
+        
+        // El callejón abarca aproximadamente Z = -24 a Z = 5
+        let zPos = 0;
+        let targetAngle = 0;
+        
+        if (phase < 0.5) {
+          // Camina hacia adelante (de Z = -24 a Z = 5)
+          const p = phase * 2; // 0 a 1
+          zPos = -24 + (p * 29);
+          targetAngle = 0; // Mira hacia el eje +Z
+        } else {
+          // Camina de regreso (de Z = 5 a Z = -24)
+          const p = (phase - 0.5) * 2; // 0 a 1
+          zPos = 5 - (p * 29);
+          targetAngle = Math.PI; // Mira hacia el eje -Z
+        }
+        
+        officer.position.z = zPos;
+        
+        // Interpolar rotación suavemente
+        const currentAngle = officer.rotation.y;
+        let diff = targetAngle - currentAngle;
+        // Normalizar a [-PI, PI] para el giro más corto
+        while (diff < -Math.PI) diff += Math.PI * 2;
+        while (diff > Math.PI) diff -= Math.PI * 2;
+        officer.rotation.y += diff * 0.1;
+        
+        // Animación de pasos (bobbing vertical)
+        officer.position.y = Math.abs(Math.sin(time * 12)) * 0.08;
+      }
     });
 
     this.scene.add(this.group);

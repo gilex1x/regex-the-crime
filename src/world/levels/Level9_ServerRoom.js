@@ -144,15 +144,27 @@ export class Level9_ServerRoom {
 
     // 6. Pistas interactivas
 
-    // -- DETALLES EXTRA: SERVER ROOM --
+    // -- DETALLES EXTRA: SERVER ROOM ENRIQUECIDA --
     const srvGeo = new THREE.BoxGeometry(1.5, 4, 1.5);
-    const srvMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.8 });
+    const srvMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.8, flatShading: true });
     for (let i = 0; i < 6; i++) {
       const srv = new THREE.Mesh(srvGeo, srvMat);
       srv.position.set(i % 2 === 0 ? -3 : 3, 2, -2 - Math.floor(i / 2) * 3);
       this.group.add(srv);
       this.colliders.push(new THREE.Box3().setFromObject(srv));
     }
+
+    // Unidad mainframe central de válvulas de vacío y carretes de cinta
+    const mainframe = PropsBuilder.createMainframeUnit();
+    mainframe.position.set(0, 0, -5.2);
+    this.group.add(mainframe);
+    this.colliders.push(new THREE.Box3().setFromObject(mainframe));
+
+    // Canales de cables colgantes en el techo
+    const trayMat = new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.8 });
+    const cableTray = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.1, 10), trayMat);
+    cableTray.position.set(0, 4.4, -2);
+    this.group.add(cableTray);
     this.clueDataList.forEach(clue => {
       const clueObj = PropsBuilder.createClueObject(clue);
       this.group.add(clueObj);
@@ -166,6 +178,33 @@ export class Level9_ServerRoom {
           }
         }
       });
+    });
+
+    // -- NPC: WALTER FINCH, CRIPTÓGRAFO Y OPERADOR DE RELÉS --
+    const tech = PropsBuilder.createServerTechnician();
+    tech.position.set(1.8, 0, 1.0);
+    tech.rotation.y = -Math.PI / 4;
+    tech.userData = {
+      isNPC: true,
+      npcData: {
+        name: "Walter Finch",
+        role: "Operador de Telecomunicaciones y Relés",
+        avatar: "📡",
+        dialogues: [
+          "¡Los conmutadores están a punto de fundirse, detective! Alguien inyectó una sobrecarga de patrones recursivos en los bancos de memoria.",
+          "Están purgando las fichas clínicas de New Haven antes del allanamiento. Si el bucle colapsa los relés, perderemos los nombres de las víctimas.",
+          "El flujo de datos no es electromecánico ordinario... Las frecuencias de pulso modulan una firma espectral idéntica a la del grimorio de Malphas."
+        ]
+      }
+    };
+    this.group.add(tech);
+    this.interactiveObjects.push(tech);
+    this.colliders.push(new THREE.Box3().setFromObject(tech));
+
+    this.animatedObjects.push({
+      update: (time) => {
+        tech.rotation.y = -Math.PI / 4 + Math.sin(time * 1.5) * 0.04;
+      }
     });
 
     this.scene.add(this.group);

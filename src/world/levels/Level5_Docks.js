@@ -148,15 +148,32 @@ export class Level5_Docks {
 
     // 7. Renderizar pistas interactivas
 
-    // -- DETALLES EXTRA: DOCKS --
+    // -- DETALLES EXTRA: DOCKS ENRIQUECIDO --
     const contGeo = new THREE.BoxGeometry(2.5, 2.5, 6);
-    const contMat = new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.7 });
+    const contMat = new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.7, flatShading: true });
     for (let i = 0; i < 3; i++) {
       const cont = new THREE.Mesh(contGeo, contMat);
       cont.position.set(4, 1.25, -2 - (i * 3));
       cont.rotation.y = 0.1 * i;
       this.group.add(cont);
       this.colliders.push(new THREE.Box3().setFromObject(cont));
+    }
+
+    // Bolardos de amarre de hierro con soga en el borde del agua
+    for (const z of [-8, -1, 6]) {
+      const bollard = PropsBuilder.createDockBollard();
+      bollard.position.set(-7.2, 0, z);
+      this.group.add(bollard);
+      this.colliders.push(new THREE.Box3().setFromObject(bollard));
+    }
+
+    // Barriles industriales de refrigerante
+    const barrelMat = new THREE.MeshStandardMaterial({ color: 0x1e3a8a, roughness: 0.5, metalness: 0.7 });
+    for (let b = 0; b < 4; b++) {
+      const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.35, 0.9, 10), barrelMat);
+      barrel.position.set(1.5 + (b * 0.7), 0.45, 2);
+      this.group.add(barrel);
+      this.colliders.push(new THREE.Box3().setFromObject(barrel));
     }
     this.clueDataList.forEach(clue => {
       const clueObj = PropsBuilder.createClueObject(clue);
@@ -171,6 +188,33 @@ export class Level5_Docks {
           }
         }
       });
+    });
+
+    // -- NPC: "SAL" MORETTI, ESTIBADOR PORTUARIO --
+    const worker = PropsBuilder.createDockWorker();
+    worker.position.set(-3.0, 0, 1.0);
+    worker.rotation.y = Math.PI / 3;
+    worker.userData = {
+      isNPC: true,
+      npcData: {
+        name: '"Sal" Moretti',
+        role: 'Estibador del Muelle 14',
+        avatar: '⚓',
+        dialogues: [
+          "Esos camiones con refrigeración no cargan pescado, detective. Llegan a las tres de la madrugada escoltados por tipos con gabardinas y metralletas.",
+          "Cargan tanques de nitrógeno líquido y cajas precintadas que gotean agua helada. Si alguien hace demasiadas preguntas, termina durmiendo en el fondo de la bahía.",
+          "Carmine Falcone es el dueño de facto de estos almacenes. Los manifiestos de embarque están falsificados con códigos de tres letras y cuatro números."
+        ]
+      }
+    };
+    this.group.add(worker);
+    this.interactiveObjects.push(worker);
+    this.colliders.push(new THREE.Box3().setFromObject(worker));
+
+    this.animatedObjects.push({
+      update: (time) => {
+        worker.rotation.y = Math.PI / 3 + Math.sin(time * 1.5) * 0.04;
+      }
     });
 
     this.scene.add(this.group);

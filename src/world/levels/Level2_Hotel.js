@@ -151,7 +151,7 @@ export class Level2_Hotel {
 
     // 7. Pistas interactivas
 
-    // -- DETALLES EXTRA: HOTEL --
+    // -- DETALLES EXTRA: HOTEL ENRIQUECIDO --
     const rugGeo = new THREE.PlaneGeometry(5, 7);
     const rugMat = new THREE.MeshStandardMaterial({ color: 0x7f1d1d, roughness: 0.9 });
     const rug = new THREE.Mesh(rugGeo, rugMat);
@@ -159,11 +159,33 @@ export class Level2_Hotel {
     rug.position.set(0, 0.01, -1);
     this.group.add(rug);
 
+    // Cuadro al óleo con marco dorado
     const paintingGeo = new THREE.BoxGeometry(2.5, 3.5, 0.1);
-    const paintingMat = new THREE.MeshStandardMaterial({ color: 0x0f172a });
+    const paintingMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.8 });
     const painting = new THREE.Mesh(paintingGeo, paintingMat);
     painting.position.set(-5.9, 2.5, -1);
-    this.group.add(painting);
+    const frameMesh = new THREE.Mesh(new THREE.BoxGeometry(2.7, 3.7, 0.08), new THREE.MeshStandardMaterial({ color: 0xd97706, metalness: 0.8 }));
+    frameMesh.position.set(-5.88, 2.5, -1);
+    this.group.add(painting, frameMesh);
+
+    // Teléfono de baquelita en el escritorio
+    const phone = PropsBuilder.createVintagePhone();
+    phone.position.set(2.4, 1.0, -1.8);
+    this.group.add(phone);
+
+    // Maleta de cuero abandonada en el suelo
+    const luggage = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.25, 0.8), new THREE.MeshStandardMaterial({ color: 0x451a03, roughness: 0.7, flatShading: true }));
+    luggage.position.set(-1.8, 0.13, 1.2);
+    luggage.rotation.y = 0.4;
+    luggage.castShadow = true;
+    this.group.add(luggage);
+    this.colliders.push(new THREE.Box3().setFromObject(luggage));
+
+    // Zócalos de madera a lo largo de las paredes
+    const baseboardMat = new THREE.MeshStandardMaterial({ color: 0x271c19, roughness: 0.7 });
+    const bbBack = new THREE.Mesh(new THREE.BoxGeometry(12, 0.2, 0.08), baseboardMat);
+    bbBack.position.set(0, 0.1, -5.85);
+    this.group.add(bbBack);
     this.clueDataList.forEach(clue => {
       const clueObj = PropsBuilder.createClueObject(clue);
       this.group.add(clueObj);
@@ -177,6 +199,33 @@ export class Level2_Hotel {
           }
         }
       });
+    });
+
+    // -- NPC: GUS, EL CONSERJE DEL HOTEL --
+    const clerk = PropsBuilder.createHotelClerk();
+    clerk.position.set(-3.5, 0, 1.5);
+    clerk.rotation.y = Math.PI / 4;
+    clerk.userData = {
+      isNPC: true,
+      npcData: {
+        name: "Gus, el Conserje",
+        role: "Recepcionista del Hotel Savoy",
+        avatar: "🏨",
+        dialogues: [
+          "¡Yo no vi nada, señor detective! El huésped de la 404 pagó con billetes arrugados y salió disparado por la escalera de emergencia antes del amanecer.",
+          "Estaba histérico... balbuceaba algo sobre 'los taxidermistas del sindicato' y que venían a cosechar su sangre para una clínica en las colinas.",
+          "Dejó papeles y recibos en el escritorio y la mesita. Revise lo que quiera, pero no me meta en problemas con la gente de Carmine Falcone."
+        ]
+      }
+    };
+    this.group.add(clerk);
+    this.interactiveObjects.push(clerk);
+    this.colliders.push(new THREE.Box3().setFromObject(clerk));
+
+    this.animatedObjects.push({
+      update: (time) => {
+        clerk.rotation.y = Math.PI / 4 + Math.sin(time * 1.5) * 0.04;
+      }
     });
 
     this.scene.add(this.group);

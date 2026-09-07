@@ -11,7 +11,9 @@ export class Interaction {
     this.raycaster.far = 4.0; // Distancia máxima de interacción en metros
     this.interactiveObjects = [];
     this.hoveredClue = null;
+    this.hoveredNPC = null;
     this.onInspectClue = null;
+    this.onTalkToNPC = null;
 
     this.setupKeyListener();
   }
@@ -19,6 +21,7 @@ export class Interaction {
   setInteractiveObjects(objects) {
     this.interactiveObjects = objects || [];
     this.hoveredClue = null;
+    this.hoveredNPC = null;
   }
 
   setupKeyListener() {
@@ -48,9 +51,14 @@ export class Interaction {
         return;
       }
 
-      if (e.code === 'KeyE' && this.hoveredClue && this.onInspectClue) {
-        this.audio.playTypewriterClick();
-        this.onInspectClue(this.hoveredClue);
+      if (e.code === 'KeyE') {
+        if (this.hoveredClue && this.onInspectClue) {
+          this.audio.playTypewriterClick();
+          this.onInspectClue(this.hoveredClue);
+        } else if (this.hoveredNPC && this.onTalkToNPC) {
+          this.audio.playTypewriterClick();
+          this.onTalkToNPC(this.hoveredNPC);
+        }
       }
     });
   }
@@ -65,16 +73,31 @@ export class Interaction {
     const reticleEl = document.getElementById('reticle');
 
     if (intersects.length > 0) {
-      // Buscar el ancestro con userData.isClue
+      // Buscar el ancestro con userData.isClue o userData.isNPC
       let obj = intersects[0].object;
-      while (obj && !obj.userData?.isClue && obj.parent) {
+      while (obj && !obj.userData?.isClue && !obj.userData?.isNPC && obj.parent) {
         obj = obj.parent;
       }
 
       if (obj && obj.userData?.isClue) {
         this.hoveredClue = obj.userData.clueData;
+        this.hoveredNPC = null;
         if (promptEl) {
           promptEl.innerHTML = `<span class="key-badge">E</span> Inspeccionar <strong>${this.hoveredClue.name}</strong>`;
+          promptEl.classList.add('visible');
+        }
+        if (reticleEl) {
+          reticleEl.classList.add('hovering');
+        }
+        return;
+      }
+
+      if (obj && obj.userData?.isNPC) {
+        this.hoveredNPC = obj.userData.npcData;
+        this.hoveredClue = null;
+        if (promptEl) {
+          const actionText = this.hoveredNPC.actionText || 'Hablar con';
+          promptEl.innerHTML = `<span class="key-badge">E</span> ${actionText} <strong>${this.hoveredNPC.name}</strong>`;
           promptEl.classList.add('visible');
         }
         if (reticleEl) {
@@ -85,6 +108,7 @@ export class Interaction {
     }
 
     this.hoveredClue = null;
+    this.hoveredNPC = null;
     if (promptEl) {
       promptEl.classList.remove('visible');
     }

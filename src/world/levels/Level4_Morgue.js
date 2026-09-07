@@ -166,15 +166,30 @@ export class Level4_Morgue {
 
     // 7. Renderizar pistas interactivas
 
-    // -- DETALLES EXTRA: MORGUE --
+    // -- DETALLES EXTRA: MORGUE ENRIQUECIDA --
     const bedGeo = new THREE.BoxGeometry(1.2, 0.9, 2.5);
-    const bedMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.8 });
+    const bedMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.8, flatShading: true });
     for (let i = 0; i < 2; i++) {
       const bed = new THREE.Mesh(bedGeo, bedMat);
       bed.position.set(-3 + (i * 6), 0.45, -2);
       this.group.add(bed);
       this.colliders.push(new THREE.Box3().setFromObject(bed));
     }
+
+    // Carrito rodante con instrumental quirúrgico (bisturís y sierras)
+    const surgCart = PropsBuilder.createSurgicalCart();
+    surgCart.position.set(-1.4, 0, -2);
+    this.group.add(surgCart);
+    this.colliders.push(new THREE.Box3().setFromObject(surgCart));
+
+    // Lámpara quirúrgica de examen sobre la mesa
+    const lampHood = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.55, 0.3, 12, 1, true), new THREE.MeshStandardMaterial({ color: 0xcbd5e1, metalness: 0.9 }));
+    lampHood.position.set(-3, 3.2, -2);
+    this.group.add(lampHood);
+    const spotLight = new THREE.PointLight(0xe0f2fe, 12, 8, 1.5);
+    spotLight.position.set(-3, 2.9, -2);
+    this.group.add(spotLight);
+
     const bloodGeo = new THREE.CircleGeometry(0.8, 16);
     const bloodMat = new THREE.MeshBasicMaterial({ color: 0x7f1d1d, transparent: true, opacity: 0.6 });
     const blood = new THREE.Mesh(bloodGeo, bloodMat);
@@ -194,6 +209,33 @@ export class Level4_Morgue {
           }
         }
       });
+    });
+
+    // -- NPC: DR. HAROLD JONES, MÉDICO FORENSE INTIMIDADO --
+    const doctor = PropsBuilder.createDoctor();
+    doctor.position.set(2.2, 0, 1.5);
+    doctor.rotation.y = -Math.PI / 4;
+    doctor.userData = {
+      isNPC: true,
+      npcData: {
+        name: "Dr. Harold Jones",
+        role: "Patólogo Forense del Hospital Central",
+        avatar: "🥼",
+        dialogues: [
+          "Mire estos cortes transversales, Vance... Esto no es obra de un destripador de callejón. Es cirugía mayor de altísima precisión.",
+          "Es la técnica patentada de la Dra. Evelyn Cross. Quienquiera que haya hecho esto, extrajo los órganos viables en menos de diez minutos.",
+          "Los cuerpos llegan con etiquetas de sangre HLA codificadas. Esta morgue es solo el matadero de paso antes de que los trasladen a la Clínica Renacer."
+        ]
+      }
+    };
+    this.group.add(doctor);
+    this.interactiveObjects.push(doctor);
+    this.colliders.push(new THREE.Box3().setFromObject(doctor));
+
+    this.animatedObjects.push({
+      update: (time) => {
+        doctor.rotation.y = -Math.PI / 4 + Math.sin(time * 1.4) * 0.03;
+      }
     });
 
     this.scene.add(this.group);

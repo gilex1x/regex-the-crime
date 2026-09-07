@@ -167,13 +167,36 @@ export class Level7_Mansion {
 
     // 5. Pistas interactivas
 
-    // -- DETALLES EXTRA: MANSION --
+    // -- DETALLES EXTRA: MANSION ENRIQUECIDA --
     const sofaGeo = new THREE.BoxGeometry(3, 1, 1.2);
-    const extraSofaMat = new THREE.MeshStandardMaterial({ color: 0x4c1d95, roughness: 0.8 });
+    const extraSofaMat = new THREE.MeshStandardMaterial({ color: 0x4c1d95, roughness: 0.8, flatShading: true });
     const sofa = new THREE.Mesh(sofaGeo, extraSofaMat);
     sofa.position.set(0, 0.5, -1);
     this.group.add(sofa);
     this.colliders.push(new THREE.Box3().setFromObject(sofa));
+
+    // Mesa auxiliar con fonógrafo clásico
+    const sideTable = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 0.8, 8), new THREE.MeshStandardMaterial({ color: 0x271911, roughness: 0.7 }));
+    sideTable.position.set(-3.2, 0.4, -2.2);
+    this.group.add(sideTable);
+    this.colliders.push(new THREE.Box3().setFromObject(sideTable));
+
+    const gramo = PropsBuilder.createGramophone();
+    gramo.position.set(-3.2, 0.8, -2.2);
+    this.group.add(gramo);
+
+    // Leños encendidos en la chimenea
+    const logMat = new THREE.MeshStandardMaterial({ color: 0x2e1005, roughness: 0.9 });
+    for (let l = 0; l < 3; l++) {
+      const log = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.8, 6), logMat);
+      log.rotation.z = Math.PI / 2;
+      log.rotation.y = (l * Math.PI) / 3;
+      log.position.set(0, 0.15, -6.2);
+      this.group.add(log);
+    }
+    const fireEmber = new THREE.PointLight(0xf97316, 6, 6);
+    fireEmber.position.set(0, 0.4, -6.0);
+    this.group.add(fireEmber);
     this.clueDataList.forEach(clue => {
       const clueObj = PropsBuilder.createClueObject(clue);
       this.group.add(clueObj);
@@ -187,6 +210,33 @@ export class Level7_Mansion {
           }
         }
       });
+    });
+
+    // -- NPC: LORD ARCHIBALD VANCE, MECENAS DE LA ÉLITE --
+    const aristocrat = PropsBuilder.createAristocrat();
+    aristocrat.position.set(3.2, 0, -2.5);
+    aristocrat.rotation.y = -Math.PI / 4;
+    aristocrat.userData = {
+      isNPC: true,
+      npcData: {
+        name: "Lord Archibald Vance",
+        role: "Patrono del Club de la Élite",
+        avatar: "🎩",
+        dialogues: [
+          "¿La moral, querido detective? Qué noción tan pintoresca de la clase trabajadora. La longevidad cuesta millones y un par de donantes anónimos.",
+          "Mire mis manos: tengo setenta y ocho años y el vigor de un muchacho de treinta. La Dra. Evelyn Cross es una auténtica salvadora.",
+          "Nadie en este club irá a prisión, Vance. Los jueces, los senadores y los jefes de policía son miembros honorarios de la Clínica Renacer."
+        ]
+      }
+    };
+    this.group.add(aristocrat);
+    this.interactiveObjects.push(aristocrat);
+    this.colliders.push(new THREE.Box3().setFromObject(aristocrat));
+
+    this.animatedObjects.push({
+      update: (time) => {
+        aristocrat.rotation.y = -Math.PI / 4 + Math.sin(time * 1.3) * 0.03;
+      }
     });
 
     this.scene.add(this.group);

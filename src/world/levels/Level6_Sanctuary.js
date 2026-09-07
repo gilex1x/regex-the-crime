@@ -168,9 +168,9 @@ export class Level6_Sanctuary {
 
     // 7. Renderizar pistas interactivas
 
-    // -- DETALLES EXTRA: SANCTUARY --
+    // -- DETALLES EXTRA: SANCTUARY ENRIQUECIDO --
     const pillarGeo = new THREE.CylinderGeometry(0.5, 0.5, 6, 8);
-    const extraPillarMat = new THREE.MeshStandardMaterial({ color: 0x1c1917, roughness: 0.9 });
+    const extraPillarMat = new THREE.MeshStandardMaterial({ color: 0x1c1917, roughness: 0.9, flatShading: true });
     for (let i = 0; i < 4; i++) {
       const pillar = new THREE.Mesh(pillarGeo, extraPillarMat);
       pillar.position.set(i % 2 === 0 ? -4 : 4, 3, -2 - Math.floor(i / 2) * 4);
@@ -181,6 +181,20 @@ export class Level6_Sanctuary {
       fire.position.set(pillar.position.x, 2, pillar.position.z + 0.6);
       this.group.add(fire);
     }
+
+    // Candelabros de forja gótica flanqueando el altar
+    const candelabraL = PropsBuilder.createCandelabra();
+    candelabraL.position.set(-2.4, 0, -4.2);
+    const candelabraR = PropsBuilder.createCandelabra();
+    candelabraR.position.set(2.4, 0, -4.2);
+    this.group.add(candelabraL, candelabraR);
+    this.colliders.push(new THREE.Box3().setFromObject(candelabraL), new THREE.Box3().setFromObject(candelabraR));
+
+    // Círculo ritual rúnico en el suelo
+    const circleRing = new THREE.Mesh(new THREE.RingGeometry(2.4, 2.7, 16), new THREE.MeshStandardMaterial({ color: 0xa855f7, emissive: 0x6b21a8, emissiveIntensity: 0.8, side: THREE.DoubleSide }));
+    circleRing.rotation.x = -Math.PI / 2;
+    circleRing.position.set(0, 0.02, -2.5);
+    this.group.add(circleRing);
     this.clueDataList.forEach(clue => {
       const clueObj = PropsBuilder.createClueObject(clue);
       this.group.add(clueObj);
@@ -194,6 +208,33 @@ export class Level6_Sanctuary {
           }
         }
       });
+    });
+
+    // -- NPC: HERMANO THADDEUS, CULTISTA RENEGADO --
+    const cultist = PropsBuilder.createCultist();
+    cultist.position.set(-3.0, 0, -2.5);
+    cultist.rotation.y = Math.PI / 4;
+    cultist.userData = {
+      isNPC: true,
+      npcData: {
+        name: "Hermano Thaddeus",
+        role: "Guardián de las Cenizas del Santuario",
+        avatar: "🕯️",
+        dialogues: [
+          "Las palabras no son simples letras, detective Vance... son ataduras cósmicas dictadas por Malphas en el amanecer de los tiempos.",
+          "La Hermandad del Bisturí le entregó esta ciudad. Cada persona de sus listas contrajo una deuda con el demonio a cambio de milagros o riquezas.",
+          "El arcón del altar solo cederá ante los patrones sagrados. La sintaxis del grimorio no perdona errores: un ancla fuera de lugar y su alma arderá."
+        ]
+      }
+    };
+    this.group.add(cultist);
+    this.interactiveObjects.push(cultist);
+    this.colliders.push(new THREE.Box3().setFromObject(cultist));
+
+    this.animatedObjects.push({
+      update: (time) => {
+        cultist.rotation.y = Math.PI / 4 + Math.sin(time * 1.2) * 0.03;
+      }
     });
 
     this.scene.add(this.group);

@@ -134,15 +134,35 @@ export class Level8_BoilerRoom {
 
     // 7. Pistas interactivas
 
-    // -- DETALLES EXTRA: BOILER ROOM --
+    // -- DETALLES EXTRA: BOILER ROOM ENRIQUECIDA --
     const pipeGeo = new THREE.CylinderGeometry(0.2, 0.2, 8, 8);
-    const extraPipeMat = new THREE.MeshStandardMaterial({ color: 0x7c2d12, metalness: 0.6 });
+    const extraPipeMat = new THREE.MeshStandardMaterial({ color: 0x7c2d12, metalness: 0.6, flatShading: true });
     for (let i = 0; i < 5; i++) {
       const pipe = new THREE.Mesh(pipeGeo, extraPipeMat);
       pipe.position.set(-5 + i * 2.5, 4, -4);
       pipe.rotation.x = Math.PI / 2;
       this.group.add(pipe);
     }
+
+    // Tuberías aéreas con válvulas rojas y manómetros de aguja
+    const valvePipes1 = PropsBuilder.createIndustrialPipes();
+    valvePipes1.position.set(-2, 0, -2);
+    const valvePipes2 = PropsBuilder.createIndustrialPipes();
+    valvePipes2.position.set(2, 0.6, -4);
+    valvePipes2.rotation.y = Math.PI / 2;
+    this.group.add(valvePipes1, valvePipes2);
+
+    // Montón de carbón mineral con pala clavada
+    const coalMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.95, flatShading: true });
+    const coalPile = new THREE.Mesh(new THREE.ConeGeometry(1.4, 0.7, 8), coalMat);
+    coalPile.position.set(4.5, 0.35, 1.5);
+    this.group.add(coalPile);
+    this.colliders.push(new THREE.Box3().setFromObject(coalPile));
+
+    const shovel = new THREE.Mesh(new THREE.BoxGeometry(0.04, 1.2, 0.16), new THREE.MeshStandardMaterial({ color: 0x64748b, metalness: 0.8 }));
+    shovel.position.set(4.5, 0.8, 1.5);
+    shovel.rotation.z = 0.2;
+    this.group.add(shovel);
     this.clueDataList.forEach(clue => {
       const clueObj = PropsBuilder.createClueObject(clue);
       this.group.add(clueObj);
@@ -156,6 +176,33 @@ export class Level8_BoilerRoom {
           }
         }
       });
+    });
+
+    // -- NPC: MAC, EL MAQUINISTA DE CALDERAS --
+    const mechanic = PropsBuilder.createBoilerMechanic();
+    mechanic.position.set(-3.5, 0, 0.5);
+    mechanic.rotation.y = Math.PI / 3;
+    mechanic.userData = {
+      isNPC: true,
+      npcData: {
+        name: "Mac, el Maquinista",
+        role: "Operario de las Calderas Industriales",
+        avatar: "🔧",
+        dialogues: [
+          "El calor aquí abajo calcina cualquier rastro, detective. Falcone me pagó para mantener los quemadores al máximo toda la noche... apestaba a carne y formol.",
+          "Había dinamita oculta en las válvulas de vapor. Los del sindicato no planeaban dejar testigos cuando terminara la purga.",
+          "Mire los medidores de presión: si no descifra las etiquetas de las tuberías con las fórmulas exactas, esta sala volará por los aires."
+        ]
+      }
+    };
+    this.group.add(mechanic);
+    this.interactiveObjects.push(mechanic);
+    this.colliders.push(new THREE.Box3().setFromObject(mechanic));
+
+    this.animatedObjects.push({
+      update: (time) => {
+        mechanic.rotation.y = Math.PI / 3 + Math.sin(time * 1.5) * 0.04;
+      }
     });
 
     this.scene.add(this.group);

@@ -74,37 +74,122 @@
       <span class="key-badge">E</span> Inspeccionar Pista
     </div>
 
-    <!-- Pantalla de Bienvenida / Selección de Modo -->
-    <div id="instructions-overlay" role="dialog" aria-modal="true" aria-labelledby="intro-title">
-      <div class="intro-card">
-        <h1 id="intro-title">🕵️ REGEX: THE CRIME</h1>
-        <p>
-          Bienvenido al Departamento de Investigaciones. Resuelve <strong>100 Casos Criminales</strong> organizados en 10
-          Tiers de dificultad progresiva con tiempo límite, vidas y trampas del criminal:
-        </p>
+    <!-- Caja de Diálogo de NPCs (Estilo Subtítulos Noir) -->
+    <div id="dialogue-box" class="dialogue-box" role="dialog" aria-label="Diálogo con personaje">
+      <div class="dialogue-header">
+        <div class="dialogue-identity">
+          <span id="dialogue-avatar" class="dialogue-avatar">👮</span>
+          <div>
+            <div id="dialogue-name" class="dialogue-name">OFICIAL O'MALLEY</div>
+            <div id="dialogue-role" class="dialogue-role">Patrullero del Distrito</div>
+          </div>
+        </div>
+        <button id="dialogue-close-btn" class="dialogue-close-btn" title="Cerrar diálogo [ESC]">✕</button>
+      </div>
+      <div id="dialogue-text" class="dialogue-text">...</div>
+      <div class="dialogue-footer">
+        <span class="dialogue-hint"><kbd>E</kbd> Siguiente frase • <kbd>ESC</kbd> Cerrar</span>
+      </div>
+    </div>
 
-        <div class="controls-hint-list">
-          <div class="control-item">
-            <span class="control-key">W A S D</span>
-            <span>Moverse</span>
+    <!-- Pantalla de Carga de Escenario y Tips REGEX -->
+    <div id="level-loading-screen" class="level-loading-screen" role="dialog" aria-modal="true" aria-label="Cargando escenario">
+      <div class="loading-screen-backdrop"></div>
+      <div class="loading-screen-content">
+        <!-- Encabezado Institucional -->
+        <div class="loading-screen-header">
+          <div class="loading-seal-badge">🏛️ POLICE DEPT</div>
+          <div class="loading-agency-title">DEPARTAMENTO DE POLICÍA DE NEW HAVEN</div>
+          <div class="loading-division-sub">DIVISIÓN FORENSE &amp; CRIPTOGRÁFICA • EXPEDIENTES CLASIFICADOS</div>
+        </div>
+
+        <!-- Información del Caso en Carga -->
+        <div class="loading-case-card">
+          <div class="loading-case-meta">
+            <span id="loading-tier-badge" class="loading-tier-pill">⭐ TIER I</span>
+            <span id="loading-location-label" class="loading-location-pill">📍 Locación: El Callejón Olvidado</span>
           </div>
-          <div class="control-item">
-            <span class="control-key">RATÓN</span>
-            <span>Mirar alrededor</span>
+          <h2 id="loading-case-title" class="loading-case-name">CASO #1: El Mensaje del Callejón</h2>
+        </div>
+
+        <!-- Tarjeta de Tip REGEX Interactivo -->
+        <div class="loading-tip-card">
+          <div class="loading-tip-top-bar">
+            <div class="loading-tip-heading">
+              <span class="loading-tip-icon">💡</span>
+              <span class="loading-tip-prefix">MANUAL DEL INVESTIGADOR:</span>
+              <span id="loading-tip-category" class="loading-tip-category">[ ANCLAS Y LÍMITES ]</span>
+            </div>
+            <button id="loading-next-tip-btn" class="loading-next-tip-btn" type="button" title="Ver otro consejo">
+              Siguiente Tip ❯
+            </button>
           </div>
-          <div class="control-item">
-            <span class="control-key">E</span>
-            <span>Inspeccionar Pista</span>
+
+          <div class="loading-tip-body">
+            <div class="loading-tip-pattern-box">
+              <code id="loading-tip-pattern" class="loading-tip-pattern">^ y $</code>
+            </div>
+            <div class="loading-tip-info">
+              <h3 id="loading-tip-title" class="loading-tip-title">Perímetro Inviolable</h3>
+              <p id="loading-tip-desc" class="loading-tip-desc">El acento circunflejo ^ fija el inicio de la línea y el signo de dólar $ fija el final.</p>
+              <div class="loading-tip-example-box">
+                <span class="loading-example-tag">EJEMPLO FORENSE:</span>
+                <span id="loading-tip-example" class="loading-tip-example">Patrón: ^CONFIDENCIAL$ → No coincidirá con 'NO CONFIDENCIAL'</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-          <button class="click-prompt-btn" id="btn-start-investigation">
-            🕵️ MODO NORMAL (50 Casos)
-          </button>
-          <button class="click-prompt-btn" id="btn-start-academy" style="background: #2563eb; color: #fff;">
-            🎓 MODO ACADEMIA (Aprender Regex)
-          </button>
+        <!-- Barra de Progreso y Estado de Despacho -->
+        <div class="loading-progress-section">
+          <div class="loading-status-line">
+            <div class="loading-spinner-radar"></div>
+            <span id="loading-status-text" class="loading-status-text">Despachando patrulla al sector de investigación...</span>
+            <span id="loading-progress-percent" class="loading-progress-percent">0%</span>
+          </div>
+          <div class="loading-progress-track">
+            <div id="loading-progress-bar-fill" class="loading-progress-fill" style="width: 0%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pantalla de Bienvenida / Selección de Modo -->
+    <div id="instructions-overlay" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+      <div class="intro-folder-container">
+        <div class="intro-folder-tab">EXPEDIENTE N° 1947 - CONFIDENCIAL</div>
+        <div class="intro-card">
+          <div class="intro-card-content">
+            <h1 id="intro-title">🕵️ REGEX: THE CRIME</h1>
+            <p>
+              Bienvenido al Departamento de Investigaciones. Resuelve <strong>100 Casos Criminales</strong> organizados en 10
+              Tiers de dificultad progresiva con tiempo límite, vidas y trampas del criminal:
+            </p>
+
+            <div class="controls-hint-list">
+              <div class="control-item">
+                <span class="control-key">W A S D</span>
+                <span>Moverse</span>
+              </div>
+              <div class="control-item">
+                <span class="control-key">RATÓN</span>
+                <span>Mirar</span>
+              </div>
+              <div class="control-item">
+                <span class="control-key">E</span>
+                <span>Inspeccionar</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="intro-card-tabs">
+            <button class="folder-side-tab" id="btn-start-investigation">
+              🕵️ MODO NORMAL (50 Casos)
+            </button>
+            <button class="folder-side-tab academy-tab" id="btn-start-academy">
+              🎓 MODO ACADEMIA (Aprender Regex)
+            </button>
+          </div>
         </div>
       </div>
     </div>

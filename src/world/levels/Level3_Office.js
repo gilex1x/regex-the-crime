@@ -126,15 +126,27 @@ export class Level3_Office {
 
     // 7. Pistas interactivas
 
-    // -- DETALLES EXTRA: OFFICE --
+    // -- DETALLES EXTRA: OFFICE ENRIQUECIDO --
     const cabinetGeo = new THREE.BoxGeometry(1.2, 2.5, 0.8);
-    const cabinetMat = new THREE.MeshStandardMaterial({ color: 0x475569, metalness: 0.5 });
+    const cabinetMat = new THREE.MeshStandardMaterial({ color: 0x475569, metalness: 0.5, flatShading: true });
     for (let i = 0; i < 3; i++) {
       const cabinet = new THREE.Mesh(cabinetGeo, cabinetMat);
       cabinet.position.set(-4 + (i * 1.3), 1.25, -5.5);
       this.group.add(cabinet);
       this.colliders.push(new THREE.Box3().setFromObject(cabinet));
     }
+
+    // Máquina de escribir mecánica sobre el escritorio
+    const typewriter = PropsBuilder.createTypewriter();
+    typewriter.position.set(-0.6, 0.95, -0.2);
+    typewriter.rotation.y = 0.2;
+    this.group.add(typewriter);
+
+    // Reloj señorial de péndulo contra la pared
+    const grandClock = PropsBuilder.createGrandClock();
+    grandClock.position.set(5.8, 1.8, -4.5);
+    this.group.add(grandClock);
+    this.colliders.push(new THREE.Box3().setFromObject(grandClock));
     this.clueDataList.forEach(clue => {
       const clueObj = PropsBuilder.createClueObject(clue);
       this.group.add(clueObj);
@@ -148,6 +160,33 @@ export class Level3_Office {
           }
         }
       });
+    });
+
+    // -- NPC: SR. STERLING, AUDITOR FINANCIERO CORRUPTO --
+    const banker = PropsBuilder.createBanker();
+    banker.position.set(3.0, 0, -0.5);
+    banker.rotation.y = -Math.PI / 3;
+    banker.userData = {
+      isNPC: true,
+      npcData: {
+        name: "Sr. Sterling",
+        role: "Auditor del Banco Central",
+        avatar: "💼",
+        dialogues: [
+          "¡Le juro que esos libros contables son legítimos, Vance! Yo solo firmo las órdenes de transferencia y los bonos al portador.",
+          "Si Carmine Falcone se entera de que la policía revisa los expedientes de las cajas fuertes, mi cadáver terminará flotando en el puerto.",
+          "Esa cuenta suiza no es mía... canaliza millones hacia la 'Clínica Renacer'. Pagan sumas monstruosas por furgones refrigerados cada medianoche."
+        ]
+      }
+    };
+    this.group.add(banker);
+    this.interactiveObjects.push(banker);
+    this.colliders.push(new THREE.Box3().setFromObject(banker));
+
+    this.animatedObjects.push({
+      update: (time) => {
+        banker.rotation.y = -Math.PI / 3 + Math.sin(time * 1.6) * 0.04;
+      }
     });
 
     this.scene.add(this.group);

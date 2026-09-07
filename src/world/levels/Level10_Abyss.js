@@ -162,9 +162,9 @@ export class Level10_Abyss {
 
     // 6. Pistas interactivas
 
-    // -- DETALLES EXTRA: ABYSS --
+    // -- DETALLES EXTRA: ABYSS ENRIQUECIDO --
     const crystalGeo = new THREE.OctahedronGeometry(1, 0);
-    const crystalMat = new THREE.MeshStandardMaterial({ color: 0xa855f7, transparent: true, opacity: 0.8 });
+    const crystalMat = new THREE.MeshStandardMaterial({ color: 0xa855f7, transparent: true, opacity: 0.8, flatShading: true });
     for (let i = 0; i < 8; i++) {
       const cry = new THREE.Mesh(crystalGeo, crystalMat);
       cry.position.set(-6 + Math.random() * 12, 0.5 + Math.random(), -2 - Math.random() * 8);
@@ -174,6 +174,23 @@ export class Level10_Abyss {
       light.position.copy(cry.position);
       this.group.add(light);
     }
+
+    // Monolitos flotantes de obsidiana con glifos rúnicos
+    const monolithL = PropsBuilder.createAbyssMonolith();
+    monolithL.position.set(-6.2, 1.2, -4);
+    const monolithR = PropsBuilder.createAbyssMonolith();
+    monolithR.position.set(6.2, 1.2, -4);
+    this.group.add(monolithL, monolithR);
+    this.colliders.push(new THREE.Box3().setFromObject(monolithL), new THREE.Box3().setFromObject(monolithR));
+
+    this.animatedObjects.push({
+      update: (time) => {
+        monolithL.rotation.y = time * 0.4;
+        monolithR.rotation.y = -time * 0.4;
+        monolithL.position.y = 1.2 + Math.sin(time * 1.5) * 0.2;
+        monolithR.position.y = 1.2 + Math.cos(time * 1.5) * 0.2;
+      }
+    });
     this.clueDataList.forEach(clue => {
       const clueObj = PropsBuilder.createClueObject(clue);
       this.group.add(clueObj);
@@ -187,6 +204,34 @@ export class Level10_Abyss {
           }
         }
       });
+    });
+
+    // -- NPC: ESPÍRITU DE FRANKIE "DEDOS" MILLER --
+    const specter = PropsBuilder.createAbyssSpecter();
+    specter.position.set(-3.2, 0.4, -2.0);
+    specter.rotation.y = Math.PI / 4;
+    specter.userData = {
+      isNPC: true,
+      npcData: {
+        name: 'Espíritu de Frankie "Dedos"',
+        role: "Víctima Clave e Informante del Hampa",
+        avatar: "👻",
+        dialogues: [
+          "¡Vance! ¡Llegaste tarde para salvar mi carne de los bisturís, pero aún puedes romper el pacto y salvar la ciudad!",
+          "Malphas me arrastró a este abismo cuando intenté filtrar las llaves de las cajas de seguridad. Sus cadenas se nutren del miedo de New Haven.",
+          "¡Abre el Tratado de los Ecos en el altar! Ensambla las 4 estrofas que recogiste: el banco, el telegrama, el frasco quirúrgico y el espejo. ¡Destiérralo para siempre!"
+        ]
+      }
+    };
+    this.group.add(specter);
+    this.interactiveObjects.push(specter);
+    this.colliders.push(new THREE.Box3().setFromObject(specter));
+
+    this.animatedObjects.push({
+      update: (time) => {
+        specter.position.y = 0.4 + Math.sin(time * 2.2) * 0.12;
+        specter.rotation.y = Math.PI / 4 + Math.sin(time * 1.2) * 0.08;
+      }
     });
 
     this.scene.add(this.group);
