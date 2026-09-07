@@ -154,9 +154,10 @@ export class NotebookUI {
     return this.modalEl.classList.contains('active');
   }
 
-  open(clueData) {
+  open(clueData, isReviewMode = false) {
     this.activeClue = clueData;
     this.currentLevel = clueData.levelData || this.levelManager.getCurrentCase();
+    this.isReviewMode = isReviewMode;
 
     this.controls.unlock();
     this.controls.setEnabled(false);
@@ -175,6 +176,25 @@ export class NotebookUI {
       this.setupConstructionMode();
     }
 
+    if (this.isReviewMode) {
+      if (this.submitBtn) {
+        this.submitBtn.disabled = false;
+        this.submitBtn.innerHTML = '⬅️ Volver al Inventario';
+        this.submitBtn.onclick = () => {
+          this.close();
+          if (window.app && window.app.ui && window.app.ui.inventory) {
+            window.app.ui.inventory.open();
+          }
+        };
+      }
+    } else {
+      if (this.submitBtn) {
+        this.submitBtn.onclick = null;
+        this.submitBtn.innerHTML = '🔍 Archivar Evidencia';
+        this.submitBtn.disabled = false;
+      }
+    }
+
     this.modalEl.classList.add('active');
   }
 
@@ -191,7 +211,7 @@ export class NotebookUI {
     }
 
     // 1. Temporizador
-    if (hasTimeLimit) {
+    if (hasTimeLimit && !this.isReviewMode) {
       this.remainingSeconds = this.currentLevel.timeLimit;
       this.timerDisplayEl.style.display = 'flex';
       this.timerDisplayEl.classList.remove('critical');
@@ -202,7 +222,7 @@ export class NotebookUI {
     }
 
     // 2. Intentos / Vidas
-    if (hasMaxAttempts) {
+    if (hasMaxAttempts && !this.isReviewMode) {
       this.remainingAttempts = this.currentLevel.maxAttempts;
       this.attemptsDisplayEl.style.display = 'flex';
       this.updateAttemptsDisplay();
@@ -291,26 +311,48 @@ export class NotebookUI {
     this.updateFlagsDisplay();
 
     const alreadySolved = this.levelManager.isClueSolved(this.activeClue.id);
-    if (alreadySolved) {
-      this.regexInputEl.value = this.activeClue.syntaxCheat;
+    if (this.isReviewMode) {
+      const userSolution = this.levelManager.userSolutions[this.currentLevel.id] || this.levelManager.userSolutions[`clue_case_${this.currentLevel.id}`];
+      if (userSolution && userSolution.type === 'construction') {
+        this.regexInputEl.value = userSolution.regex || '';
+        const flags = userSolution.flags || '';
+        this.flagG.checked = flags.includes('g');
+        this.flagI.checked = flags.includes('i');
+      } else {
+        this.regexInputEl.value = this.currentLevel.recommendedRegex || '';
+        const flags = this.currentLevel.recommendedFlags || 'g';
+        this.flagG.checked = flags.includes('g');
+        this.flagI.checked = flags.includes('i');
+      }
+      this.regexInputEl.disabled = true;
+      this.flagG.disabled = true;
+      this.flagI.disabled = true;
+      
+      this.updateFlagsDisplay();
+      this.evaluateCurrentInput();
+      this.feedbackEl.className = 'feedback-box success';
+      this.feedbackEl.innerHTML = `⭐ <strong>Evidencia Archivada.</strong> Estás revisando un caso ya resuelto.`;
+    } else if (alreadySolved) {
+      this.regexInputEl.value = this.activeClue.syntaxCheat || this.currentLevel.recommendedRegex || '';
       this.regexInputEl.disabled = true;
       this.submitBtn.disabled = true;
       this.submitBtn.innerHTML = '✅ Evidencia Archivada';
+      this.evaluateCurrentInput();
     } else {
       this.regexInputEl.value = '';
       this.regexInputEl.disabled = false;
+      this.flagG.disabled = false;
+      this.flagI.disabled = false;
       this.submitBtn.disabled = false;
       this.submitBtn.innerHTML = '🔍 Archivar Evidencia';
+      this.feedbackEl.className = 'feedback-box';
+      this.feedbackEl.textContent = 'Escribe un patrón Regex para comenzar la búsqueda.';
+      this.matchesListEl.innerHTML = '<span class="empty-msg">Esperando expresión...</span>';
+      this.evaluateCurrentInput();
     }
 
-    this.feedbackEl.className = 'feedback-box';
-    this.feedbackEl.textContent = 'Escribe un patrón Regex para comenzar la búsqueda.';
-    this.matchesListEl.innerHTML = '<span class="empty-msg">Esperando expresión...</span>';
-
-    this.evaluateCurrentInput();
-
     setTimeout(() => {
-      if (!alreadySolved) this.regexInputEl.focus();
+      if (!alreadySolved && !this.isReviewMode) this.regexInputEl.focus();
     }, 100);
   }
 
@@ -399,7 +441,11 @@ export class NotebookUI {
       stamp.textContent = 'EVIDENCIA CONFIRMADA';
       this.docBodyEl.appendChild(stamp);
 
-      this.levelManager.markClueSolved(this.activeClue.id);
+      this.levelManager.markClueSolved(this.activeClue.id, {
+        type: 'construction',
+        regex: pattern,
+        flags: flags
+      });
 
       setTimeout(() => {
         if (this.isOpen()) this.close();
@@ -449,10 +495,26 @@ export class NotebookUI {
     const optButtons = this.cipherOptionsListEl.querySelectorAll('.cipher-option-card');
     optButtons.forEach(btn => {
       btn.addEventListener('click', () => {
+        if (this.isReviewMode) return;
         const idx = parseInt(btn.dataset.index, 10);
         this.verifyCipherAnswer(idx, optButtons);
       });
     });
+
+    if (this.isReviewMode) {
+      const userSolution = this.levelManager.userSolutions[this.currentLevel.id] || this.levelManager.userSolutions[`clue_case_${this.currentLevel.id}`];
+      let answerText = userSolution ? userSolution.answer : null;
+      
+      optButtons.forEach((btn, idx) => {
+        btn.disabled = true;
+        const opt = options[idx];
+        if (answerText === opt.text || opt.isCorrect) {
+          btn.classList.add('correct');
+        }
+      });
+      this.cipherFeedbackEl.className = 'feedback-box success';
+      this.cipherFeedbackEl.innerHTML = `⭐ <strong>Trampa Desactivada.</strong> Estás revisando un caso ya resuelto.`;
+    }
   }
 
   verifyCipherAnswer(selectedIndex, allButtons) {
@@ -473,7 +535,10 @@ export class NotebookUI {
       stamp.textContent = 'TRAMPA DESACTIVADA';
       this.docBodyEl.appendChild(stamp);
 
-      this.levelManager.markClueSolved(this.activeClue.id);
+      this.levelManager.markClueSolved(this.activeClue.id, {
+        type: 'cipher',
+        answer: selectedOption.text
+      });
 
       setTimeout(() => {
         if (this.isOpen()) this.close();

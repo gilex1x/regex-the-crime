@@ -25,6 +25,7 @@ export class LevelManager {
     this.currentLevelInstance = null;
     this.currentClue = null;
     this.solvedClues = new Set();
+    this.userSolutions = {};
     this.onCaseCompleted = null;
 
     this.loadProgress();
@@ -37,6 +38,10 @@ export class LevelManager {
         const arr = JSON.parse(saved);
         this.solvedClues = new Set(arr);
       }
+      const savedSolutions = localStorage.getItem('regex_crime_user_solutions');
+      if (savedSolutions) {
+        this.userSolutions = JSON.parse(savedSolutions);
+      }
     } catch (e) {
       console.warn('No se pudo cargar el progreso de niveles guardado', e);
     }
@@ -45,6 +50,7 @@ export class LevelManager {
   saveProgress() {
     try {
       localStorage.setItem('regex_crime_solved_levels', JSON.stringify([...this.solvedClues]));
+      localStorage.setItem('regex_crime_user_solutions', JSON.stringify(this.userSolutions));
     } catch (e) {
       console.warn('No se pudo guardar el progreso', e);
     }
@@ -164,8 +170,11 @@ export class LevelManager {
     this.updateHUDCaseInfo();
   }
 
-  markClueSolved(clueId) {
+  markClueSolved(clueId, solutionData = null) {
     this.solvedClues.add(clueId);
+    if (solutionData) {
+      this.userSolutions[clueId] = solutionData;
+    }
     this.saveProgress();
     this.updateHUDCaseInfo();
 

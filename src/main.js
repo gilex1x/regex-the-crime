@@ -38,7 +38,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Conectar evento de inspeccionar pista
   interaction.onInspectClue = (clueData) => {
-    notebookUI.open(clueData);
+    notebookUI.open(clueData, false);
+  };
+
+  // Conectar evento de revisar pista desde el inventario
+  inventoryUI.onOpenEvidence = (clueData) => {
+    notebookUI.open(clueData, true);
   };
 
   // 7. Loop de actualización conectado a Three.js

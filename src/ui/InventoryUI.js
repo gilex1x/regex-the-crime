@@ -16,6 +16,7 @@ export class InventoryUI {
 
     this.activeFilterTier = 'ALL';
     this.isOpen = false;
+    this.onOpenEvidence = null;
 
     this.initEvents();
   }
@@ -134,6 +135,28 @@ export class InventoryUI {
       card.className = 'evidence-card';
       const icon = tierIcons[lvl.tier] || "📑";
 
+      const userSolution = this.levelManager.userSolutions[lvl.id] || this.levelManager.userSolutions[`clue_case_${lvl.id}`];
+      
+      let solutionHTML = '';
+      if (userSolution && userSolution.type === 'cipher') {
+        solutionHTML = `<div class="evidence-regex-box" style="margin-top: 8px;">
+          <span class="regex-label">Tu Deducción:</span>
+          <span class="regex-code" style="color:#059669">${userSolution.answer}</span>
+        </div>`;
+      } else if (userSolution && userSolution.type === 'construction') {
+        solutionHTML = `<div class="evidence-regex-box" style="margin-top: 8px;">
+          <span class="regex-label">Tu Fórmula:</span>
+          <span class="regex-code" style="color:#059669">/${userSolution.regex}/${userSolution.flags}</span>
+        </div>`;
+      } else {
+        solutionHTML = `<div class="evidence-regex-box" style="margin-top: 8px;">
+          <span class="regex-label">Fórmula Sugerida:</span>
+          <span class="regex-code">/${lvl.recommendedRegex || lvl.criminalRegex}/${lvl.recommendedFlags || lvl.criminalFlags || 'g'}</span>
+        </div>`;
+      }
+
+      const puzzleText = lvl.type === 'criminal_cipher' ? lvl.question : lvl.task;
+
       card.innerHTML = `
         <div class="evidence-card-header">
           <span class="evidence-tier-pill">Tier ${lvl.tier} • ${lvl.sceneType.toUpperCase()}</span>
@@ -141,12 +164,29 @@ export class InventoryUI {
         </div>
         <div class="evidence-title">${icon} ${lvl.title}</div>
         <div class="evidence-doc-title">Documento: "${lvl.documentTitle}"</div>
-        <div class="evidence-regex-box">
-          <span class="regex-label">Fórmula:</span>
-          <span class="regex-code">/${lvl.recommendedRegex || lvl.criminalRegex}/${lvl.recommendedFlags || lvl.criminalFlags || 'g'}</span>
+        <p class="evidence-lore-text" style="margin-bottom: 8px;">${lvl.description}</p>
+        <div style="background: rgba(0,0,0,0.05); padding: 8px; border-left: 3px solid #b91c1c; font-size: 0.85rem; font-style: italic; color: #4b5563;">
+          <strong>Acertijo:</strong> ${puzzleText}
         </div>
-        <p class="evidence-lore-text">${lvl.description}</p>
+        ${solutionHTML}
       `;
+
+      card.style.cursor = 'pointer';
+      card.title = 'Haz clic para revisar el caso en el terminal forense';
+      card.addEventListener('click', () => {
+        if (this.onOpenEvidence) {
+          const clueData = {
+            id: lvl.id,
+            documentTitle: lvl.documentTitle,
+            taskInstructions: lvl.task || lvl.question,
+            sourceText: lvl.sourceText,
+            expectedMatches: lvl.expectedMatches,
+            levelData: lvl
+          };
+          this.close();
+          this.onOpenEvidence(clueData);
+        }
+      });
 
       this.grid.appendChild(card);
     });

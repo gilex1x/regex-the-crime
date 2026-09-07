@@ -69,7 +69,7 @@ export const CUTSCENES = {
     ]
   },
 
-  // Transición Tier 1 a Tier 2 (Completar caso 5)
+  // Transición Tier 1 a Tier 2 (Completar caso 10)
   tier_1_to_2: {
     id: "tier_1_to_2",
     tierTrigger: 2,
@@ -86,7 +86,7 @@ export const CUTSCENES = {
       },
       {
         speaker: "briggs",
-        text: "Vance, acaban de traer el reporte del forense sobre el vagabundo del Caso 5. No murió de frío. Le extrajeron los dos riñones con precisión de relojero suizo."
+        text: "Vance, acaban de traer el reporte del forense sobre el borracho del Caso 1. No murió de frío. Le extrajeron los dos riñones con precisión de relojero suizo."
       },
       {
         speaker: "vance",
@@ -95,7 +95,7 @@ export const CUTSCENES = {
     ]
   },
 
-  // Transición Tier 2 a Tier 3 (Completar caso 10)
+  // Transición Tier 2 a Tier 3 (Completar caso 20)
   tier_2_to_3: {
     id: "tier_2_to_3",
     tierTrigger: 3,
@@ -121,7 +121,7 @@ export const CUTSCENES = {
     ]
   },
 
-  // Transición Tier 3 a Tier 4 (Completar caso 15)
+  // Transición Tier 3 a Tier 4 (Completar caso 30)
   tier_3_to_4: {
     id: "tier_3_to_4",
     tierTrigger: 4,
@@ -147,7 +147,7 @@ export const CUTSCENES = {
     ]
   },
 
-  // Transición Tier 4 a Tier 5 (Completar caso 20)
+  // Transición Tier 4 a Tier 5 (Completar caso 40)
   tier_4_to_5: {
     id: "tier_4_to_5",
     tierTrigger: 5,
@@ -173,7 +173,7 @@ export const CUTSCENES = {
     ]
   },
 
-  // Transición Tier 5 a Tier 6 (Completar caso 25)
+  // Transición Tier 5 a Tier 6 (Completar caso 50)
   tier_5_to_6: {
     id: "tier_5_to_6",
     tierTrigger: 6,
@@ -199,7 +199,7 @@ export const CUTSCENES = {
     ]
   },
 
-  // Transición Tier 6 a Tier 7 (Completar caso 30)
+  // Transición Tier 6 a Tier 7 (Completar caso 60)
   tier_6_to_7: {
     id: "tier_6_to_7",
     tierTrigger: 7,
@@ -225,7 +225,7 @@ export const CUTSCENES = {
     ]
   },
 
-  // Transición Tier 7 a Tier 8 (Completar caso 35)
+  // Transición Tier 7 a Tier 8 (Completar caso 70)
   tier_7_to_8: {
     id: "tier_7_to_8",
     tierTrigger: 8,
@@ -251,7 +251,7 @@ export const CUTSCENES = {
     ]
   },
 
-  // Transición Tier 8 a Tier 9 (Completar caso 40)
+  // Transición Tier 8 a Tier 9 (Completar caso 80)
   tier_8_to_9: {
     id: "tier_8_to_9",
     tierTrigger: 9,
@@ -277,7 +277,7 @@ export const CUTSCENES = {
     ]
   },
 
-  // Transición Tier 9 a Tier 10 (Completar caso 45)
+  // Transición Tier 9 a Tier 10 (Completar caso 90)
   tier_9_to_10: {
     id: "tier_9_to_10",
     tierTrigger: 10,
@@ -303,7 +303,7 @@ export const CUTSCENES = {
     ]
   },
 
-  // Epílogo final tras superar el Caso 50
+  // Epílogo final tras superar el Caso 100
   epilogue: {
     id: "epilogue",
     tierTrigger: 11,
